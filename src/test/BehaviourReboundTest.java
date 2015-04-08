@@ -18,6 +18,7 @@ import model.collision.CollidedObject;
 import org.junit.Test;
 
 import com.golden.gamedev.object.collision.CollisionRect;
+import java.awt.Shape;
 
 public class BehaviourReboundTest {
 
@@ -51,15 +52,15 @@ public class BehaviourReboundTest {
         CollisionRect brickShape = new CollisionRect();
         brickShape.setBounds(50, 50, 48, 24);
         
-        CollidedObject collidedBallTop = new CollidedObject(ballTop, new Point2D.Float(70, 30), CollidedObject.SIDE_BOTTOM, ballTopShape);
-        CollidedObject collidedBallBottom = new CollidedObject(ballBottom, new Point2D.Float(70, 75), CollidedObject.SIDE_TOP, ballBottomShape);
-        CollidedObject collidedBallLeft = new CollidedObject(ballLeft, new Point2D.Float(30, 50), CollidedObject.SIDE_RIGHT, ballLeftShape);
-        CollidedObject collidedBallRight = new CollidedObject(ballRight, new Point2D.Float(100, 50), CollidedObject.SIDE_LEFT, ballRightShape);
+        CollidedObject collidedBallTop = new CollidedObject(ballTop, new Point2D.Float(70, 30), CollidedObject.SIDE_BOTTOM, (Shape) ballTopShape);
+        CollidedObject collidedBallBottom = new CollidedObject(ballBottom, new Point2D.Float(70, 75), CollidedObject.SIDE_TOP, (Shape) ballBottomShape);
+        CollidedObject collidedBallLeft = new CollidedObject(ballLeft, new Point2D.Float(30, 50), CollidedObject.SIDE_RIGHT, (Shape) ballLeftShape);
+        CollidedObject collidedBallRight = new CollidedObject(ballRight, new Point2D.Float(100, 50), CollidedObject.SIDE_LEFT, (Shape) ballRightShape);
         
-        CollidedObject collidedBrickTop = new CollidedObject(brick, new Point2D.Float(50, 50), CollidedObject.SIDE_TOP, brickShape);
-        CollidedObject collidedBrickBottom = new CollidedObject(brick, new Point2D.Float(50, 50), CollidedObject.SIDE_BOTTOM, brickShape);
-        CollidedObject collidedBrickLeft = new CollidedObject(brick, new Point2D.Float(50, 50), CollidedObject.SIDE_LEFT, brickShape);
-        CollidedObject collidedBrickRight = new CollidedObject(brick, new Point2D.Float(50, 50), CollidedObject.SIDE_RIGHT, brickShape);
+        CollidedObject collidedBrickTop = new CollidedObject(brick, new Point2D.Float(50, 50), CollidedObject.SIDE_TOP, (Shape) brickShape);
+        CollidedObject collidedBrickBottom = new CollidedObject(brick, new Point2D.Float(50, 50), CollidedObject.SIDE_BOTTOM, (Shape) brickShape);
+        CollidedObject collidedBrickLeft = new CollidedObject(brick, new Point2D.Float(50, 50), CollidedObject.SIDE_LEFT, (Shape) brickShape);
+        CollidedObject collidedBrickRight = new CollidedObject(brick, new Point2D.Float(50, 50), CollidedObject.SIDE_RIGHT, (Shape) brickShape);
         
         ArrayList<CollidedObject> collidedToBallTop = new ArrayList<>();
         collidedToBallTop.add(collidedBrickTop);

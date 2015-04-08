@@ -16,6 +16,7 @@ import model.collision.CollidedObject;
 import org.junit.Test;
 
 import com.golden.gamedev.object.collision.CollisionRect;
+import java.awt.Shape;
 
 public class BehaviourDestroyTest {
 
@@ -37,8 +38,8 @@ public class BehaviourDestroyTest {
         CollisionRect brickShape = new CollisionRect();
         brickShape.setBounds(50, 50, 48, 24);
         
-        CollidedObject collidedBall = new CollidedObject(ball, new Point2D.Float(50, 33), CollidedObject.SIDE_BOTTOM, ballShape);
-        CollidedObject collidedBrick = new CollidedObject(brick, new Point2D.Float(50, 50), CollidedObject.SIDE_TOP, brickShape);
+        CollidedObject collidedBall = new CollidedObject(ball, new Point2D.Float(50, 33), CollidedObject.SIDE_BOTTOM, (Shape) ballShape);
+        CollidedObject collidedBrick = new CollidedObject(brick, new Point2D.Float(50, 50), CollidedObject.SIDE_TOP, (Shape) brickShape);
         
         ArrayList<CollidedObject> collidedToBall = new ArrayList<>();
         collidedToBall.add(collidedBrick);

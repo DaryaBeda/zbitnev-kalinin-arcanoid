@@ -18,6 +18,7 @@ import model.paddle.BasicPaddle;
 import org.junit.Test;
 
 import com.golden.gamedev.object.collision.CollisionRect;
+import java.awt.Shape;
 
 public class BehaviourPaddleReboundTest {
 
@@ -49,10 +50,10 @@ public class BehaviourPaddleReboundTest {
         CollisionRect paddleShape = new CollisionRect();
         paddleShape.setBounds(0, 80, 96, 16);
         
-        CollidedObject collidedBallLeft = new CollidedObject(ballLeft, new Point2D.Float(5, 64), CollidedObject.SIDE_BOTTOM, ballLeftShape);
-        CollidedObject collidedBallCenter = new CollidedObject(ballCenter, new Point2D.Float(40, 64), CollidedObject.SIDE_BOTTOM, ballCenterShape);
-        CollidedObject collidedBallRight = new CollidedObject(ballRight, new Point2D.Float(80, 64), CollidedObject.SIDE_BOTTOM, ballRightShape);
-        CollidedObject collidedPaddle = new CollidedObject(paddle, new Point2D.Float(0, 80), CollidedObject.SIDE_TOP, paddleShape);
+        CollidedObject collidedBallLeft = new CollidedObject(ballLeft, new Point2D.Float(5, 64), CollidedObject.SIDE_BOTTOM, (Shape) ballLeftShape);
+        CollidedObject collidedBallCenter = new CollidedObject(ballCenter, new Point2D.Float(40, 64), CollidedObject.SIDE_BOTTOM, (Shape) ballCenterShape);
+        CollidedObject collidedBallRight = new CollidedObject(ballRight, new Point2D.Float(80, 64), CollidedObject.SIDE_BOTTOM, (Shape) ballRightShape);
+        CollidedObject collidedPaddle = new CollidedObject(paddle, new Point2D.Float(0, 80), CollidedObject.SIDE_TOP, (Shape) paddleShape);
         
         ArrayList<CollidedObject> collidedToBallLeft = new ArrayList<>();
         collidedToBallLeft.add(collidedPaddle);
