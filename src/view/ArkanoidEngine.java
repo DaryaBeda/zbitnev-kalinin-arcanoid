@@ -1,4 +1,4 @@
-﻿package view;
+package view;
 
 import com.golden.gamedev.GameEngine;
 import com.golden.gamedev.GameObject;
