@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import view.collision.PublishingCollisionManager;
-import model.ball.Ball;
-import model.brick.Brick;
 import model.collision.CollidedObject;
 import model.interaction.CollisionListener;
-import model.paddle.Paddle;
 
 import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.PlayField;
@@ -80,7 +77,7 @@ public class GameFieldView extends PlayField {
      *
      * @return Группа спрайтов.
      */
-    public SpriteGroup getBallsGroup() {
+    private SpriteGroup getBallsGroup() {
 
         return this.getGroup("balls");
     }
@@ -90,7 +87,7 @@ public class GameFieldView extends PlayField {
      *
      * @return Группа спрайтов.
      */
-    public SpriteGroup getBricksGroup() {
+    private SpriteGroup getBricksGroup() {
 
         return this.getGroup("bricks");
     }
@@ -100,7 +97,7 @@ public class GameFieldView extends PlayField {
      *
      * @return Группа спрайтов.
      */
-    public SpriteGroup getPaddlesGroup() {
+    private SpriteGroup getPaddlesGroup() {
 
         return this.getGroup("paddles");
     }

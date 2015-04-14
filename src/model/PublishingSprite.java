@@ -28,4 +28,8 @@ public class PublishingSprite {
     	_sprite.render(g);
     }
     
+    public Sprite getSprite() {
+        return this._sprite;
+    }
+    
 }

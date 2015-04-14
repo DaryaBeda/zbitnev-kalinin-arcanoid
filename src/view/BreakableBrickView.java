@@ -14,7 +14,7 @@ import model.PublishingSprite;
  *
  * @author Дарья
  */
-public class BreakableBrickView extends IngameObjectView{
+public class BreakableBrickView extends BrickView{
 
     public BreakableBrickView(PublishingSprite sprite) throws IOException {
         super(sprite);

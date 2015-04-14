@@ -5,10 +5,16 @@
  */
 package view;
 
+import model.PublishingSprite;
+
 /**
  *
  * @author Дарья
  */
-public class BrickView {
+public class BrickView extends IngameObjectView{
+
+    public BrickView(PublishingSprite sprite) {
+        super(sprite);
+    }
     
 }
