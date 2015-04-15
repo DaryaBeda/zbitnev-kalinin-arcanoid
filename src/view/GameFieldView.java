@@ -3,7 +3,7 @@ package view;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import view.collision.PublishingCollisionManager;
+import model.PublishingCollisionManager;
 import model.collision.CollidedObject;
 import model.interaction.CollisionListener;
 
