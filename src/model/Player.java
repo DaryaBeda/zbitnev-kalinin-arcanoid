@@ -1,7 +1,6 @@
 package model;
 
 import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Float;
 import java.util.ArrayList;
 
 import model.paddle.Paddle;
@@ -73,7 +72,7 @@ public class Player {
 	        } else {
 	            actualx = x;
 	        }
-	        p.setPosition(new Point2D.Float(actualx, p.getPosition().y));
+	        p.setPosition(new Point2D.Double(actualx, p.getPosition().y));
 	    }
 	}
 	
@@ -88,11 +87,11 @@ public class Player {
 	        long delta = Math.round(p.getSize().width / 3.0 * 2.0);
 	        delta = dir.equals(Direction.west()) ? -delta : delta;
             if (p.getPosition().x + p.getSize().width + delta > p.getField().getSize().width) {
-                p.setPosition(new Point2D.Float(p.getField().getSize().width - p.getSize().width, p.getPosition().y));
+                p.setPosition(new Point2D.Double(p.getField().getSize().width - p.getSize().width, p.getPosition().y));
             } else if (p.getPosition().x + delta < 0) {
-                p.setPosition(new Point2D.Float(0, p.getPosition().y));
+                p.setPosition(new Point2D.Double(0, p.getPosition().y));
             } else {
-                p.move(new Point2D.Float(delta, 0));
+                p.move(new Point2D.Double(delta, 0));
             }
         }
 	}

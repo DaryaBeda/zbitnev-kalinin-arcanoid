@@ -17,7 +17,7 @@ import model.IngameObject;
 public class CollidedObject implements Cloneable {
 
 	private IngameObject _object = null;
-	private Point2D.Float _oldPosition = null;
+	private Point2D.Double _oldPosition = null;
 	private int _colSide = -1;
 	private Shape _colShape = null; // TODO Беспредел! Заменить на независимый от представления класс! ~~~ Nikita Kalinin <nixorv@gmail.com>
 	
@@ -48,7 +48,7 @@ public class CollidedObject implements Cloneable {
 	 * @param side Сторона объекта, которой он столкнулся
 	 * @param shape Форма объекта
 	 */
-	public CollidedObject(IngameObject object, Point2D.Float oldpos, int side, Shape shape) {
+	public CollidedObject(IngameObject object, Point2D.Double oldpos, int side, Shape shape) {
 		
 		if (object == null || oldpos == null || shape == null) {
 			throw new NullPointerException();
@@ -64,7 +64,7 @@ public class CollidedObject implements Cloneable {
 		return _object;
 	}
 	
-	public Point2D.Float oldPosition() {
+	public Point2D.Double oldPosition() {
 		return _oldPosition;
 	}
 	
@@ -83,7 +83,7 @@ public class CollidedObject implements Cloneable {
 		clone._object = (IngameObject) this._object.clone();
 		clone._colSide = this._colSide;
 		clone._colShape = this._colShape;
-		clone._oldPosition = (Float) this._oldPosition.clone();
+		clone._oldPosition = (Point2D.Double) this._oldPosition.clone();
 		
 		return clone;
 	}

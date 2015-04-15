@@ -6,9 +6,6 @@ import java.awt.geom.Point2D;
 import model.GameField;
 import model.IngameObject;
 import model.Speed2D;
-import model.collision.BehaviourPaddleRebound;
-import model.collision.BehaviourRebound;
-import model.paddle.Paddle;
 
 /**
  * Модель абстрактного шарика
@@ -18,19 +15,17 @@ import model.paddle.Paddle;
 public abstract class Ball extends IngameObject {
 
 	public Ball(GameField field) {
-		this(field, new Point2D.Float(0, 0), 0);
+		this(field, new Point2D.Double(0, 0), 0);
 	}
 	
-	public Ball(GameField field, Point2D.Float pos, int radius) {
+	public Ball(GameField field, Point2D.Double pos, int radius) {
 	    
 	    this(field, pos, radius, new Speed2D(0, 0));
 	}
 	
-	public Ball(GameField field, Point2D.Float pos, int radius, Speed2D speed) {
+	public Ball(GameField field, Point2D.Double pos, int radius, Speed2D speed) {
         
         super(field, pos, new Dimension(2*radius, 2*radius), speed);
-        this.addDefaultCollisionBehaviour(BehaviourRebound.getInstance());
-        this.addSpecificCollisionBehaviour(Paddle.class, BehaviourPaddleRebound.getInstance(), true);
     }
 
 	/**
@@ -75,16 +70,16 @@ public abstract class Ball extends IngameObject {
 	public abstract float getDefaultSpeedScalar();
 	
 	@Override
-	public void setPosition(Point2D.Float pos) {
+	public void setPosition(Point2D.Double pos) {
 	    
 	    super.setPosition(pos);
 	    _field.ballPositionChanged(this);
 	}
 	
 	@Override
-	public void positionChanged(Point2D.Float newpos) {
+	public void positionChanged(Point2D.Double newposition) {
 
-	    super.positionChanged(newpos);
+	    super.positionChanged(null);
 	    _field.ballPositionChanged(this);
     }
 	
@@ -92,18 +87,18 @@ public abstract class Ball extends IngameObject {
 	 * Задать позицию шарика, указав координаты его середины
 	 * @param center Позиция центра шарика
 	 */
-	public void setCenter(Point2D.Float center) {
+	public void setCenter(Point2D.Double center) {
 		
-		setPosition(new Point2D.Float(center.x - _size.width/2, center.y - _size.height/2));
+		setPosition(new Point2D.Double(center.x - _size.width/2, center.y - _size.height/2));
 	}
 	
 	/**
 	 * Получить позицию центра шарика
 	 * @return Позиция центра шарика
 	 */
-	public Point2D.Float getCenter() {
+	public Point2D.Double getCenter() {
 		
-		return new Point2D.Float(this._position.x + _size.width/2, 
+		return new Point2D.Double(this._position.x + _size.width/2, 
 								 this._position.y + _size.height/2);
 	}
 	

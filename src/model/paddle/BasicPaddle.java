@@ -1,6 +1,7 @@
 package model.paddle;
 
 import java.awt.Dimension;
+import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Float;
 
 import model.GameField;
@@ -13,7 +14,7 @@ import model.Speed2D;
  */
 public class BasicPaddle extends Paddle {
 
-    public BasicPaddle(GameField field, Float pos, Dimension dim) {
+    public BasicPaddle(GameField field, Point2D.Double pos, Dimension dim) {
         
         super(field, pos, dim);
     }
