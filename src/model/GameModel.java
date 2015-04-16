@@ -44,35 +44,6 @@ public class GameModel implements CollisionListener {
 		return _field;
 	}
 	
-	/**
-	 * Добавить модели нового игрока
-	 * @param player
-	 */
-	public void addPlayer(Player player) {
-		
-		if (player == null) {
-		    throw new NullPointerException();
-		}
-		_players.add(player);
-	}
-	
-	/**
-	 * Убрать игрока из модели
-	 * @param player
-	 */
-	public void removePlayer(Player player) {
-		
-		_players.remove(player);
-	}
-	
-	/**
-	 * Полуить игроков модели
-	 * @return
-	 */
-	public ArrayList<Player> getPlayers() {
-		
-		return (ArrayList<Player>) _players.clone();
-	}
 	
 	/**
 	 * Обновляет модель. В реализации данного класса ничего не делает.
