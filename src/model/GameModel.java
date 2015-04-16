@@ -15,6 +15,7 @@ public class GameModel implements CollisionListener {
 
     protected GameField _field = null;
     protected ArrayList<Player> _players = new ArrayList<>();
+    protected PublishingCollisionManager _manager;
     
 	@Override
 	public void collisionOccured(
@@ -22,6 +23,8 @@ public class GameModel implements CollisionListener {
 		
 		_field.collisionOccured(storage);
 	}
+        
+       
 
 	/**
 	 * Назначить игровое поле
@@ -52,4 +55,6 @@ public class GameModel implements CollisionListener {
 	public void update(Object arg) {
 	    
 	}
+        
+        
 }
