@@ -10,6 +10,9 @@ import model.interaction.CollisionListener;
 import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.SpriteGroup;
+import model.PublishingSprite;
+import model.interaction.CreateViewObjectListener;
+import model.interaction.DeleteViewObjectListener;
 
 /**
  * Игровое поле арканоида. Содержит все обекты игры, ответственнен за
@@ -18,14 +21,16 @@ import com.golden.gamedev.object.SpriteGroup;
  * @author Gregory Zbitnev <zbitnev@hotmail.com>
  *
  */
-public class GameFieldView extends PlayField {
+public class GameFieldView extends PlayField implements CreateViewObjectListener, DeleteViewObjectListener{
 
     private ArrayList<IngameObjectView> _objectViews = new ArrayList<>();
     private ArrayList<CollisionListener> _collisionListners;
+    
 
     public GameFieldView() {
 
         _collisionListners = new ArrayList<>();
+        
         SpriteGroup balls = new SpriteGroup("balls");
         SpriteGroup bricks = new SpriteGroup("bricks");
         SpriteGroup paddles = new SpriteGroup("paddles");
@@ -108,7 +113,7 @@ public class GameFieldView extends PlayField {
      *
      * @param ov Представление.
      */
-    public void addObjectView(IngameObjectView ov) {
+    private void addObjectView(IngameObjectView ov) {
 
         _objectViews.add(ov);
         if (ov instanceof BasicBallView) {
@@ -126,7 +131,7 @@ public class GameFieldView extends PlayField {
      *
      * @param ov Представление.
      */
-    public void removeObjectView(IngameObjectView ov) {
+    private void removeObjectView(IngameObjectView ov) {
 
         _objectViews.remove(ov);
         if (ov instanceof BasicBallView) {
@@ -166,6 +171,7 @@ public class GameFieldView extends PlayField {
         _collisionListners.remove(l);
     }
 
+    
     /**
      * Копирует сообщения о столкновениях из одного словаря в другой
      *
@@ -218,5 +224,15 @@ public class GameFieldView extends PlayField {
         }
 
         return newst;
+    }
+
+    @Override
+    public void createViewObject(PublishingSprite sprite) {
+        //TODO
+    }
+
+    @Override
+    public void deleteViewObject(PublishingSprite sprite) {
+        //TODO
     }
 }

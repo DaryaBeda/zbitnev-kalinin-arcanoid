@@ -2,7 +2,6 @@ package model;
 
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Float;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -11,9 +10,8 @@ import java.util.Map;
 import model.collision.CollidedObject;
 import model.collision.CollisionBehaviour;
 import model.collision.SpecialBehaviours;
-import model.interaction.GenericEventListener;
-import model.interaction.PositionChangeListener;
-import model.interaction.SpeedChangeListener;
+import model.interaction.CreateViewObjectListener;
+import model.interaction.DeleteViewObjectListener;
 
 /**
  * Класс игрового объекта.
@@ -21,7 +19,7 @@ import model.interaction.SpeedChangeListener;
  * @author Nikita Kalinin <nixorv@gmail.com>
  *
  */
-public abstract class IngameObject implements Cloneable, PositionChangeListener, SpeedChangeListener {
+public abstract class IngameObject implements Cloneable {
 
     private PublishingSprite _sprite = new PublishingSprite();
     protected Point2D.Double _position;
@@ -33,9 +31,8 @@ public abstract class IngameObject implements Cloneable, PositionChangeListener,
     protected HashMap<Class<?>, SpecialBehaviours> _specialColBehaviours
             = new HashMap<>();
     protected GameField _field = null;
-    protected ArrayList<PositionChangeListener> _positionListeners = new ArrayList<>();
-    protected ArrayList<SpeedChangeListener> _speedListeners = new ArrayList<>();
-    protected ArrayList<GenericEventListener> _geneventListeners = new ArrayList<>();
+    protected ArrayList<DeleteViewObjectListener> _deleteViewObjectListeners = new ArrayList<>();
+    protected ArrayList<CreateViewObjectListener> _createViewObjectListeners  = new ArrayList<>();;
 
     /**
      * Создает игровой объект, координаты (0, 0), нулевая скорость, нулевой
@@ -78,6 +75,17 @@ public abstract class IngameObject implements Cloneable, PositionChangeListener,
         this.setSize(dim);
         this.setPosition(pos);
         this.setSpeed(speed);
+        for (CreateViewObjectListener l : _createViewObjectListeners) {
+                l.createViewObject(_sprite);
+            }
+    }
+    
+     public void addCreateViewObjectListener(CreateViewObjectListener l) {
+        _createViewObjectListeners.add(l);
+    }
+     
+     public void removeCreateViewObjectListener(CreateViewObjectListener l) {
+        _createViewObjectListeners.remove(l);
     }
 
     /**
@@ -109,9 +117,6 @@ public abstract class IngameObject implements Cloneable, PositionChangeListener,
 
         this._sprite.setSpeed(speed);
         this._speed = speed;
-        for (SpeedChangeListener l : _speedListeners) {
-            l.speedChanged(speed);
-        }
     }
 
     /**
@@ -136,9 +141,6 @@ public abstract class IngameObject implements Cloneable, PositionChangeListener,
         }
         this._sprite.setPosition(position);
         this._position = position;
-        for (PositionChangeListener l : _positionListeners) {
-            l.positionChanged(position);
-        }
     }
 
     /**
@@ -220,8 +222,8 @@ public abstract class IngameObject implements Cloneable, PositionChangeListener,
 
         this._isDestroyed = true;
         this._field.removeObject(this);
-        for (GenericEventListener l : _geneventListeners) {
-            l.destroyed();
+        for (DeleteViewObjectListener l : _deleteViewObjectListeners) {
+            l.deleteViewObject(_sprite);
         }
     }
 
@@ -235,67 +237,18 @@ public abstract class IngameObject implements Cloneable, PositionChangeListener,
         return _isDestroyed;
     }
 
-    //-------------------------------------------------------------------------------------------//
-    @Override
-    public void positionChanged(Point2D.Double newposition) {
-
-        this._position = newposition;
-    }
-
-    @Override
-    public void speedChanged(Speed2D newspeed) {
-
-        this._speed = newspeed;
-    }
-
-    /**
-     * Добавить слушателя изменения позиции объекта.
-     *
-     * @param l Новый слушатель.
-     */
-    public void addPositionChangeListener(PositionChangeListener l) {
-        _positionListeners.add(l);
-    }
-
-    /**
-     * Удалить слушателя изменения позиции объекта.
-     *
-     * @param l Удаляемый слушатель.
-     */
-    public void removePositionChangeListener(PositionChangeListener l) {
-        _positionListeners.remove(l);
-    }
-
-    /**
-     * Добавить слушателя изменения скорости объекта.
-     *
-     * @param l Новый слушатель.
-     */
-    public void addSpeedChangeListener(SpeedChangeListener l) {
-        _speedListeners.add(l);
-    }
-
-    /**
-     * Удалить слушателя изменения скорости объекта.
-     *
-     * @param l Удаляемый слушатель.
-     */
-    public void removeSpeedChangeListener(SpeedChangeListener l) {
-        _speedListeners.remove(l);
-    }
-
     /**
      * Добавить слушателя событий жизни объекта.
      *
      * @param l Добавляемый слушатель.
      */
-    public void addGenericEventListener(GenericEventListener l) {
+    public void addDeleteViewObjectListener(DeleteViewObjectListener l) {
 
         if (l == null) {
             return;
         }
 
-        _geneventListeners.add(l);
+        _deleteViewObjectListeners.add(l);
     }
 
     /**
@@ -303,8 +256,8 @@ public abstract class IngameObject implements Cloneable, PositionChangeListener,
      *
      * @param l Удаляемый слушатель.
      */
-    public void removeGenericEventListener(GenericEventListener l) {
-        _geneventListeners.remove(l);
+    public void removeDeleteViewObjectListener(DeleteViewObjectListener l) {
+        _deleteViewObjectListeners.remove(l);
     }
 
     @Override
@@ -319,4 +272,5 @@ public abstract class IngameObject implements Cloneable, PositionChangeListener,
 
         return clone;
     }
+
 }
