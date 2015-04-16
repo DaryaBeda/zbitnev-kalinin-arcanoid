@@ -43,8 +43,7 @@ public abstract class Ball extends IngameObject {
 	
 	/**
 	 * Задает радиус мяча.
-	 * @param radius
-	 * @return 
+	 * @param radius 
 	 */
 	public void setRadius(int radius) {
 	    
@@ -69,19 +68,6 @@ public abstract class Ball extends IngameObject {
 	 */
 	public abstract float getDefaultSpeedScalar();
 	
-	@Override
-	public void setPosition(Point2D.Double pos) {
-	    
-	    super.setPosition(pos);
-	    _field.ballPositionChanged(this);
-	}
-	
-	@Override
-	public void positionChanged(Point2D.Double newposition) {
-
-	    super.positionChanged(null);
-	    _field.ballPositionChanged(this);
-    }
 	
 	/**
 	 * Задать позицию шарика, указав координаты его середины
