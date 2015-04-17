@@ -18,23 +18,20 @@ public class BasicBall extends Ball implements CanBeInSwarm {
 	public BasicBall(GameField field) {
 		
 	    super(field);
-            createView ();
             
 	}
 
 	public BasicBall(GameField field, Point2D.Double pos, int radius) {
 	    
 	    super(field, pos, radius);
-            createView ();
 	}
 	
 	public BasicBall(GameField field, Point2D.Double pos, int radius, Speed2D speed) {
 	    
 	    super(field, pos, radius, speed);
-            createView ();
 	}
 
-        private void createView () {
+        public void createView () {
             for (CreateViewObjectListener l : _createViewObjectListeners) {
                 l.createViewObject(_sprite, BASIC_BALL);
             }

@@ -74,6 +74,7 @@ public class GameModel  {
             BasicBall newball = new BasicBall(_field, new Point2D.Double(40, 160), 8, new Speed2D(0.03, -0.01));
             newball.addCreateViewObjectListener(_fieldView);
             newball.addDeleteViewObjectListener(_fieldView);
+            newball.createView();
             _field.addObject(newball);
 
         }

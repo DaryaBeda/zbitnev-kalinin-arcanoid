@@ -25,7 +25,6 @@ public class BreakableBrick extends Brick {
     public BreakableBrick(GameField field, Point2D.Double pos, Dimension dim, Speed2D speed) {
 
         super(field, pos, dim, speed);
-        createView ();
     }
 
     public BreakableBrick(GameField field, Point2D.Double pos, Dimension dim) {

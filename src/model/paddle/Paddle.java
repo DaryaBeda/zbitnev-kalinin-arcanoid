@@ -25,7 +25,6 @@ public abstract class Paddle extends IngameObject {
     public Paddle(GameField field, Point2D.Double pos, Dimension dim) {
 
         super(field, pos, dim);
-        createView();
     }
 
     public Paddle(GameField field) {
@@ -33,11 +32,7 @@ public abstract class Paddle extends IngameObject {
         super(field, new Point2D.Double(0, 0), new Dimension(0, 0));
     }
 
-    private void createView() {
-        for (CreateViewObjectListener l : _createViewObjectListeners) {
-            l.createViewObject(_sprite, BASIC_PADDLE);
-        }
-    }
+
 
     /**
      * Поместить шар на ракетку.
