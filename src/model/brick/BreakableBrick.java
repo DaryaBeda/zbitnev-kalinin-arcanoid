@@ -4,8 +4,10 @@ import java.awt.Dimension;
 import java.awt.geom.Point2D;
 
 import model.GameField;
+import static model.GameModel.TYPE_OBJECT.BREAKABKE_BRICK;
 import model.Speed2D;
 import model.collision.BehaviourDestroy;
+import model.interaction.CreateViewObjectListener;
 
 /**
  * Модель разрушаемого кирпича.
@@ -23,12 +25,19 @@ public class BreakableBrick extends Brick {
     public BreakableBrick(GameField field, Point2D.Double pos, Dimension dim, Speed2D speed) {
 
         super(field, pos, dim, speed);
+        createView ();
     }
 
     public BreakableBrick(GameField field, Point2D.Double pos, Dimension dim) {
 
         this(field, pos, dim, new Speed2D(0, 0));
     }
+    
+    private void createView () {
+            for (CreateViewObjectListener l : _createViewObjectListeners) {
+                l.createViewObject(_sprite, BREAKABKE_BRICK);
+            }
+        }
 
     /**
      * Разрушает кирпич.

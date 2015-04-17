@@ -20,33 +20,43 @@ import model.interaction.CollisionListener;
  * @author Gregory Zbitnev <zbitnev@hotmail.com>
  *
  */
-public class PublishingCollisionManager extends AdvanceCollisionGroup implements CollisionListener {
+public class PublishingCollisionManager implements CollisionListener {
 
 	protected HashMap<CollidedObject, ArrayList<CollidedObject>> _storage = new HashMap<>();
         private  GameModel _model;
+        private AdvanceCollisionGroup _advancedCollisionGroup;
         
-        public PublishingCollisionManager (GameModel model) {
-            
+        public PublishingCollisionManager() {
+            _advancedCollisionGroup = new AdvanceCollisionGroup() {
+
+                @Override
+                public void collided(Sprite sprite, Sprite sprite1) {
+                    
+                }
+            };
+        }
+
+        public void setModel(GameModel model){
             _model = model;
         }
+        public AdvanceCollisionGroup getAdvanceCollisionGroup (){
+            return _advancedCollisionGroup;
+        }
         
+        public boolean  isMyCollisionGroup (AdvanceCollisionGroup group) {
+            return _advancedCollisionGroup == group;
+        }
+
 	
-	@Override
-	public void collided(Sprite arg0, Sprite arg1) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public boolean isCollide(Sprite s1, Sprite s2, CollisionShape shape1, CollisionShape shape2) {
-		
-		boolean retval = super.isCollide(s1, s2, shape1, shape2);
+		boolean retval = _advancedCollisionGroup.isCollide(s2, s1, shape2, shape1);
+                int collisionSide = _advancedCollisionGroup.getCollisionSide();
 		
 		// Словарь столкновений будет формироваться в процессе детекции коллизий
 		if (retval) {
 		
 			int obj1colside = -1, obj2colside = -1;
-			switch (this.collisionSide) {
+			switch (collisionSide) {
 			case CollisionGroup.BOTTOM_TOP_COLLISION:
 				obj1colside = CollidedObject.SIDE_TOP;
 				obj2colside = CollidedObject.SIDE_BOTTOM;

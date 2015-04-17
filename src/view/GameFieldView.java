@@ -10,6 +10,10 @@ import model.interaction.CollisionListener;
 import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.SpriteGroup;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.GameModel;
 import model.PublishingSprite;
 import model.interaction.CreateViewObjectListener;
 import model.interaction.DeleteViewObjectListener;
@@ -21,27 +25,29 @@ import model.interaction.DeleteViewObjectListener;
  * @author Gregory Zbitnev <zbitnev@hotmail.com>
  *
  */
-public class GameFieldView extends PlayField implements CreateViewObjectListener, DeleteViewObjectListener{
+public class GameFieldView extends PlayField implements CreateViewObjectListener, DeleteViewObjectListener {
 
     private ArrayList<IngameObjectView> _objectViews = new ArrayList<>();
-    private ArrayList<CollisionListener> _collisionListners;
-    
+    private ArrayList<CollisionListener> _collisionListners = new ArrayList<>();
+    private ArrayList<PublishingCollisionManager> _managers = new ArrayList<>();
 
     public GameFieldView() {
 
-        _collisionListners = new ArrayList<>();
-        
         SpriteGroup balls = new SpriteGroup("balls");
         SpriteGroup bricks = new SpriteGroup("bricks");
         SpriteGroup paddles = new SpriteGroup("paddles");
         this.addGroup(balls);
         this.addGroup(bricks);
         this.addGroup(paddles);
+        PublishingCollisionManager manager = new PublishingCollisionManager();
+        _managers.add(manager);
+        this.addCollisionGroup(balls, bricks, manager.getAdvanceCollisionGroup());
+        manager = new PublishingCollisionManager();
+        _managers.add(manager);
+        this.addCollisionGroup(balls, balls, manager.getAdvanceCollisionGroup());
+        manager = new PublishingCollisionManager();
+        _managers.add(manager);
 
-        // Добавить на поле менеджеры коллизий для обработки столкновений
-        this.addCollisionGroup(balls, paddles, new PublishingCollisionManager());
-        this.addCollisionGroup(balls, bricks, new PublishingCollisionManager());
-        this.addCollisionGroup(balls, balls, new PublishingCollisionManager());
     }
 
     @Override
@@ -55,16 +61,20 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
         // Формируем словарь столкновений
         CollisionManager[] mgrs = this.getCollisionGroups();
         HashMap<CollidedObject, ArrayList<CollidedObject>> collisions = new HashMap<>();
+        PublishingCollisionManager publishingCollisionManager = null;
         for (int i = 0; i < mgrs.length; i++) {
+            if (_managers.indexOf(mgrs[i]) >= 0) {
+                publishingCollisionManager = _managers.get(_managers.indexOf(mgrs[i]));
+                HashMap<CollidedObject, ArrayList<CollidedObject>> map
+                        = publishingCollisionManager.getCollidedStorage();
 
-            HashMap<CollidedObject, ArrayList<CollidedObject>> map
-                    = ((PublishingCollisionManager) mgrs[i]).getCollidedStorage();
-
-            // Если словарь столкновений не пуст, формируем один большой словарь столкновений
-            if (!map.isEmpty()) {
-                attachStorage(collisions, map);
-                ((PublishingCollisionManager) mgrs[i]).clearCollidedStorage();
+                // Если словарь столкновений не пуст, формируем один большой словарь столкновений
+                if (!map.isEmpty()) {
+                    attachStorage(collisions, map);
+                    publishingCollisionManager.clearCollidedStorage();
+                }
             }
+
         }
 
         // Если столкновения произошли -- посылаем сигнал модели
@@ -171,7 +181,6 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
         _collisionListners.remove(l);
     }
 
-    
     /**
      * Копирует сообщения о столкновениях из одного словаря в другой
      *
@@ -183,7 +192,7 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
 
         for (CollidedObject obj : from.keySet()) {
 
-    		// Если такого ключа не содержится -- просто добавляем новую запись в словарь
+            // Если такого ключа не содержится -- просто добавляем новую запись в словарь
             // Если такой ключ есть -- копируем значения из списка
             if (!to.containsKey(obj)) {
                 to.put(obj, from.get(obj));
@@ -227,12 +236,49 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
     }
 
     @Override
-    public void createViewObject(PublishingSprite sprite) {
-        //TODO
+    public void createViewObject(PublishingSprite sprite, GameModel.TYPE_OBJECT type) {
+        switch (type) {
+            case BASIC_BALL: {
+                try {
+                    BasicBallView basicBall = new BasicBallView(sprite);
+                    addObjectView(basicBall);
+                } catch (IOException ex) {
+                    Logger.getLogger(GameFieldView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            break;
+            case BASIC_PADDLE: {
+                try {
+                    BasicPaddleView basicPaddle = new BasicPaddleView(sprite);
+                    addObjectView(basicPaddle);
+                } catch (IOException ex) {
+                    Logger.getLogger(GameFieldView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            break;
+            case BREAKABKE_BRICK: {
+                try {
+                    BreakableBrickView breakableBrick = new BreakableBrickView(sprite);
+                    addObjectView(breakableBrick);
+                } catch (IOException ex) {
+                    Logger.getLogger(GameFieldView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            break;
+            case UNBREAKABLE_BRICK: {
+                try {
+                    UnbreakableBrickView unbreakableBrick = new UnbreakableBrickView(sprite);
+                    addObjectView(unbreakableBrick);
+                } catch (IOException ex) {
+                    Logger.getLogger(GameFieldView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            break;
+        }
     }
 
     @Override
-    public void deleteViewObject(PublishingSprite sprite) {
+    public void deleteViewObject(PublishingSprite sprite, GameModel.TYPE_OBJECT type) {
         //TODO
     }
 }

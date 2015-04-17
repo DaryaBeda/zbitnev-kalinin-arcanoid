@@ -5,6 +5,7 @@
  */
 package model.interaction;
 
+import model.GameModel.TYPE_OBJECT;
 import model.PublishingSprite;
 
 /**
@@ -12,5 +13,5 @@ import model.PublishingSprite;
  * @author Дарья
  */
 public interface CreateViewObjectListener {
-    public void createViewObject(PublishingSprite sprite);
+    public void createViewObject(PublishingSprite sprite, TYPE_OBJECT type);
 }

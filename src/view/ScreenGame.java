@@ -33,8 +33,7 @@ public class ScreenGame extends GameObject {
 	public void initResources() {
 	    
 	    
-		// Инициализация представления уровня
-		_fieldView = new GameFieldView();
+		
 		
 		// Задать фон уровня.
 		BufferedImage fieldBg = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_ARGB);
@@ -42,7 +41,7 @@ public class ScreenGame extends GameObject {
 		Graphics g = fieldBg.getGraphics();
 		g.setColor(Color.black);
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
-		_fieldView.setBackground(new ImageBackground(fieldBg));
+		
 		
 		// Инициализация уровня
         GameField field = new GameField(this.bsGraphics.getSize());
@@ -50,8 +49,12 @@ public class ScreenGame extends GameObject {
 		// Модель слушает сообщения о коллизиях
 		_model = new GameModel();
 		_model.setField(field);
+                // Инициализация представления уровня
+		_fieldView = new GameFieldView();
+                _model.setFieldView(_fieldView);
+                _fieldView.setBackground(new ImageBackground(fieldBg));
 		_fieldView.addCollisionListener(_model.getManager());
-		
+		_model.startGame();
 		// Построение уровня
 		// TODO: Загрузка уровня из файла (пока уровень захардкоден)
 		/*BasicBall newball = new BasicBall(field, new Point2D.Float(40, 160), 8, new Speed2D(0.03, -0.01));

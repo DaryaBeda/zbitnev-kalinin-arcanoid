@@ -22,7 +22,7 @@ import model.interaction.DeleteViewObjectListener;
  */
 public abstract class IngameObject implements Cloneable {
 
-    private PublishingSprite _sprite = new PublishingSprite();
+    protected PublishingSprite _sprite = new PublishingSprite();
     protected Point2D.Double _position;
     protected Speed2D _speed;
     protected Dimension _size;
@@ -33,7 +33,7 @@ public abstract class IngameObject implements Cloneable {
             = new HashMap<>();
     protected GameField _field = null;
     protected ArrayList<DeleteViewObjectListener> _deleteViewObjectListeners = new ArrayList<>();
-    protected ArrayList<CreateViewObjectListener> _createViewObjectListeners  = new ArrayList<>();;
+    protected ArrayList<CreateViewObjectListener> _createViewObjectListeners  = new ArrayList<>();
 
     /**
      * Создает игровой объект, координаты (0, 0), нулевая скорость, нулевой
@@ -81,9 +81,6 @@ public abstract class IngameObject implements Cloneable {
         this.setSize(dim);
         this.setPosition(pos);
         this.setSpeed(speed);
-        for (CreateViewObjectListener l : _createViewObjectListeners) {
-                l.createViewObject(_sprite);
-            }
     }
     
      public void addCreateViewObjectListener(CreateViewObjectListener l) {
@@ -228,9 +225,9 @@ public abstract class IngameObject implements Cloneable {
 
         this._isDestroyed = true;
         this._field.removeObject(this);
-        for (DeleteViewObjectListener l : _deleteViewObjectListeners) {
-            l.deleteViewObject(_sprite);
-        }
+        //for (DeleteViewObjectListener l : _deleteViewObjectListeners) {
+        //    l.deleteViewObject(_sprite);
+       // }
     }
 
     /**

@@ -5,13 +5,12 @@
  */
 package model.interaction;
 
-import model.GameModel;
-import model.PublishingSprite;
+import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
 
 /**
  *
- * @author Дарья
+ * @author пользователь
  */
-public interface DeleteViewObjectListener {
-    public void deleteViewObject(PublishingSprite sprite, GameModel.TYPE_OBJECT type);
+public interface AddCollisionGroupListener {
+    public void addCollisionGroup(AdvanceCollisionGroup group);
 }
