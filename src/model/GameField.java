@@ -59,6 +59,11 @@ public class GameField implements BallPositionChangedListener {
 		
 		return _dimensions;
 	}
+        
+        public ArrayList<IngameObject> getObjects() {
+            
+            return (ArrayList<IngameObject>) _objects.clone();
+        }
 
 	/**
 	 * Реализация этого метода отражает мяч от границ поля.
@@ -81,66 +86,7 @@ public class GameField implements BallPositionChangedListener {
         }
     }
     
-    /**
-     * Обработать столкновения
-     * @param storage Словарь столкновений, где ключ - столкнувшийся объект, значение - 
-     * список объектов, с которыми он столкнулся
-     */
-    public void collisionOccured(
-			HashMap<CollidedObject, ArrayList<CollidedObject>> storage) {
-		
-    	// Вместо объектов, от которых принимается эффект (активные)
-    	// передаётся их копия до начала обработки вообще всех столкновений
-    	HashMap<CollidedObject, ArrayList<CollidedObject>> storage_copy = deepCopyStorage(storage);
-    	
-    	Iterator<CollidedObject> i, copyi, j, copyj;
-    	i = storage.keySet().iterator();
-    	copyi = storage_copy.keySet().iterator();
-    	
-    	while (i.hasNext() && copyi.hasNext()) {
-    		
-    		CollidedObject obj1 = i.next();
-    		CollidedObject obj1copy = copyi.next();
-    		j = storage.get(obj1).iterator();
-    		copyj = storage_copy.get(obj1copy).iterator();
-    		
-    		while (j.hasNext() && copyj.hasNext()) {
-    			
-    			CollidedObject obj2 = j.next();
-    			CollidedObject obj2copy = copyj.next();
-    			obj1.object().processCollision(obj1, obj2copy);
-    			obj2.object().processCollision(obj2, obj1copy);
-    		}
-    	}
-	}
     
-    /**
-     * Порождает копию словаря коллизии вместе со всеми хранимыми объектами
-     * @param storage Словарь коллизии
-     * @return Копия словаря коллизии
-     */
-    private HashMap<CollidedObject, ArrayList<CollidedObject>> deepCopyStorage(
-    		HashMap<CollidedObject, ArrayList<CollidedObject>> storage) {
-    	
-    	HashMap<CollidedObject, ArrayList<CollidedObject>> deepcopy = new HashMap<>();
-    	
-    	try {
-    		
-    		for (CollidedObject key : storage.keySet()) {
-        		
-        		CollidedObject key_copy = (CollidedObject) key.clone();
-        		ArrayList<CollidedObject> values_copy = new ArrayList<>();
-        		for (CollidedObject obj : storage.get(key)) {
-        			values_copy.add((CollidedObject)obj.clone());
-        		}
-        		
-        		deepcopy.put(key_copy, values_copy);
-        	}
-    	}
-    	catch (CloneNotSupportedException exc) {
-    		exc.printStackTrace();
-    	}
-    	
-    	return deepcopy;
-    }
+    
+   
 }

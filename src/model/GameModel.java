@@ -11,19 +11,11 @@ import model.interaction.CollisionListener;
  * @author Nikita Kalinin <nixorv@gmail.com>
  *
  */
-public class GameModel implements CollisionListener {
+public class GameModel  {
 
     protected GameField _field = null;
     protected ArrayList<Player> _players = new ArrayList<>();
-    protected PublishingCollisionManager _manager;
-    
-	@Override
-	public void collisionOccured(
-			HashMap<CollidedObject, ArrayList<CollidedObject>> storage) {
-		
-		_field.collisionOccured(storage);
-	}
-        
+    protected PublishingCollisionManager _manager = new PublishingCollisionManager(this);
        
 
 	/**
@@ -55,6 +47,10 @@ public class GameModel implements CollisionListener {
 	public void update(Object arg) {
 	    
 	}
+        
+        public PublishingCollisionManager getManager () {
+            return _manager;
+        }
         
         
 }

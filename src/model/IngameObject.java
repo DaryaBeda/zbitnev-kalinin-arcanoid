@@ -1,5 +1,6 @@
 package model;
 
+import com.golden.gamedev.object.Sprite;
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -56,6 +57,11 @@ public abstract class IngameObject implements Cloneable {
 
         this(field, pos, dim, new Speed2D(0, 0));
     }
+    
+    public boolean isMySprite(Sprite sprite) {
+       
+        return _sprite.getSprite() == sprite;
+    } 
 
     /**
      * Создает игровой объект.

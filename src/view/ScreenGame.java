@@ -50,7 +50,7 @@ public class ScreenGame extends GameObject {
 		// Модель слушает сообщения о коллизиях
 		_model = new GameModel();
 		_model.setField(field);
-		_fieldView.addCollisionListener(_model);
+		_fieldView.addCollisionListener(_model.getManager());
 		
 		// Построение уровня
 		// TODO: Загрузка уровня из файла (пока уровень захардкоден)
