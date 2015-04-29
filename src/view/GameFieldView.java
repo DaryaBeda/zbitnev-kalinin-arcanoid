@@ -13,7 +13,11 @@ import com.golden.gamedev.object.SpriteGroup;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.BorderCollisionManager;
 import model.GameModel;
+import static model.GameModel.TYPE_OBJECT.BOTTOM_BORDER;
+import static model.GameModel.TYPE_OBJECT.HORIZONTAL_BORDER;
+import static model.GameModel.TYPE_OBJECT.VERTICAL_BORDER;
 import model.PublishingSprite;
 import model.interaction.CreateViewObjectListener;
 import model.interaction.DeleteViewObjectListener;
@@ -30,15 +34,18 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
     private ArrayList<IngameObjectView> _objectViews = new ArrayList<>();
     private ArrayList<CollisionListener> _collisionListners = new ArrayList<>();
     private ArrayList<PublishingCollisionManager> _managers = new ArrayList<>();
+    BorderCollisionManager _border_manager;
 
     public GameFieldView() {
 
         SpriteGroup balls = new SpriteGroup("balls");
         SpriteGroup bricks = new SpriteGroup("bricks");
         SpriteGroup paddles = new SpriteGroup("paddles");
+        SpriteGroup borders = new SpriteGroup("borders");
         this.addGroup(balls);
         this.addGroup(bricks);
         this.addGroup(paddles);
+        this.addGroup(borders);
         PublishingCollisionManager manager = new PublishingCollisionManager();
         _managers.add(manager);
         this.addCollisionGroup(balls, bricks, manager.getAdvanceCollisionGroup());
@@ -47,9 +54,18 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
         this.addCollisionGroup(balls, balls, manager.getAdvanceCollisionGroup());
         manager = new PublishingCollisionManager();
         _managers.add(manager);
+        this.addCollisionGroup(balls, borders, manager.getAdvanceCollisionGroup());
+        manager = new PublishingCollisionManager();
+        _managers.add(manager);
+        
+        _border_manager = new BorderCollisionManager(0, 0, 600, 800);
+        this.addCollisionGroup(balls, null, _border_manager);
 
     }
 
+    public BorderCollisionManager getBorderCollisionManager() {
+        return _border_manager;
+    }
     @Override
     public void update(long timeElapsed) {
 
@@ -116,6 +132,11 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
 
         return this.getGroup("paddles");
     }
+    
+    private SpriteGroup getBordersGroup() {
+
+        return this.getGroup("borders");
+    }
 
     /**
      * Добавляет представление объекта на это поле. Этот метод добавляет объект
@@ -132,7 +153,9 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
             getBricksGroup().add(ov.getSprite());
         } else if (ov instanceof BasicPaddleView) {
             getPaddlesGroup().add(ov.getSprite());
-        }
+        } else if (ov instanceof BorderView) {
+            getBordersGroup().add(ov.getSprite());
+        } 
     }
 
     /**
@@ -150,6 +173,8 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
             getBricksGroup().remove(ov.getSprite());
         } else if (ov instanceof BasicPaddleView) {
             getPaddlesGroup().remove(ov.getSprite());
+        } else if (ov instanceof BorderView) {
+            getBordersGroup().remove(ov.getSprite());
         }
     }
 
@@ -238,42 +263,70 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
     @Override
     public void createViewObject(PublishingSprite sprite, GameModel.TYPE_OBJECT type) {
         switch (type) {
-            case BASIC_BALL: {
+            case BASIC_BALL:
                 try {
                     BasicBallView basicBall = new BasicBallView(sprite);
                     addObjectView(basicBall);
                 } catch (IOException ex) {
                     Logger.getLogger(GameFieldView.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-            break;
-            case BASIC_PADDLE: {
+
+                break;
+            case BASIC_PADDLE:
                 try {
                     BasicPaddleView basicPaddle = new BasicPaddleView(sprite);
                     addObjectView(basicPaddle);
                 } catch (IOException ex) {
                     Logger.getLogger(GameFieldView.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-            break;
-            case BREAKABKE_BRICK: {
+
+                break;
+            case BREAKABKE_BRICK:
                 try {
                     BreakableBrickView breakableBrick = new BreakableBrickView(sprite);
                     addObjectView(breakableBrick);
                 } catch (IOException ex) {
                     Logger.getLogger(GameFieldView.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-            break;
-            case UNBREAKABLE_BRICK: {
+
+                break;
+            case UNBREAKABLE_BRICK:
                 try {
                     UnbreakableBrickView unbreakableBrick = new UnbreakableBrickView(sprite);
                     addObjectView(unbreakableBrick);
                 } catch (IOException ex) {
                     Logger.getLogger(GameFieldView.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-            break;
+
+                break;
+            case HORIZONTAL_BORDER:
+                try {
+                    BorderView border = new BorderView(sprite,HORIZONTAL_BORDER);
+                    addObjectView(border);
+                } catch (IOException ex) {
+                    Logger.getLogger(GameFieldView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                break;
+            case VERTICAL_BORDER:
+                try {
+                    BorderView border = new BorderView(sprite,VERTICAL_BORDER);
+                    addObjectView(border);
+                } catch (IOException ex) {
+                    Logger.getLogger(GameFieldView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                break;
+            case BOTTOM_BORDER:
+                try {
+                    BorderView border = new BorderView(sprite,BOTTOM_BORDER);
+                    addObjectView(border);
+                } catch (IOException ex) {
+                    Logger.getLogger(GameFieldView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                break;
+
         }
     }
 
