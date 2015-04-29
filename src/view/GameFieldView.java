@@ -15,9 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.BorderCollisionManager;
 import model.GameModel;
-import static model.GameModel.TYPE_OBJECT.BOTTOM_BORDER;
-import static model.GameModel.TYPE_OBJECT.HORIZONTAL_BORDER;
-import static model.GameModel.TYPE_OBJECT.VERTICAL_BORDER;
 import model.PublishingSprite;
 import model.interaction.CreateViewObjectListener;
 import model.interaction.DeleteViewObjectListener;
@@ -58,7 +55,7 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
         manager = new PublishingCollisionManager();
         _managers.add(manager);
         
-        _border_manager = new BorderCollisionManager(0, 0, 600, 800);
+        _border_manager = new BorderCollisionManager(0, 0, 800, 600);
         this.addCollisionGroup(balls, null, _border_manager);
 
     }
@@ -153,9 +150,7 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
             getBricksGroup().add(ov.getSprite());
         } else if (ov instanceof BasicPaddleView) {
             getPaddlesGroup().add(ov.getSprite());
-        } else if (ov instanceof BorderView) {
-            getBordersGroup().add(ov.getSprite());
-        } 
+        }
     }
 
     /**
@@ -173,8 +168,6 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
             getBricksGroup().remove(ov.getSprite());
         } else if (ov instanceof BasicPaddleView) {
             getPaddlesGroup().remove(ov.getSprite());
-        } else if (ov instanceof BorderView) {
-            getBordersGroup().remove(ov.getSprite());
         }
     }
 
@@ -297,35 +290,6 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
                 } catch (IOException ex) {
                     Logger.getLogger(GameFieldView.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                break;
-            case HORIZONTAL_BORDER:
-                try {
-                    BorderView border = new BorderView(sprite,HORIZONTAL_BORDER);
-                    addObjectView(border);
-                } catch (IOException ex) {
-                    Logger.getLogger(GameFieldView.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                break;
-            case VERTICAL_BORDER:
-                try {
-                    BorderView border = new BorderView(sprite,VERTICAL_BORDER);
-                    addObjectView(border);
-                } catch (IOException ex) {
-                    Logger.getLogger(GameFieldView.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                break;
-            case BOTTOM_BORDER:
-                try {
-                    BorderView border = new BorderView(sprite,BOTTOM_BORDER);
-                    addObjectView(border);
-                } catch (IOException ex) {
-                    Logger.getLogger(GameFieldView.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                break;
 
         }
     }
