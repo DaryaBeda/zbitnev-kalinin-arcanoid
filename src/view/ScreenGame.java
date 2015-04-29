@@ -39,7 +39,7 @@ public class ScreenGame extends GameObject {
 		BufferedImage fieldBg = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_ARGB);
 		//fieldBg.getGraphics().drawImage(bgImage, 0, 0, this.getWidth(), this.getHeight(), null);
 		Graphics g = fieldBg.getGraphics();
-		g.setColor(Color.black);
+		g.setColor(Color.GRAY);
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		
 		
@@ -54,6 +54,7 @@ public class ScreenGame extends GameObject {
                 _model.setFieldView(_fieldView);
                 _fieldView.setBackground(new ImageBackground(fieldBg));
 		_fieldView.addCollisionListener(_model.getManager());
+                _fieldView.getBorderCollisionManager().setModel(_model);
 		_model.startGame();
 		// Построение уровня
 		// TODO: Загрузка уровня из файла (пока уровень захардкоден)
