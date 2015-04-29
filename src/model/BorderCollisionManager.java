@@ -36,11 +36,13 @@ public class BorderCollisionManager extends CollisionBounds {
         for (int i = 0; i < fieldObjects.size() && !isFound; i++) {
             if (fieldObjects.get(i).isMySprite(sprite)) {
                 this.isCollisionSide(BOTTOM_COLLISION);
-                if(this.isCollisionSide(TOP_COLLISION)){
+                if(this.isCollisionSide(TOP_COLLISION) || this.isCollisionSide(BOTTOM_COLLISION)){
                     fieldObjects.get(i).setSpeed(fieldObjects.get(i).getSpeed().flipVertical());
                 }
-                this.isCollisionSide(LEFT_COLLISION);
-                this.isCollisionSide(RIGHT_COLLISION);
+                else if (this.isCollisionSide(LEFT_COLLISION) || this.isCollisionSide(RIGHT_COLLISION)) {
+                    fieldObjects.get(i).setSpeed(fieldObjects.get(i).getSpeed().flipHorizontal());
+                }
+                
             }
 
         }
