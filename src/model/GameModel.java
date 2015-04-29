@@ -3,11 +3,7 @@ package model;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
-import static model.GameModel.TYPE_OBJECT.HORIZONTAL_BORDER;
 import model.ball.BasicBall;
-import model.border.Border;
-import static model.border.Border.TYPE.HORIZONTAL;
-
 import model.collision.CollidedObject;
 import model.interaction.CollisionListener;
 import view.GameFieldView;
@@ -19,7 +15,7 @@ import view.GameFieldView;
  */
 
 public class GameModel  {
-    public enum TYPE_OBJECT {BASIC_BALL, BREAKABKE_BRICK, UNBREAKABLE_BRICK, BASIC_PADDLE, HORIZONTAL_BORDER, VERTICAL_BORDER, BOTTOM_BORDER};
+    public enum TYPE_OBJECT {BASIC_BALL, BREAKABKE_BRICK, UNBREAKABLE_BRICK, BASIC_PADDLE};
 
     protected GameField _field = null;
     protected GameFieldView _fieldView = null;
@@ -74,12 +70,11 @@ public class GameModel  {
         }
         
         public void startGame() {
-            BasicBall newball = new BasicBall(_field, new Point2D.Double(40, 160), 8, new Speed2D(0.03, -0.01));
+            BasicBall newball = new BasicBall(_field, new Point2D.Double(40, 160), 8, new Speed2D(0.03, -0.05));
             newball.addCreateViewObjectListener(_fieldView);
             newball.addDeleteViewObjectListener(_fieldView);
             newball.createView();
             _field.addObject(newball);
-
         }
         
         
