@@ -19,12 +19,9 @@ public class Player {
 	 * @param paddle Подконтрольная игроку ракетка
 	 */
 	public Player(Paddle paddle) {
-		_paddles.add(paddle);
+		this.addPaddle(paddle);
 	}
 	
-	public Player() {
-		
-	}
 
 	/**
 	 * Получить контролируемые ракетки

@@ -32,7 +32,7 @@ public class BreakableBrick extends Brick {
         this(field, pos, dim, new Speed2D(0, 0));
     }
     
-    private void createView () {
+    public void createView () {
             for (CreateViewObjectListener l : _createViewObjectListeners) {
                 l.createViewObject(_sprite, BREAKABKE_BRICK);
             }

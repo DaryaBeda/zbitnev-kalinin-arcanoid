@@ -32,7 +32,7 @@ public class UnbreakableBrick extends Brick {
         this(field, new Point2D.Double(0, 0), new Dimension(0, 0));
     }
     
-    private void createView () {
+    public void createView () {
             for (CreateViewObjectListener l : _createViewObjectListeners) {
                 l.createViewObject(_sprite, UNBREAKABLE_BRICK);
             }

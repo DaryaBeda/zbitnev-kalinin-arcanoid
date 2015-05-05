@@ -1,11 +1,14 @@
 package model;
 
+import controller.GameController;
+import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import model.ball.BasicBall;
 import model.collision.CollidedObject;
 import model.interaction.CollisionListener;
+import model.paddle.BasicPaddle;
 import view.GameFieldView;
 
 /**
@@ -68,13 +71,24 @@ public class GameModel  {
         public PublishingCollisionManager getManager () {
             return _manager;
         }
-        
+        BasicPaddle paddle;
         public void startGame() {
             BasicBall newball = new BasicBall(_field, new Point2D.Double(40, 160), 8, new Speed2D(0.03, -0.05));
-            newball.addCreateViewObjectListener(_fieldView);
-            newball.addDeleteViewObjectListener(_fieldView);
-            newball.createView();
-            _field.addObject(newball);
+            createObject(newball);
+            paddle = new BasicPaddle(_field, new Point2D.Double(0, 584), new Dimension(96, 16));
+            createObject(paddle);
+            
+        }
+        
+        private void createObject(IngameObject obj) {
+            obj.addCreateViewObjectListener(_fieldView);
+            obj.addDeleteViewObjectListener(_fieldView);
+            obj.createView();
+            _field.addObject(obj);
+        }
+        
+        public BasicPaddle getPaddle() {
+            return paddle;
         }
         
         

@@ -275,5 +275,7 @@ public abstract class IngameObject implements Cloneable {
 
         return clone;
     }
+    
+    public abstract void createView ();
 
 }
