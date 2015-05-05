@@ -31,31 +31,37 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
     private ArrayList<IngameObjectView> _objectViews = new ArrayList<>();
     private ArrayList<CollisionListener> _collisionListners = new ArrayList<>();
     private ArrayList<PublishingCollisionManager> _managers = new ArrayList<>();
+    private ArrayList<CollisionManager> _advanceManagers = new ArrayList<>();
     BorderCollisionManager _border_manager;
 
-    public GameFieldView() {
+    public GameFieldView(GameModel model) {
 
         SpriteGroup balls = new SpriteGroup("balls");
         SpriteGroup bricks = new SpriteGroup("bricks");
         SpriteGroup paddles = new SpriteGroup("paddles");
-        SpriteGroup borders = new SpriteGroup("borders");
         this.addGroup(balls);
         this.addGroup(bricks);
         this.addGroup(paddles);
-        this.addGroup(borders);
         PublishingCollisionManager manager = new PublishingCollisionManager();
+        manager.setModel(model);
         _managers.add(manager);
+        _advanceManagers.add(manager.getAdvanceCollisionGroup());
         this.addCollisionGroup(balls, bricks, manager.getAdvanceCollisionGroup());
+        
         manager = new PublishingCollisionManager();
+        manager.setModel(model);
         _managers.add(manager);
+        _advanceManagers.add(manager.getAdvanceCollisionGroup());
         this.addCollisionGroup(balls, balls, manager.getAdvanceCollisionGroup());
+        
         manager = new PublishingCollisionManager();
+        manager.setModel(model);
         _managers.add(manager);
-        this.addCollisionGroup(balls, borders, manager.getAdvanceCollisionGroup());
-        manager = new PublishingCollisionManager();
-        _managers.add(manager);
+        this.addCollisionGroup(balls, paddles, manager.getAdvanceCollisionGroup());
+        _advanceManagers.add(manager.getAdvanceCollisionGroup());
         
         _border_manager = new BorderCollisionManager(0, 0, 800, 600);
+        
         this.addCollisionGroup(balls, null, _border_manager);
 
     }
@@ -76,8 +82,9 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
         HashMap<CollidedObject, ArrayList<CollidedObject>> collisions = new HashMap<>();
         PublishingCollisionManager publishingCollisionManager = null;
         for (int i = 0; i < mgrs.length; i++) {
-            if (_managers.indexOf(mgrs[i]) >= 0) {
-                publishingCollisionManager = _managers.get(_managers.indexOf(mgrs[i]));
+            if (_advanceManagers.indexOf(mgrs[i]) >= 0) {
+                publishingCollisionManager = _managers.get(_advanceManagers.indexOf(mgrs[i]));
+                
                 HashMap<CollidedObject, ArrayList<CollidedObject>> map
                         = publishingCollisionManager.getCollidedStorage();
 
@@ -128,11 +135,6 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
     private SpriteGroup getPaddlesGroup() {
 
         return this.getGroup("paddles");
-    }
-    
-    private SpriteGroup getBordersGroup() {
-
-        return this.getGroup("borders");
     }
 
     /**

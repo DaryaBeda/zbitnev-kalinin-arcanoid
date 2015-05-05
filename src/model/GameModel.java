@@ -23,10 +23,8 @@ public class GameModel  {
     protected GameField _field = null;
     protected GameFieldView _fieldView = null;
     protected ArrayList<Player> _players = new ArrayList<>();
-    protected PublishingCollisionManager _manager = new PublishingCollisionManager();
     
     public GameModel (){
-        _manager.setModel(this);
     }
        
 
@@ -68,9 +66,6 @@ public class GameModel  {
 	    
 	}
         
-        public PublishingCollisionManager getManager () {
-            return _manager;
-        }
         BasicPaddle paddle;
         public void startGame() {
             BasicBall newball = new BasicBall(_field, new Point2D.Double(40, 160), 8, new Speed2D(0.03, -0.05));

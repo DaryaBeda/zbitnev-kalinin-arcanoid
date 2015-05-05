@@ -51,10 +51,10 @@ public class ScreenGame extends GameObject {
 		_model = new GameModel();
 		_model.setField(field);
                 // Инициализация представления уровня
-		_fieldView = new GameFieldView();
+		_fieldView = new GameFieldView(_model);
                 _model.setFieldView(_fieldView);
                 _fieldView.setBackground(new ImageBackground(fieldBg));
-		_fieldView.addCollisionListener(_model.getManager());
+		_fieldView.addCollisionListener(_model.getField());
                 _fieldView.getBorderCollisionManager().setModel(_model);
 		_model.startGame();
                 Player player = new Player(_model.getPaddle());

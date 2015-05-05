@@ -17,7 +17,7 @@ public class BehaviourPaddleRebound extends CollisionBehaviour {
 	 */
 	private static BehaviourPaddleRebound _instance = null;
 	
-	protected BehaviourPaddleRebound() {
+	public BehaviourPaddleRebound() {
 	}
 	
 	/**
