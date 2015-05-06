@@ -21,7 +21,7 @@ import model.interaction.CollisionListener;
  * @author Gregory Zbitnev <zbitnev@hotmail.com>
  *
  */
-public class PublishingCollisionManager  {
+public class PublishingCollisionManager {
 
     protected HashMap<CollidedObject, ArrayList<CollidedObject>> _storage = new HashMap<>();
     private GameModel _model;
@@ -58,8 +58,8 @@ public class PublishingCollisionManager  {
                 CollidedObject obj2 = null;
                 boolean isFoundFirst = false;
                 boolean isFoundSecond = false;
-                GameField field= _model.getField();
-                
+                GameField field = _model.getField();
+
                 ArrayList<IngameObject> fieldObjects = field.getObjects();
                 for (int i = 0; i < fieldObjects.size() && (!isFoundFirst || !isFoundSecond); i++) {
                     if (fieldObjects.get(i).isMySprite(sprite)) {
@@ -124,7 +124,4 @@ public class PublishingCollisionManager  {
         _storage.clear();
     }
 
-    
-
-   
 }

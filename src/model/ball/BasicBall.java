@@ -5,6 +5,8 @@ import java.awt.geom.Point2D;
 import model.GameField;
 import static model.GameModel.TYPE_OBJECT.BASIC_BALL;
 import model.Speed2D;
+import model.brick.BreakableBrick;
+import model.brick.UnbreakableBrick;
 import model.collision.BehaviourPaddleRebound;
 import model.interaction.CreateViewObjectListener;
 import model.interaction.DeleteViewObjectListener;
@@ -22,20 +24,19 @@ public class BasicBall extends Ball implements CanBeInSwarm {
     public BasicBall(GameField field) {
 
         super(field);
-        _behaviours.put(BasicPaddle.class, new BehaviourPaddleRebound());
-
+        addBehaviours ();
     }
 
     public BasicBall(GameField field, Point2D.Double pos, int radius) {
 
         super(field, pos, radius);
-        _behaviours.put(BasicPaddle.class, new BehaviourPaddleRebound());
+        addBehaviours ();
     }
 
     public BasicBall(GameField field, Point2D.Double pos, int radius, Speed2D speed) {
 
         super(field, pos, radius, speed);
-        _behaviours.put(BasicPaddle.class, new BehaviourPaddleRebound());
+        addBehaviours ();
     }
 
     public void createView() {
@@ -44,6 +45,12 @@ public class BasicBall extends Ball implements CanBeInSwarm {
         }
     }
 
+    private void addBehaviours () {
+        _behaviours.put(BasicPaddle.class, new BehaviourPaddleRebound());
+        _behaviours.put(BreakableBrick.class, new BehaviourPaddleRebound());
+        _behaviours.put(UnbreakableBrick.class, new BehaviourPaddleRebound());
+    }
+    
     @Override
     public float getDefaultSpeedScalar() {
 

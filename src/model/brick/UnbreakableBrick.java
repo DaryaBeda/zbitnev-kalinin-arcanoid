@@ -6,6 +6,8 @@ import java.awt.geom.Point2D;
 import model.GameField;
 import static model.GameModel.TYPE_OBJECT.UNBREAKABLE_BRICK;
 import model.Speed2D;
+import model.ball.BasicBall;
+import model.collision.BehaviourDestroy;
 import model.interaction.CreateViewObjectListener;
 import model.interaction.DeleteViewObjectListener;
 
@@ -20,7 +22,6 @@ public class UnbreakableBrick extends Brick {
     public UnbreakableBrick(GameField field, Point2D.Double pos, Dimension dim, Speed2D speed) {
 
         super(field, pos, dim, speed);
-        createView ();
     }
 
     public UnbreakableBrick(GameField field, Point2D.Double pos, Dimension dim) {

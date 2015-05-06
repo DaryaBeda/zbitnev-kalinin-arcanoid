@@ -14,7 +14,7 @@ public class BehaviourDestroy extends CollisionBehaviour {
 	 */
 	private static BehaviourDestroy _instance = null;
 	
-	protected BehaviourDestroy() {
+	public BehaviourDestroy() {
 	}
 	
 	/**
