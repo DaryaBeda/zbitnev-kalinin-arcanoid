@@ -7,6 +7,7 @@ import model.GameField;
 import static model.GameModel.TYPE_OBJECT.UNBREAKABLE_BRICK;
 import model.Speed2D;
 import model.interaction.CreateViewObjectListener;
+import model.interaction.DeleteViewObjectListener;
 
 /**
  * Модель неразрушаемого кирпича.
@@ -44,5 +45,4 @@ public class UnbreakableBrick extends Brick {
         UnbreakableBrick clone = (UnbreakableBrick) super.clone();
         return clone;
     }
-
 }

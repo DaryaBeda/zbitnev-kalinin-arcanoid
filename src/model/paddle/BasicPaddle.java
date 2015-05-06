@@ -40,5 +40,6 @@ public class BasicPaddle extends Paddle {
         BasicPaddle clone = (BasicPaddle) super.clone();
         return clone;
     }
+    
 
 }

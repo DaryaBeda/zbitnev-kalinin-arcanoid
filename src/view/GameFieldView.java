@@ -137,51 +137,7 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
         return this.getGroup("paddles");
     }
 
-    /**
-     * Добавляет представление объекта на это поле. Этот метод добавляет объект
-     * в соответствующую группу спрайтов.
-     *
-     * @param ov Представление.
-     */
-    private void addObjectView(IngameObjectView ov) {
 
-        _objectViews.add(ov);
-        if (ov instanceof BasicBallView) {
-            getBallsGroup().add(ov.getSprite());
-        } else if (ov instanceof BrickView) {
-            getBricksGroup().add(ov.getSprite());
-        } else if (ov instanceof BasicPaddleView) {
-            getPaddlesGroup().add(ov.getSprite());
-        }
-    }
-
-    /**
-     * Удаляет представление объекта с этого представления поля и из группы
-     * спрайтов.
-     *
-     * @param ov Представление.
-     */
-    private void removeObjectView(IngameObjectView ov) {
-
-        _objectViews.remove(ov);
-        if (ov instanceof BasicBallView) {
-            getBallsGroup().remove(ov.getSprite());
-        } else if (ov instanceof BrickView) {
-            getBricksGroup().remove(ov.getSprite());
-        } else if (ov instanceof BasicPaddleView) {
-            getPaddlesGroup().remove(ov.getSprite());
-        }
-    }
-
-    /**
-     * Возвращает список представлений объектов на этом поле.
-     *
-     * @return Список.
-     */
-    public ArrayList<IngameObjectView> getObjectViews() {
-
-        return (ArrayList<IngameObjectView>) _objectViews.clone();
-    }
 
     /**
      * Добавить слушателя событий о произошедших на поле столкновениях
@@ -261,7 +217,8 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
             case BASIC_BALL:
                 try {
                     BasicBallView basicBall = new BasicBallView(sprite);
-                    addObjectView(basicBall);
+                     _objectViews.add(basicBall);
+                     getBallsGroup().add(basicBall.getSprite());
                 } catch (IOException ex) {
                     Logger.getLogger(GameFieldView.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -270,7 +227,8 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
             case BASIC_PADDLE:
                 try {
                     BasicPaddleView basicPaddle = new BasicPaddleView(sprite);
-                    addObjectView(basicPaddle);
+                    _objectViews.add(basicPaddle);
+                    getPaddlesGroup().add(basicPaddle.getSprite());
                 } catch (IOException ex) {
                     Logger.getLogger(GameFieldView.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -279,7 +237,8 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
             case BREAKABKE_BRICK:
                 try {
                     BreakableBrickView breakableBrick = new BreakableBrickView(sprite);
-                    addObjectView(breakableBrick);
+                    _objectViews.add(breakableBrick);
+                    getBricksGroup().add(breakableBrick.getSprite());
                 } catch (IOException ex) {
                     Logger.getLogger(GameFieldView.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -288,7 +247,8 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
             case UNBREAKABLE_BRICK:
                 try {
                     UnbreakableBrickView unbreakableBrick = new UnbreakableBrickView(sprite);
-                    addObjectView(unbreakableBrick);
+                    _objectViews.add(unbreakableBrick);
+                    getBricksGroup().add(unbreakableBrick.getSprite());
                 } catch (IOException ex) {
                     Logger.getLogger(GameFieldView.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -297,7 +257,24 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
     }
 
     @Override
-    public void deleteViewObject(PublishingSprite sprite, GameModel.TYPE_OBJECT type) {
-        //TODO
+    public void deleteViewObject(PublishingSprite sprite) {
+        IngameObjectView objectView = searchView(sprite);
+        _objectViews.remove(objectView);
+        if (objectView instanceof BasicBallView) {
+            getBallsGroup().remove(objectView.getSprite());
+        } else if (objectView instanceof BrickView) {
+            getBricksGroup().remove(objectView.getSprite());
+        } else if (objectView instanceof BasicPaddleView) {
+            getPaddlesGroup().remove(objectView.getSprite());
+        }
+    }
+    
+    private IngameObjectView searchView(PublishingSprite sprite) {
+        for(IngameObjectView objectView: _objectViews) {
+            if(objectView.getSprite() == sprite.getSprite()){
+                return objectView;
+            }
+        }
+        return null;
     }
 }

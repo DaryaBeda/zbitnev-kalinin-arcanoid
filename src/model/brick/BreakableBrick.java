@@ -8,6 +8,7 @@ import static model.GameModel.TYPE_OBJECT.BREAKABKE_BRICK;
 import model.Speed2D;
 import model.collision.BehaviourDestroy;
 import model.interaction.CreateViewObjectListener;
+import model.interaction.DeleteViewObjectListener;
 
 /**
  * Модель разрушаемого кирпича.
@@ -38,13 +39,6 @@ public class BreakableBrick extends Brick {
             }
         }
 
-    /**
-     * Разрушает кирпич.
-     */
-    @Override
-    public void destroy() {
-        super.destroy();
-    }
 
     @Override
     public Object clone() throws CloneNotSupportedException {

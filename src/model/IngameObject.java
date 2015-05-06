@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import static model.GameModel.TYPE_OBJECT.BASIC_BALL;
 
 import model.collision.CollidedObject;
 import model.collision.CollisionBehaviour;
@@ -201,22 +202,12 @@ public abstract class IngameObject implements Cloneable {
      */
     public void destroy() {
 
-        this._isDestroyed = true;
         this._field.removeObject(this);
-        //for (DeleteViewObjectListener l : _deleteViewObjectListeners) {
-        //    l.deleteViewObject(_sprite);
-        // }
+        for (DeleteViewObjectListener l : _deleteViewObjectListeners) {
+            l.deleteViewObject(_sprite);
+        }
     }
 
-    /**
-     * Возвращает true, если объект считается уничтоженным.
-     *
-     * @return Уничтожен ли объект.
-     */
-    public boolean isDestroyed() {
-
-        return _isDestroyed;
-    }
 
     /**
      * Добавить слушателя событий жизни объекта.
@@ -224,11 +215,6 @@ public abstract class IngameObject implements Cloneable {
      * @param l Добавляемый слушатель.
      */
     public void addDeleteViewObjectListener(DeleteViewObjectListener l) {
-
-        if (l == null) {
-            return;
-        }
-
         _deleteViewObjectListeners.add(l);
     }
 
