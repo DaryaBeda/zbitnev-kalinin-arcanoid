@@ -1,6 +1,7 @@
 package model.collision;
 
 import static com.golden.gamedev.object.collision.CollisionBounds.BOTTOM_COLLISION;
+import static com.golden.gamedev.object.collision.CollisionBounds.LEFT_COLLISION;
 import static com.golden.gamedev.object.collision.CollisionBounds.TOP_COLLISION;
 import java.awt.geom.Point2D;
 
@@ -47,12 +48,6 @@ public class BehaviourPaddleRebound extends CollisionBehaviour {
                     from.object().getPosition().y - to.object().getSize().height));
             if (from.object() instanceof Paddle) {
                 to.object().setSpeed(((Paddle) (from.object())).getFireSpeed((Ball) to.object()));
-            } else {
-                if(to.collisionSide() == TOP_COLLISION || to.collisionSide() == BOTTOM_COLLISION) {
-                    to.object().setSpeed(to.object().getSpeed().flipHorizontal());
-                } else {
-                    to.object().setSpeed(to.object().getSpeed().flipVertical());
-                }
             }
         }
     }

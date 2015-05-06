@@ -8,6 +8,7 @@ import model.Speed2D;
 import model.brick.BreakableBrick;
 import model.brick.UnbreakableBrick;
 import model.collision.BehaviourPaddleRebound;
+import model.collision.BehaviourRebound;
 import model.interaction.CreateViewObjectListener;
 import model.interaction.DeleteViewObjectListener;
 import model.paddle.BasicPaddle;
@@ -47,8 +48,8 @@ public class BasicBall extends Ball implements CanBeInSwarm {
 
     private void addBehaviours () {
         _behaviours.put(BasicPaddle.class, new BehaviourPaddleRebound());
-        _behaviours.put(BreakableBrick.class, new BehaviourPaddleRebound());
-        _behaviours.put(UnbreakableBrick.class, new BehaviourPaddleRebound());
+        _behaviours.put(BreakableBrick.class, new BehaviourRebound());
+        _behaviours.put(UnbreakableBrick.class, new BehaviourRebound());
     }
     
     @Override

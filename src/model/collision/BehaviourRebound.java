@@ -23,7 +23,7 @@ public class BehaviourRebound extends CollisionBehaviour {
 	 */
 	private static BehaviourRebound _instance = null;
 	
-	protected BehaviourRebound() {
+	public BehaviourRebound() {
 	}
 	
 	/**
