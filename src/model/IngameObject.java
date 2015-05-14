@@ -5,13 +5,8 @@ import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import static model.GameModel.TYPE_OBJECT.BASIC_BALL;
-
 import model.collision.CollidedObject;
 import model.collision.CollisionBehaviour;
-import model.collision.SpecialBehaviours;
 import model.interaction.CreateViewObjectListener;
 import model.interaction.DeleteViewObjectListener;
 
@@ -24,14 +19,8 @@ import model.interaction.DeleteViewObjectListener;
 public abstract class IngameObject implements Cloneable {
 
     protected PublishingSprite _sprite = new PublishingSprite();
-    protected Point2D.Double _position;
-    protected Speed2D _speed;
     protected Dimension _size;
-    protected Boolean _isDestroyed = false;
-
-    //protected ArrayList<CollisionBehaviour> _defaultColBehaviour = new ArrayList<>();
-    protected HashMap<Class<?>, CollisionBehaviour> _behaviours
-            = new HashMap<>();
+    protected HashMap<Class<?>, CollisionBehaviour> _behaviours = new HashMap<>();
     protected GameField _field = null;
     protected ArrayList<DeleteViewObjectListener> _deleteViewObjectListeners = new ArrayList<>();
     protected ArrayList<CreateViewObjectListener> _createViewObjectListeners = new ArrayList<>();
@@ -120,7 +109,6 @@ public abstract class IngameObject implements Cloneable {
     public void setSpeed(Speed2D speed) {
 
         this._sprite.setSpeed(speed);
-        this._speed = speed;
     }
 
     /**
@@ -144,7 +132,6 @@ public abstract class IngameObject implements Cloneable {
             throw new NullPointerException();
         }
         this._sprite.setPosition(position);
-        this._position = position;
     }
 
     /**
@@ -188,9 +175,6 @@ public abstract class IngameObject implements Cloneable {
      */
     public void processCollision(CollidedObject curr, CollidedObject other) {
 
-        // Вызываем специализированные коллизии, если таковые имеются
-        // Если их нет, тогда вызываем коллизию по умолчанию
-        // Если и она не определена, то ничего не происходит
         CollisionBehaviour cb = _behaviours.get(other.object().getClass());
         if (cb != null) {
             cb.invoke(other, curr);
@@ -231,12 +215,8 @@ public abstract class IngameObject implements Cloneable {
     public Object clone() throws CloneNotSupportedException {
 
         IngameObject clone = (IngameObject) super.clone();
-        clone._isDestroyed = this._isDestroyed;
         clone._field = this._field;    // ссылка на поле просто копируется, да
-        clone._position = (Point2D.Double) this._position.clone();
         clone._size = (Dimension) this._size.clone();
-        clone._speed = (Speed2D) this._speed.clone();
-
         return clone;
     }
 

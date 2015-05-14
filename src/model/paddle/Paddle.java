@@ -2,15 +2,11 @@ package model.paddle;
 
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Float;
 import java.util.ArrayList;
-
 import model.GameField;
-import static model.GameModel.TYPE_OBJECT.BASIC_PADDLE;
 import model.IngameObject;
 import model.Speed2D;
 import model.ball.Ball;
-import model.interaction.CreateViewObjectListener;
 
 /**
  * Модель абстрактной ракетки.
@@ -57,13 +53,13 @@ public abstract class Paddle extends IngameObject {
     protected void fixBallsPosition() {
 
         for (Ball b : _balls) {
-            b.setPosition(new Point2D.Double(b.getPosition().x, this._position.y - b.getSize().height));
+            b.setPosition(new Point2D.Double(b.getPosition().x, getPosition().y - b.getSize().height));
 
-            if (b.getPosition().x < this._position.x) {
-                b.setPosition(new Point2D.Double(this._position.x, b.getPosition().y));
+            if (b.getPosition().x < this.getPosition().x) {
+                b.setPosition(new Point2D.Double(this.getPosition().x, b.getPosition().y));
             }
-            if (b.getPosition().x > this._position.x + this._size.width) {
-                b.setPosition(new Point2D.Double(this._position.x + this._size.width - b.getSize().width, b.getPosition().y));
+            if (b.getPosition().x > this.getPosition().x + this._size.width) {
+                b.setPosition(new Point2D.Double(this.getPosition().x + this._size.width - b.getSize().width, b.getPosition().y));
             }
         }
     }
@@ -97,11 +93,11 @@ public abstract class Paddle extends IngameObject {
     public Speed2D getFireSpeed(Ball ball) {
 
         // Найти два центра расчета вектора.
-        Point2D.Double paddleLeftCenter = new Point2D.Double(this._position.x + (this._size.width / 5) * 2, this._position.y);
-        Point2D.Double paddleRightCenter = new Point2D.Double(this._position.x + (this._size.width / 5) * 3, this._position.y);
+        Point2D.Double paddleLeftCenter = new Point2D.Double(getPosition().x + (this._size.width / 5) * 2, getPosition().y);
+        Point2D.Double paddleRightCenter = new Point2D.Double(getPosition().x + (this._size.width / 5) * 3, getPosition().y);
 
         // Центр ракетки
-        Point2D.Double paddleCenter = new Point2D.Double(this._position.x + this._size.width / 2, this._position.y);
+        Point2D.Double paddleCenter = new Point2D.Double(getPosition().x + this._size.width / 2, getPosition().y);
 
         // Относительные координаты центра мяча в декартовой системе координат (точка B).
         // Считаем, что paddleCenter - это точка A(0, 0).
@@ -158,12 +154,12 @@ public abstract class Paddle extends IngameObject {
     @Override
     public void setPosition(Point2D.Double pos) {
 
-        if (this._position == null) {
+        if (getPosition() == null) {
             super.setPosition(pos);
 
         } else {
-            double dx = pos.x - this._position.x;
-            double dy = pos.y - this._position.y;
+            double dx = pos.x - getPosition().x;
+            double dy = pos.y - getPosition().y;
 
             super.setPosition(pos);
 

@@ -84,8 +84,8 @@ public abstract class Ball extends IngameObject {
 	 */
 	public Point2D.Double getCenter() {
 		
-		return new Point2D.Double(this._position.x + _size.width/2, 
-								 this._position.y + _size.height/2);
+		return new Point2D.Double(getPosition().x + _size.width/2, 
+								 getPosition().y + _size.height/2);
 	}
 	
 	@Override

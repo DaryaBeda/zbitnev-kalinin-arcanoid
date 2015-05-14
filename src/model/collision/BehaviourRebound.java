@@ -1,10 +1,6 @@
 package model.collision;
 
-import java.awt.Dimension;
 import java.awt.geom.Point2D;
-
-import com.golden.gamedev.object.collision.CollisionGroup;
-
 import model.IngameObject;
 import model.Speed2D;
 import model.ball.Ball;
