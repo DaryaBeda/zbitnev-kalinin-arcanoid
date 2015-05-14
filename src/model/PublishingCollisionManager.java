@@ -30,6 +30,15 @@ public class PublishingCollisionManager {
     public PublishingCollisionManager() {
         _advancedCollisionGroup = new AdvanceCollisionGroup() {
 
+            public boolean isPixelPerfectCollision() {
+                return true;
+            }
+        
+            
+            public void setPixelPerfectCollision(boolean pixelPerfectCollision) {
+                this.pixelPerfectCollision = true;
+            }
+
             @Override
             public void collided(Sprite sprite, Sprite sprite1) {
                 int obj1colside = -1, obj2colside = -1;
@@ -89,6 +98,7 @@ public class PublishingCollisionManager {
                 _storage.get(obj1).add(obj2);
             }
         };
+        
     }
 
     public void setModel(GameModel model) {

@@ -109,14 +109,18 @@ public class GameField implements BallPositionChangedListener, CollisionListener
         while (i.hasNext() && copyi.hasNext()) {
 
             CollidedObject obj1 = i.next();
+            obj1.object().setPosition(obj1.object().getPosition());
             CollidedObject obj1copy = copyi.next();
+            obj1copy.object().setPosition(obj1copy.object().getPosition());
             j = storage.get(obj1).iterator();
             copyj = storage_copy.get(obj1copy).iterator();
 
             while (j.hasNext() && copyj.hasNext()) {
 
                 CollidedObject obj2 = j.next();
+                obj2.object().setPosition(obj2.object().getPosition());
                 CollidedObject obj2copy = copyj.next();
+                obj2copy.object().setPosition(obj2copy.object().getPosition());
                 obj1.object().processCollision(obj1, obj2copy);
                 obj2.object().processCollision(obj2, obj1copy);
             }

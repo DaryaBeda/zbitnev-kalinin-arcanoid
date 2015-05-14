@@ -28,8 +28,6 @@ public abstract class Paddle extends IngameObject {
         super(field, new Point2D.Double(0, 0), new Dimension(0, 0));
     }
 
-
-
     /**
      * Поместить шар на ракетку.
      *
@@ -162,9 +160,10 @@ public abstract class Paddle extends IngameObject {
             double dy = pos.y - getPosition().y;
 
             super.setPosition(pos);
-
-            for (Ball b : _balls) {
-                b.setPosition(new Point2D.Double(b.getPosition().x + dx, b.getPosition().y + dy));
+            if (_balls != null) {
+                for (Ball b : _balls) {
+                    b.setPosition(new Point2D.Double(b.getPosition().x + dx, b.getPosition().y + dy));
+                }
             }
         }
     }

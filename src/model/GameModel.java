@@ -59,8 +59,10 @@ public class GameModel {
     }
 
     public void startGame() {
-        BasicBall newball = new BasicBall(_field, new Point2D.Double(40, 160), 8, new Speed2D(0.03, -0.05));
+        BasicBall newball = new BasicBall(_field, new Point2D.Double(50, 50), 8, new Speed2D(0.03, 0.03));
         createObject(newball);
+        BasicBall ball = new BasicBall(_field, new Point2D.Double(200, 200), 8, new Speed2D(-0.03, -0.03));
+        createObject(ball);
         paddle = new BasicPaddle(_field, new Point2D.Double(0, 584), new Dimension(96, 16));
         createObject(paddle);
         BreakableBrick newbrick = new BreakableBrick(_field, new Point2D.Double(180, 120), new Dimension(48, 24));

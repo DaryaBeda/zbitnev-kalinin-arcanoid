@@ -50,6 +50,7 @@ public class BasicBall extends Ball implements CanBeInSwarm {
         _behaviours.put(BasicPaddle.class, new BehaviourPaddleRebound());
         _behaviours.put(BreakableBrick.class, new BehaviourRebound());
         _behaviours.put(UnbreakableBrick.class, new BehaviourRebound());
+        _behaviours.put(BasicBall.class, new BehaviourRebound());
     }
     
     @Override
