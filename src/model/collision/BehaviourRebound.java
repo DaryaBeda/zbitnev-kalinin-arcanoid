@@ -41,7 +41,7 @@ public class BehaviourRebound extends CollisionBehaviour {
     @Override
     public void invoke(CollidedObject from, CollidedObject to) {
 
-		// Вектор скорости отражается по-разному в зависимости от геометрической формы
+        // Вектор скорости отражается по-разному в зависимости от геометрической формы
         // активного объекта и пассивного объекта
         IngameObject toobj = to.object();
         IngameObject fromobj = from.object();
@@ -72,12 +72,11 @@ public class BehaviourRebound extends CollisionBehaviour {
         } else if (fromobj instanceof Ball && toobj instanceof Ball) {
 
            // Ball act = (Ball) fromobj;
-           // Ball pass = (Ball) toobj;
-
+            // Ball pass = (Ball) toobj;
             toobj.setPosition(new Point2D.Double(toobj.getOldPosition().x + 10 * fromobj.getOldSpeed().x(), toobj.getOldPosition().y + 10 * fromobj.getOldSpeed().y()));
             toobj.setSpeed(new Speed2D(fromobj.getOldSpeed().x(), fromobj.getOldSpeed().y()));
 
-			// Вычисляется точка столкновения
+            // Вычисляется точка столкновения
 			/*double colx = (act.getCenter().x * pass.getRadius() 
              + pass.getCenter().x * act.getRadius()) 
              / (act.getRadius() + pass.getRadius());
