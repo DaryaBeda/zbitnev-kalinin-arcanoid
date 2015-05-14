@@ -8,9 +8,7 @@ package model;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.CollisionBounds;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import model.collision.CollidedObject;
 
 /**
  *
@@ -30,22 +28,24 @@ public class BorderCollisionManager extends CollisionBounds {
 
     @Override
     public void collided(Sprite sprite) {
-        CollidedObject obj = null;
         boolean isFound = false;
         ArrayList<IngameObject> fieldObjects = _model.getField().getObjects();
         for (int i = 0; i < fieldObjects.size() && !isFound; i++) {
             if (fieldObjects.get(i).isMySprite(sprite)) {
-                this.isCollisionSide(BOTTOM_COLLISION);
-                if(this.isCollisionSide(TOP_COLLISION) || this.isCollisionSide(BOTTOM_COLLISION)){
+                isFound = true;
+                if (this.isCollisionSide(TOP_COLLISION)) {
+                    fieldObjects.get(i).setPosition(new Point2D.Double(fieldObjects.get(i).getPosition().getX(), fieldObjects.get(i).getPosition().getY() + 2));
                     fieldObjects.get(i).setSpeed(fieldObjects.get(i).getSpeed().flipVertical());
-                }
-                else if (this.isCollisionSide(LEFT_COLLISION) || this.isCollisionSide(RIGHT_COLLISION)) {
+                } else if (this.isCollisionSide(BOTTOM_COLLISION)) {
+                    fieldObjects.get(i).destroy();
+                } else if (this.isCollisionSide(LEFT_COLLISION)) {
+                    fieldObjects.get(i).setPosition(new Point2D.Double(fieldObjects.get(i).getPosition().getX() + 2, fieldObjects.get(i).getPosition().getY()));
+                    fieldObjects.get(i).setSpeed(fieldObjects.get(i).getSpeed().flipHorizontal());
+                } else {
+                    fieldObjects.get(i).setPosition(new Point2D.Double(fieldObjects.get(i).getPosition().getX() - 2, fieldObjects.get(i).getPosition().getY()));
                     fieldObjects.get(i).setSpeed(fieldObjects.get(i).getSpeed().flipHorizontal());
                 }
-                
             }
-
         }
-
     }
 }

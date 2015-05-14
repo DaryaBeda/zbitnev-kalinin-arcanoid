@@ -7,6 +7,7 @@ import java.awt.geom.Point2D.Float;
 import model.GameField;
 import static model.GameModel.TYPE_OBJECT.BASIC_PADDLE;
 import model.Speed2D;
+import model.collision.BehaviourPaddleRebound;
 import model.interaction.CreateViewObjectListener;
 
 /**
@@ -39,5 +40,6 @@ public class BasicPaddle extends Paddle {
         BasicPaddle clone = (BasicPaddle) super.clone();
         return clone;
     }
+    
 
 }

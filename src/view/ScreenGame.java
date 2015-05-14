@@ -13,6 +13,7 @@ import com.golden.gamedev.GameObject;
 import com.golden.gamedev.object.background.ImageBackground;
 
 import controller.GameController;
+import model.Player;
 
 /**
  * Режим игры
@@ -50,12 +51,14 @@ public class ScreenGame extends GameObject {
 		_model = new GameModel();
 		_model.setField(field);
                 // Инициализация представления уровня
-		_fieldView = new GameFieldView();
+		_fieldView = new GameFieldView(_model);
                 _model.setFieldView(_fieldView);
                 _fieldView.setBackground(new ImageBackground(fieldBg));
-		_fieldView.addCollisionListener(_model.getManager());
+		_fieldView.addCollisionListener(_model.getField());
                 _fieldView.getBorderCollisionManager().setModel(_model);
 		_model.startGame();
+                Player player = new Player(_model.getPaddle());
+                _controller = new GameController(player, bsInput);
 		// Построение уровня
 		// TODO: Загрузка уровня из файла (пока уровень захардкоден)
 		/*BasicBall newball = new BasicBall(field, new Point2D.Float(40, 160), 8, new Speed2D(0.03, -0.01));
@@ -79,7 +82,7 @@ public class ScreenGame extends GameObject {
 */
         
         // Инициализация закончена. Спрятать курсор мыши перед началом игры.
-        //this.hideCursor();
+        this.hideCursor();
 	}
 
 	@Override
@@ -95,7 +98,7 @@ public class ScreenGame extends GameObject {
 		
 		// Апдейтим всё
 		_fieldView.update(arg0);
-		//_controller.update();
+		_controller.update();
 	}
 
 }

@@ -5,12 +5,8 @@ import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
 import model.collision.CollidedObject;
 import model.collision.CollisionBehaviour;
-import model.collision.SpecialBehaviours;
 import model.interaction.CreateViewObjectListener;
 import model.interaction.DeleteViewObjectListener;
 
@@ -23,17 +19,13 @@ import model.interaction.DeleteViewObjectListener;
 public abstract class IngameObject implements Cloneable {
 
     protected PublishingSprite _sprite = new PublishingSprite();
-    protected Point2D.Double _position;
-    protected Speed2D _speed;
     protected Dimension _size;
-    protected Boolean _isDestroyed = false;
-
-    protected ArrayList<CollisionBehaviour> _defaultColBehaviour = new ArrayList<>();
-    protected HashMap<Class<?>, SpecialBehaviours> _specialColBehaviours
-            = new HashMap<>();
+    protected HashMap<Class<?>, CollisionBehaviour> _behaviours = new HashMap<>();
     protected GameField _field = null;
     protected ArrayList<DeleteViewObjectListener> _deleteViewObjectListeners = new ArrayList<>();
-    protected ArrayList<CreateViewObjectListener> _createViewObjectListeners  = new ArrayList<>();
+    protected ArrayList<CreateViewObjectListener> _createViewObjectListeners = new ArrayList<>();
+    protected Point2D.Double _position;
+    protected Speed2D _speed;
 
     /**
      * Создает игровой объект, координаты (0, 0), нулевая скорость, нулевой
@@ -57,11 +49,11 @@ public abstract class IngameObject implements Cloneable {
 
         this(field, pos, dim, new Speed2D(0, 0));
     }
-    
+
     public boolean isMySprite(Sprite sprite) {
-       
+
         return _sprite.getSprite() == sprite;
-    } 
+    }
 
     /**
      * Создает игровой объект.
@@ -82,12 +74,12 @@ public abstract class IngameObject implements Cloneable {
         this.setPosition(pos);
         this.setSpeed(speed);
     }
-    
-     public void addCreateViewObjectListener(CreateViewObjectListener l) {
+
+    public void addCreateViewObjectListener(CreateViewObjectListener l) {
         _createViewObjectListeners.add(l);
     }
-     
-     public void removeCreateViewObjectListener(CreateViewObjectListener l) {
+
+    public void removeCreateViewObjectListener(CreateViewObjectListener l) {
         _createViewObjectListeners.remove(l);
     }
 
@@ -100,7 +92,13 @@ public abstract class IngameObject implements Cloneable {
 
         return this._field;
     }
-
+    public Point2D.Double getOldPosition() {
+        return _position;
+    }
+    
+    public Speed2D getOldSpeed(){
+        return _speed;
+    }
     /**
      * Получить скорость.
      *
@@ -187,58 +185,23 @@ public abstract class IngameObject implements Cloneable {
      */
     public void processCollision(CollidedObject curr, CollidedObject other) {
 
-        // Вызываем специализированные коллизии, если таковые имеются
-        boolean foundSpecial = false;
-
-        Iterator i = _specialColBehaviours.entrySet().iterator();
-        while (i.hasNext()) {
-            Map.Entry<Class<?>, SpecialBehaviours> entry = (Map.Entry) i.next();
-            if (entry.getValue()._flagCheckDerived) {
-                if (entry.getKey().isInstance(other.object())) {
-                    foundSpecial = true;
-                    for (CollisionBehaviour cb : entry.getValue()._behaviours) {
-                        cb.invoke(other, curr);
-                    }
-                }
-            } else if (entry.getKey().equals(other.object().getClass())) {
-                foundSpecial = true;
-                for (CollisionBehaviour cb : entry.getValue()._behaviours) {
-                    cb.invoke(other, curr);
-                }
-            }
-        }
-
-        // Если их нет, тогда вызываем коллизию по умолчанию
-        // Если и она не определена, то ничего не происходит
-        if (!foundSpecial) {
-            for (CollisionBehaviour cb : _defaultColBehaviour) {
-                cb.invoke(other, curr);
-            }
+        CollisionBehaviour cb = _behaviours.get(other.object().getClass());
+        if (cb != null) {
+            cb.invoke(other, curr);
         }
     }
-
 
     /**
      * Уничтожает объект. По умолчанию ничего не освобождает.
      */
     public void destroy() {
 
-        this._isDestroyed = true;
         this._field.removeObject(this);
-        //for (DeleteViewObjectListener l : _deleteViewObjectListeners) {
-        //    l.deleteViewObject(_sprite);
-       // }
+        for (DeleteViewObjectListener l : _deleteViewObjectListeners) {
+            l.deleteViewObject(_sprite);
+        }
     }
 
-    /**
-     * Возвращает true, если объект считается уничтоженным.
-     *
-     * @return Уничтожен ли объект.
-     */
-    public boolean isDestroyed() {
-
-        return _isDestroyed;
-    }
 
     /**
      * Добавить слушателя событий жизни объекта.
@@ -246,11 +209,6 @@ public abstract class IngameObject implements Cloneable {
      * @param l Добавляемый слушатель.
      */
     public void addDeleteViewObjectListener(DeleteViewObjectListener l) {
-
-        if (l == null) {
-            return;
-        }
-
         _deleteViewObjectListeners.add(l);
     }
 
@@ -267,13 +225,13 @@ public abstract class IngameObject implements Cloneable {
     public Object clone() throws CloneNotSupportedException {
 
         IngameObject clone = (IngameObject) super.clone();
-        clone._isDestroyed = this._isDestroyed;
         clone._field = this._field;    // ссылка на поле просто копируется, да
         clone._position = (Point2D.Double) this._position.clone();
         clone._size = (Dimension) this._size.clone();
         clone._speed = (Speed2D) this._speed.clone();
-
         return clone;
     }
+
+    public abstract void createView();
 
 }

@@ -13,5 +13,5 @@ import model.PublishingSprite;
  * @author Дарья
  */
 public interface DeleteViewObjectListener {
-    public void deleteViewObject(PublishingSprite sprite, GameModel.TYPE_OBJECT type);
+    public void deleteViewObject(PublishingSprite sprite);
 }

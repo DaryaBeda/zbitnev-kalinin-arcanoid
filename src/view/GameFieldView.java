@@ -31,31 +31,37 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
     private ArrayList<IngameObjectView> _objectViews = new ArrayList<>();
     private ArrayList<CollisionListener> _collisionListners = new ArrayList<>();
     private ArrayList<PublishingCollisionManager> _managers = new ArrayList<>();
+    private ArrayList<CollisionManager> _advanceManagers = new ArrayList<>();
     BorderCollisionManager _border_manager;
 
-    public GameFieldView() {
+    public GameFieldView(GameModel model) {
 
         SpriteGroup balls = new SpriteGroup("balls");
         SpriteGroup bricks = new SpriteGroup("bricks");
         SpriteGroup paddles = new SpriteGroup("paddles");
-        SpriteGroup borders = new SpriteGroup("borders");
         this.addGroup(balls);
         this.addGroup(bricks);
         this.addGroup(paddles);
-        this.addGroup(borders);
         PublishingCollisionManager manager = new PublishingCollisionManager();
+        manager.setModel(model);
         _managers.add(manager);
+        _advanceManagers.add(manager.getAdvanceCollisionGroup());
         this.addCollisionGroup(balls, bricks, manager.getAdvanceCollisionGroup());
+        
         manager = new PublishingCollisionManager();
+        manager.setModel(model);
         _managers.add(manager);
+        _advanceManagers.add(manager.getAdvanceCollisionGroup());
         this.addCollisionGroup(balls, balls, manager.getAdvanceCollisionGroup());
+        
         manager = new PublishingCollisionManager();
+        manager.setModel(model);
         _managers.add(manager);
-        this.addCollisionGroup(balls, borders, manager.getAdvanceCollisionGroup());
-        manager = new PublishingCollisionManager();
-        _managers.add(manager);
+        this.addCollisionGroup(balls, paddles, manager.getAdvanceCollisionGroup());
+        _advanceManagers.add(manager.getAdvanceCollisionGroup());
         
         _border_manager = new BorderCollisionManager(0, 0, 800, 600);
+        
         this.addCollisionGroup(balls, null, _border_manager);
 
     }
@@ -76,8 +82,9 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
         HashMap<CollidedObject, ArrayList<CollidedObject>> collisions = new HashMap<>();
         PublishingCollisionManager publishingCollisionManager = null;
         for (int i = 0; i < mgrs.length; i++) {
-            if (_managers.indexOf(mgrs[i]) >= 0) {
-                publishingCollisionManager = _managers.get(_managers.indexOf(mgrs[i]));
+            if (_advanceManagers.indexOf(mgrs[i]) >= 0) {
+                publishingCollisionManager = _managers.get(_advanceManagers.indexOf(mgrs[i]));
+                
                 HashMap<CollidedObject, ArrayList<CollidedObject>> map
                         = publishingCollisionManager.getCollidedStorage();
 
@@ -129,57 +136,8 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
 
         return this.getGroup("paddles");
     }
-    
-    private SpriteGroup getBordersGroup() {
 
-        return this.getGroup("borders");
-    }
 
-    /**
-     * Добавляет представление объекта на это поле. Этот метод добавляет объект
-     * в соответствующую группу спрайтов.
-     *
-     * @param ov Представление.
-     */
-    private void addObjectView(IngameObjectView ov) {
-
-        _objectViews.add(ov);
-        if (ov instanceof BasicBallView) {
-            getBallsGroup().add(ov.getSprite());
-        } else if (ov instanceof BrickView) {
-            getBricksGroup().add(ov.getSprite());
-        } else if (ov instanceof BasicPaddleView) {
-            getPaddlesGroup().add(ov.getSprite());
-        }
-    }
-
-    /**
-     * Удаляет представление объекта с этого представления поля и из группы
-     * спрайтов.
-     *
-     * @param ov Представление.
-     */
-    private void removeObjectView(IngameObjectView ov) {
-
-        _objectViews.remove(ov);
-        if (ov instanceof BasicBallView) {
-            getBallsGroup().remove(ov.getSprite());
-        } else if (ov instanceof BrickView) {
-            getBricksGroup().remove(ov.getSprite());
-        } else if (ov instanceof BasicPaddleView) {
-            getPaddlesGroup().remove(ov.getSprite());
-        }
-    }
-
-    /**
-     * Возвращает список представлений объектов на этом поле.
-     *
-     * @return Список.
-     */
-    public ArrayList<IngameObjectView> getObjectViews() {
-
-        return (ArrayList<IngameObjectView>) _objectViews.clone();
-    }
 
     /**
      * Добавить слушателя событий о произошедших на поле столкновениях
@@ -259,7 +217,8 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
             case BASIC_BALL:
                 try {
                     BasicBallView basicBall = new BasicBallView(sprite);
-                    addObjectView(basicBall);
+                     _objectViews.add(basicBall);
+                     getBallsGroup().add(basicBall.getSprite());
                 } catch (IOException ex) {
                     Logger.getLogger(GameFieldView.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -268,7 +227,8 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
             case BASIC_PADDLE:
                 try {
                     BasicPaddleView basicPaddle = new BasicPaddleView(sprite);
-                    addObjectView(basicPaddle);
+                    _objectViews.add(basicPaddle);
+                    getPaddlesGroup().add(basicPaddle.getSprite());
                 } catch (IOException ex) {
                     Logger.getLogger(GameFieldView.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -277,7 +237,8 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
             case BREAKABKE_BRICK:
                 try {
                     BreakableBrickView breakableBrick = new BreakableBrickView(sprite);
-                    addObjectView(breakableBrick);
+                    _objectViews.add(breakableBrick);
+                    getBricksGroup().add(breakableBrick.getSprite());
                 } catch (IOException ex) {
                     Logger.getLogger(GameFieldView.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -286,7 +247,8 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
             case UNBREAKABLE_BRICK:
                 try {
                     UnbreakableBrickView unbreakableBrick = new UnbreakableBrickView(sprite);
-                    addObjectView(unbreakableBrick);
+                    _objectViews.add(unbreakableBrick);
+                    getBricksGroup().add(unbreakableBrick.getSprite());
                 } catch (IOException ex) {
                     Logger.getLogger(GameFieldView.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -295,7 +257,24 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
     }
 
     @Override
-    public void deleteViewObject(PublishingSprite sprite, GameModel.TYPE_OBJECT type) {
-        //TODO
+    public void deleteViewObject(PublishingSprite sprite) {
+        IngameObjectView objectView = searchView(sprite);
+        _objectViews.remove(objectView);
+        if (objectView instanceof BasicBallView) {
+            getBallsGroup().remove(objectView.getSprite());
+        } else if (objectView instanceof BrickView) {
+            getBricksGroup().remove(objectView.getSprite());
+        } else if (objectView instanceof BasicPaddleView) {
+            getPaddlesGroup().remove(objectView.getSprite());
+        }
+    }
+    
+    private IngameObjectView searchView(PublishingSprite sprite) {
+        for(IngameObjectView objectView: _objectViews) {
+            if(objectView.getSprite() == sprite.getSprite()){
+                return objectView;
+            }
+        }
+        return null;
     }
 }

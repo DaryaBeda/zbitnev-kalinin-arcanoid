@@ -2,11 +2,7 @@ package controller;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Point2D.Float;
-
 import com.golden.gamedev.engine.BaseInput;
-import com.golden.gamedev.engine.input.AWTInput;
-
 import model.Direction;
 import model.Player;
 
