@@ -18,8 +18,8 @@ public class BorderCollisionManager extends CollisionBounds {
 
     private GameModel _model;
 
-    public BorderCollisionManager(int i, int i1, int i2, int i3) {
-        super(i, i1, i2, i3);
+    public BorderCollisionManager(int x, int y, int width, int height) {
+        super(x, y, width, height);
     }
 
     public void setModel(GameModel model) {
