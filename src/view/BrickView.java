@@ -16,5 +16,4 @@ public class BrickView extends IngameObjectView{
     public BrickView(PublishingSprite sprite) {
         super(sprite);
     }
-    
 }

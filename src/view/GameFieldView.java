@@ -39,29 +39,31 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
         SpriteGroup balls = new SpriteGroup("balls");
         SpriteGroup bricks = new SpriteGroup("bricks");
         SpriteGroup paddles = new SpriteGroup("paddles");
+
         this.addGroup(balls);
         this.addGroup(bricks);
         this.addGroup(paddles);
+
         PublishingCollisionManager manager = new PublishingCollisionManager();
         manager.setModel(model);
         _managers.add(manager);
         _advanceManagers.add(manager.getAdvanceCollisionGroup());
         this.addCollisionGroup(balls, bricks, manager.getAdvanceCollisionGroup());
-        
+
         manager = new PublishingCollisionManager();
         manager.setModel(model);
         _managers.add(manager);
         _advanceManagers.add(manager.getAdvanceCollisionGroup());
         this.addCollisionGroup(balls, balls, manager.getAdvanceCollisionGroup());
-        
+
         manager = new PublishingCollisionManager();
         manager.setModel(model);
         _managers.add(manager);
         this.addCollisionGroup(balls, paddles, manager.getAdvanceCollisionGroup());
         _advanceManagers.add(manager.getAdvanceCollisionGroup());
-        
+
         _border_manager = new BorderCollisionManager(0, 0, 800, 600);
-        
+
         this.addCollisionGroup(balls, null, _border_manager);
 
     }
@@ -69,6 +71,7 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
     public BorderCollisionManager getBorderCollisionManager() {
         return _border_manager;
     }
+
     @Override
     public void update(long timeElapsed) {
 
@@ -84,7 +87,7 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
         for (int i = 0; i < mgrs.length; i++) {
             if (_advanceManagers.indexOf(mgrs[i]) >= 0) {
                 publishingCollisionManager = _managers.get(_advanceManagers.indexOf(mgrs[i]));
-                
+
                 HashMap<CollidedObject, ArrayList<CollidedObject>> map
                         = publishingCollisionManager.getCollidedStorage();
 
@@ -94,7 +97,6 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
                     publishingCollisionManager.clearCollidedStorage();
                 }
             }
-
         }
 
         // Если столкновения произошли -- посылаем сигнал модели
@@ -136,8 +138,6 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
 
         return this.getGroup("paddles");
     }
-
-
 
     /**
      * Добавить слушателя событий о произошедших на поле столкновениях
@@ -192,23 +192,23 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
     private HashMap<CollidedObject, ArrayList<CollidedObject>>
             removeCouplingFromStorage(HashMap<CollidedObject, ArrayList<CollidedObject>> st) {
 
-        HashMap<CollidedObject, ArrayList<CollidedObject>> newst = new HashMap<>();
+        HashMap<CollidedObject, ArrayList<CollidedObject>> newStorage = new HashMap<>();
 
         for (CollidedObject key : st.keySet()) {
             for (CollidedObject val : st.get(key)) {
 
                 // Если в словарь уже не добавлена "обратная" ассоциация
-                if (!newst.containsKey(val) || !newst.get(val).contains(key)) {
+                if (!newStorage.containsKey(val) || !newStorage.get(val).contains(key)) {
 
-                    if (!newst.containsKey(key)) {
-                        newst.put(key, new ArrayList<CollidedObject>());
+                    if (!newStorage.containsKey(key)) {
+                        newStorage.put(key, new ArrayList<CollidedObject>());
                     }
-                    newst.get(key).add(val);
+                    newStorage.get(key).add(val);
                 }
             }
         }
 
-        return newst;
+        return newStorage;
     }
 
     @Override
@@ -217,8 +217,8 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
             case BASIC_BALL:
                 try {
                     BasicBallView basicBall = new BasicBallView(sprite);
-                     _objectViews.add(basicBall);
-                     getBallsGroup().add(basicBall.getSprite());
+                    _objectViews.add(basicBall);
+                    getBallsGroup().add(basicBall.getSprite());
                 } catch (IOException ex) {
                     Logger.getLogger(GameFieldView.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -253,6 +253,7 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
                     Logger.getLogger(GameFieldView.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
+                break;
         }
     }
 
@@ -268,10 +269,10 @@ public class GameFieldView extends PlayField implements CreateViewObjectListener
             getPaddlesGroup().remove(objectView.getSprite());
         }
     }
-    
+
     private IngameObjectView searchView(PublishingSprite sprite) {
-        for(IngameObjectView objectView: _objectViews) {
-            if(objectView.getSprite() == sprite.getSprite()){
+        for (IngameObjectView objectView : _objectViews) {
+            if (objectView.getSprite() == sprite.getSprite()) {
                 return objectView;
             }
         }

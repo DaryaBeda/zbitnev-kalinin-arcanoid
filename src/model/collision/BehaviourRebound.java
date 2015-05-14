@@ -6,7 +6,6 @@ import model.Speed2D;
 import model.ball.Ball;
 import model.brick.Brick;
 import model.paddle.Paddle;
-import math.geom2d.Vector2D;
 
 /**
  * Поведение упрогого отскока при столкновении.
@@ -71,37 +70,8 @@ public class BehaviourRebound extends CollisionBehaviour {
             }
         } else if (fromobj instanceof Ball && toobj instanceof Ball) {
 
-           // Ball act = (Ball) fromobj;
-            // Ball pass = (Ball) toobj;
             toobj.setPosition(new Point2D.Double(toobj.getOldPosition().x + 10 * fromobj.getOldSpeed().x(), toobj.getOldPosition().y + 10 * fromobj.getOldSpeed().y()));
             toobj.setSpeed(new Speed2D(fromobj.getOldSpeed().x(), fromobj.getOldSpeed().y()));
-
-            // Вычисляется точка столкновения
-			/*double colx = (act.getCenter().x * pass.getRadius() 
-             + pass.getCenter().x * act.getRadius()) 
-             / (act.getRadius() + pass.getRadius());
-             double coly = (act.getCenter().y * pass.getRadius() 
-             + pass.getCenter().y * act.getRadius()) 
-             / (act.getRadius() + pass.getRadius());
-			
-             // Пассивный объект "отодвигается" по линии столкновения (линия, соединяющая центры 
-             // шаров) во избежание повторной коллизии
-             Point2D.Double movevect = new Point2D.Double(pass.getCenter().x - colx, pass.getCenter().y - coly);
-             Point2D.Double newpos = new Point2D.Double(pass.getCenter().x + movevect.x,pass.getCenter().y + movevect.y);
-             pass.setCenter(newpos);
-			
-             // Вычисляется новая скорость для пассивного объекта
-             Vector2D aspeed = new Vector2D(act.getSpeed().x(), act.getSpeed().y());
-             Vector2D pspeed = new Vector2D(pass.getSpeed().x(), pass.getSpeed().y());
-             Vector2D acenter = new Vector2D(act.getCenter().x, act.getCenter().y);
-             Vector2D pcenter = new Vector2D(pass.getCenter().x, pass.getCenter().y);
-             Vector2D newPSpeed = pspeed;
-             Vector2D pminusa = pcenter.minus(acenter);
-             newPSpeed = newPSpeed.minus(pminusa.times(
-             pspeed.minus(aspeed).dot(pminusa) / Math.pow(pminusa.norm(), 2.0)));
-			
-             // Новая скорость назначается пассивному объекту
-             pass.setSpeed(new Speed2D(newPSpeed.x(), newPSpeed.y()));*/
         }
     }
 }

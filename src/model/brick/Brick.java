@@ -20,14 +20,14 @@ public abstract class Brick extends IngameObject {
         super(field);
     }
 
-    public Brick(GameField field, Point2D.Double pos, Dimension dim, Speed2D speed) {
+    public Brick(GameField field, Point2D.Double position, Dimension dimension, Speed2D speed) {
 
-        super(field, pos, dim, speed);
+        super(field, position, dimension, speed);
     }
 
-    public Brick(GameField field, Point2D.Double pos, Dimension dim) {
+    public Brick(GameField field, Point2D.Double position, Dimension dimension) {
 
-        super(field, pos, dim);
+        super(field, position, dimension);
     }
 
     @Override

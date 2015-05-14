@@ -1,7 +1,6 @@
 package model;
 
 import com.golden.gamedev.object.Sprite;
-import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
@@ -21,8 +20,8 @@ public class PublishingSprite {
         _sprite = new Sprite();
     }
 
-    public void setImage(BufferedImage img) {
-        _sprite.setImage(img);
+    public void setImage(BufferedImage image) {
+        _sprite.setImage(image);
     }
 
     public void update(long timeElapsed) {
@@ -58,5 +57,4 @@ public class PublishingSprite {
         Point2D.Double point = new Point2D.Double(_sprite.getX(), _sprite.getY());
         return (Point2D.Double) point.clone();
     }
-
 }

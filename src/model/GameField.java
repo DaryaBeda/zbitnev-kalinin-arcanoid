@@ -74,11 +74,13 @@ public class GameField implements BallPositionChangedListener, CollisionListener
     public void ballPositionChanged(Ball ball) {
 
         if (ball.getPosition().y < 0) {
+            
             ball.setPosition(new Point2D.Double(ball.getPosition().x, 0));
             ball.setSpeed(ball.getSpeed().flipVertical());
         }
 
         if (ball.getPosition().x < 0 || ball.getPosition().x + ball.getSize().width > _dimension.width) {
+            
             if (ball.getPosition().x < 0) {
                 ball.setPosition(new Point2D.Double(0, ball.getPosition().y));
             } else {
@@ -95,8 +97,7 @@ public class GameField implements BallPositionChangedListener, CollisionListener
      * значение - список объектов, с которыми он столкнулся
      */
     @Override
-    public void collisionOccured(
-            HashMap<CollidedObject, ArrayList<CollidedObject>> storage) {
+    public void collisionOccured(HashMap<CollidedObject, ArrayList<CollidedObject>> storage) {
 
         // Вместо объектов, от которых принимается эффект (активные)
         // передаётся их копия до начала обработки вообще всех столкновений
@@ -144,6 +145,7 @@ public class GameField implements BallPositionChangedListener, CollisionListener
 
                 CollidedObject key_copy = (CollidedObject) key.clone();
                 ArrayList<CollidedObject> values_copy = new ArrayList<>();
+                
                 for (CollidedObject obj : storage.get(key)) {
                     values_copy.add((CollidedObject) obj.clone());
                 }
@@ -155,5 +157,4 @@ public class GameField implements BallPositionChangedListener, CollisionListener
 
         return deepcopy;
     }
-
 }

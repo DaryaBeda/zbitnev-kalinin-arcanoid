@@ -18,9 +18,9 @@ public abstract class Paddle extends IngameObject {
 
     protected ArrayList<Ball> _balls = new ArrayList<>();
 
-    public Paddle(GameField field, Point2D.Double pos, Dimension dim) {
+    public Paddle(GameField field, Point2D.Double position, Dimension dimension) {
 
-        super(field, pos, dim);
+        super(field, position, dimension);
     }
 
     public Paddle(GameField field) {
@@ -31,16 +31,16 @@ public abstract class Paddle extends IngameObject {
     /**
      * Поместить шар на ракетку.
      *
-     * @param b Шар.
+     * @param ball Шар.
      */
-    public void addBall(Ball b) {
+    public void addBall(Ball ball) {
 
-        if (b == null) {
+        if (ball == null) {
             throw new NullPointerException();
         }
 
-        b.setSpeed(new Speed2D(0, 0));
-        _balls.add(b);
+        ball.setSpeed(new Speed2D(0, 0));
+        _balls.add(ball);
         this.fixBallsPosition();
     }
 
@@ -50,14 +50,14 @@ public abstract class Paddle extends IngameObject {
      */
     protected void fixBallsPosition() {
 
-        for (Ball b : _balls) {
-            b.setPosition(new Point2D.Double(b.getPosition().x, getPosition().y - b.getSize().height));
+        for (Ball ball : _balls) {
+            ball.setPosition(new Point2D.Double(ball.getPosition().x, getPosition().y - ball.getSize().height));
 
-            if (b.getPosition().x < this.getPosition().x) {
-                b.setPosition(new Point2D.Double(this.getPosition().x, b.getPosition().y));
+            if (ball.getPosition().x < this.getPosition().x) {
+                ball.setPosition(new Point2D.Double(this.getPosition().x, ball.getPosition().y));
             }
-            if (b.getPosition().x > this.getPosition().x + this._size.width) {
-                b.setPosition(new Point2D.Double(this.getPosition().x + this._size.width - b.getSize().width, b.getPosition().y));
+            if (ball.getPosition().x > this.getPosition().x + this._size.width) {
+                ball.setPosition(new Point2D.Double(this.getPosition().x + this._size.width - ball.getSize().width, ball.getPosition().y));
             }
         }
     }
@@ -65,10 +65,10 @@ public abstract class Paddle extends IngameObject {
     /**
      * Убрать шар с ракетки.
      *
-     * @param b Шар.
+     * @param ball Шар.
      */
-    public void removeBall(Ball b) {
-        _balls.remove(b);
+    public void removeBall(Ball ball) {
+        _balls.remove(ball);
     }
 
     /**
@@ -85,7 +85,7 @@ public abstract class Paddle extends IngameObject {
      * Возвращает скорость мяча при запуске его с ракетки или отскока от
      * ракетки.
      *
-     * @param b Мяч.
+     * @param ball Мяч.
      * @return Вектор скорости.
      */
     public Speed2D getFireSpeed(Ball ball) {
@@ -150,19 +150,19 @@ public abstract class Paddle extends IngameObject {
     }
 
     @Override
-    public void setPosition(Point2D.Double pos) {
+    public void setPosition(Point2D.Double position) {
 
         if (getPosition() == null) {
-            super.setPosition(pos);
+            super.setPosition(position);
 
         } else {
-            double dx = pos.x - getPosition().x;
-            double dy = pos.y - getPosition().y;
+            double dx = position.x - getPosition().x;
+            double dy = position.y - getPosition().y;
 
-            super.setPosition(pos);
+            super.setPosition(position);
             if (_balls != null) {
-                for (Ball b : _balls) {
-                    b.setPosition(new Point2D.Double(b.getPosition().x + dx, b.getPosition().y + dy));
+                for (Ball ball : _balls) {
+                    ball.setPosition(new Point2D.Double(ball.getPosition().x + dx, ball.getPosition().y + dy));
                 }
             }
         }

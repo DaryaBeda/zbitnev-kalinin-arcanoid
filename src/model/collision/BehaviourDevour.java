@@ -1,7 +1,5 @@
 package model.collision;
 
-import model.IngameObject;
-
 /**
  * Поведение поглощения при столкновении. 
  * @author Nikita Kalinin <nixorv@gmail.com>

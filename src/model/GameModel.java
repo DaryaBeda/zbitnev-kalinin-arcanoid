@@ -25,7 +25,7 @@ public class GameModel {
     protected GameField _field = null;
     protected GameFieldView _fieldView = null;
     protected ArrayList<Player> _players = new ArrayList<>();
-    private BasicPaddle paddle;
+    private BasicPaddle _paddle;
 
     /**
      * Назначить игровое поле
@@ -61,14 +61,19 @@ public class GameModel {
     public void startGame() {
         BasicBall newball = new BasicBall(_field, new Point2D.Double(50, 50), 8, new Speed2D(0.03, 0.03));
         createObject(newball);
+        
         BasicBall ball = new BasicBall(_field, new Point2D.Double(200, 200), 8, new Speed2D(-0.03, -0.03));
         createObject(ball);
-        paddle = new BasicPaddle(_field, new Point2D.Double(0, 584), new Dimension(96, 16));
-        createObject(paddle);
+        
+        _paddle = new BasicPaddle(_field, new Point2D.Double(0, 584), new Dimension(96, 16));
+        createObject(_paddle);
+        
         BreakableBrick newbrick = new BreakableBrick(_field, new Point2D.Double(180, 120), new Dimension(48, 24));
         createObject(newbrick);
+        
         BreakableBrick newbrick2 = new BreakableBrick(_field, new Point2D.Double(228, 120), new Dimension(48, 24));
         createObject(newbrick2);
+        
         UnbreakableBrick newbrick3 = new UnbreakableBrick(_field, new Point2D.Double(276, 120), new Dimension(48, 24));
         createObject(newbrick3);
     }
@@ -81,7 +86,6 @@ public class GameModel {
     }
 
     public BasicPaddle getPaddle() {
-        return paddle;
+        return _paddle;
     }
-
 }

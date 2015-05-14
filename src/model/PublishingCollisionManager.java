@@ -6,14 +6,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import model.collision.CollidedObject;
-import model.PublishingSprite;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
 import com.golden.gamedev.object.collision.CollisionGroup;
-import com.golden.gamedev.object.collision.CollisionShape;
-import java.util.Iterator;
-import model.interaction.CollisionListener;
 
 /**
  * Менеджер столкновений, сообщающий о коллизиях между объектами
@@ -33,8 +29,7 @@ public class PublishingCollisionManager {
             public boolean isPixelPerfectCollision() {
                 return true;
             }
-        
-            
+
             public void setPixelPerfectCollision(boolean pixelPerfectCollision) {
                 this.pixelPerfectCollision = true;
             }
@@ -42,6 +37,7 @@ public class PublishingCollisionManager {
             @Override
             public void collided(Sprite sprite, Sprite sprite1) {
                 int obj1colside = -1, obj2colside = -1;
+
                 switch (collisionSide) {
                     case CollisionGroup.BOTTOM_TOP_COLLISION:
                         obj1colside = CollidedObject.SIDE_TOP;
@@ -62,7 +58,7 @@ public class PublishingCollisionManager {
                     default:
                         break;
                 }
-                // TODO: По спрайту найти объект
+
                 CollidedObject obj1 = null;
                 CollidedObject obj2 = null;
                 boolean isFoundFirst = false;
@@ -70,23 +66,28 @@ public class PublishingCollisionManager {
                 GameField field = _model.getField();
 
                 ArrayList<IngameObject> fieldObjects = field.getObjects();
-                for (int i = 0; i < fieldObjects.size() && (!isFoundFirst || !isFoundSecond); i++) {
+                int i;
+                for (i = 0; i < fieldObjects.size() && (!isFoundFirst || !isFoundSecond); i++) {
                     if (fieldObjects.get(i).isMySprite(sprite)) {
+                        
                         obj1 = new CollidedObject(fieldObjects.get(i),
                                 new Point2D.Double((float) sprite.getOldX(), (float) sprite.getOldY()),
                                 obj1colside, new Rectangle2D.Double(this.getCollisionShape1(sprite).getX(),
                                         this.getCollisionShape1(sprite).getY(),
                                         this.getCollisionShape1(sprite).getWidth(),
                                         this.getCollisionShape1(sprite).getHeight()));
+                        
                         isFoundFirst = true;
                     }
                     if (fieldObjects.get(i).isMySprite(sprite1)) {
+                        
                         obj2 = new CollidedObject(fieldObjects.get(i),
                                 new Point2D.Double((float) sprite1.getOldX(), (float) sprite1.getOldY()),
                                 obj1colside, new Rectangle2D.Double(this.getCollisionShape1(sprite1).getX(),
                                         this.getCollisionShape1(sprite1).getY(),
                                         this.getCollisionShape1(sprite1).getWidth(),
                                         this.getCollisionShape1(sprite1).getHeight()));
+                        
                         isFoundSecond = true;
                     }
 
@@ -95,10 +96,11 @@ public class PublishingCollisionManager {
                 if (!_storage.keySet().contains(obj1)) {
                     _storage.put(obj1, new ArrayList<CollidedObject>());
                 }
+                
                 _storage.get(obj1).add(obj2);
             }
         };
-        
+
     }
 
     public void setModel(GameModel model) {
@@ -112,10 +114,7 @@ public class PublishingCollisionManager {
     public boolean isMyCollisionGroup(AdvanceCollisionGroup group) {
         return _advancedCollisionGroup == group;
     }
-
-    /*public boolean isCollide(Sprite s1, Sprite s2, CollisionShape shape1, CollisionShape shape2) {
-		
-     }*/
+    
     /**
      * Получить словарь столкновений объектов в текущем кадре. Объекты
      * представлены в виде CollidedObject, содержащих дополнительную информацию
@@ -133,5 +132,4 @@ public class PublishingCollisionManager {
     public void clearCollidedStorage() {
         _storage.clear();
     }
-
 }

@@ -20,5 +20,4 @@ public class UnbreakableBrickView extends BrickView{
         super(sprite);
         setImage(ImageIO.read(new File("default\\gfx\\bricks\\unbreakable.png")));
     }
-    
 }

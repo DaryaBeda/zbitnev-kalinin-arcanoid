@@ -5,7 +5,6 @@
  */
 package model.interaction;
 
-import model.GameModel;
 import model.PublishingSprite;
 
 /**
@@ -13,5 +12,6 @@ import model.PublishingSprite;
  * @author Дарья
  */
 public interface DeleteViewObjectListener {
+
     public void deleteViewObject(PublishingSprite sprite);
 }

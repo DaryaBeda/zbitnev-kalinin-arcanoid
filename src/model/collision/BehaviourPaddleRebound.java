@@ -1,11 +1,7 @@
 package model.collision;
 
-import static com.golden.gamedev.object.collision.CollisionBounds.BOTTOM_COLLISION;
-import static com.golden.gamedev.object.collision.CollisionBounds.LEFT_COLLISION;
-import static com.golden.gamedev.object.collision.CollisionBounds.TOP_COLLISION;
 import java.awt.geom.Point2D;
 
-import model.IngameObject;
 import model.ball.Ball;
 import model.paddle.Paddle;
 

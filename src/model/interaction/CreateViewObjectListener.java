@@ -13,5 +13,6 @@ import model.PublishingSprite;
  * @author Дарья
  */
 public interface CreateViewObjectListener {
+
     public void createViewObject(PublishingSprite sprite, TYPE_OBJECT type);
 }

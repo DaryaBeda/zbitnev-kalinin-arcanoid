@@ -14,7 +14,7 @@ import model.PublishingSprite;
  *
  * @author Дарья
  */
-public class BasicBallView extends IngameObjectView{
+public class BasicBallView extends IngameObjectView {
 
     public BasicBallView(PublishingSprite sprite) throws IOException {
         super(sprite);

@@ -5,22 +5,22 @@ import com.golden.gamedev.GameObject;
 
 /**
  * Класс визуального представления игры
+ *
  * @author Gregory Zbitnev <zbitnev@hotmail.com>
  *
  */
 public class ArkanoidEngine extends GameEngine {
 
-	@Override
-	public GameObject getGame(int arg0) {
-		
-		switch (arg0) {
-			case 0: 
-				return new ScreenGame(this);
-			case 1:
-				return new ScreenMenu(this);
-		}
-		
-		return null;
-	}
+    @Override
+    public GameObject getGame(int arg0) {
 
+        switch (arg0) {
+            case 0:
+                return new ScreenGame(this);
+            case 1:
+                return new ScreenMenu(this);
+        }
+
+        return null;
+    }
 }

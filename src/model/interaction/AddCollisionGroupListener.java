@@ -12,5 +12,6 @@ import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
  * @author пользователь
  */
 public interface AddCollisionGroupListener {
+
     public void addCollisionGroup(AdvanceCollisionGroup group);
 }

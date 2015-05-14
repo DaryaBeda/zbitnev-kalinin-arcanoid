@@ -10,7 +10,6 @@ import model.brick.UnbreakableBrick;
 import model.collision.BehaviourPaddleRebound;
 import model.collision.BehaviourRebound;
 import model.interaction.CreateViewObjectListener;
-import model.interaction.DeleteViewObjectListener;
 import model.paddle.BasicPaddle;
 import model.swarm.CanBeInSwarm;
 
@@ -25,19 +24,19 @@ public class BasicBall extends Ball implements CanBeInSwarm {
     public BasicBall(GameField field) {
 
         super(field);
-        addBehaviours ();
+        addBehaviours();
     }
 
-    public BasicBall(GameField field, Point2D.Double pos, int radius) {
+    public BasicBall(GameField field, Point2D.Double position, int radius) {
 
-        super(field, pos, radius);
-        addBehaviours ();
+        super(field, position, radius);
+        addBehaviours();
     }
 
-    public BasicBall(GameField field, Point2D.Double pos, int radius, Speed2D speed) {
+    public BasicBall(GameField field, Point2D.Double position, int radius, Speed2D speed) {
 
-        super(field, pos, radius, speed);
-        addBehaviours ();
+        super(field, position, radius, speed);
+        addBehaviours();
     }
 
     public void createView() {
@@ -46,13 +45,13 @@ public class BasicBall extends Ball implements CanBeInSwarm {
         }
     }
 
-    private void addBehaviours () {
+    private void addBehaviours() {
         _behaviours.put(BasicPaddle.class, new BehaviourPaddleRebound());
         _behaviours.put(BreakableBrick.class, new BehaviourRebound());
         _behaviours.put(UnbreakableBrick.class, new BehaviourRebound());
         _behaviours.put(BasicBall.class, new BehaviourRebound());
     }
-    
+
     @Override
     public float getDefaultSpeedScalar() {
 
@@ -64,9 +63,5 @@ public class BasicBall extends Ball implements CanBeInSwarm {
 
         BasicBall clone = (BasicBall) super.clone();
         return clone;
-    }
-    
-    public void addBehaviours() {
-        
     }
 }

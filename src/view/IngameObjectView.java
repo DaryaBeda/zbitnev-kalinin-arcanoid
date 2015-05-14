@@ -40,14 +40,13 @@ public class IngameObjectView {
     }
 
     public void render(Graphics2D g) {
-
         _sprite.render(g);
     }
-    
+
     protected void setImage(BufferedImage img) {
         this._sprite.setImage(img);
     }
-    
+
     public Sprite getSprite() {
         return this._sprite.getSprite();
     }

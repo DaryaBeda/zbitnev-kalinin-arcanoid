@@ -2,12 +2,8 @@ package model.paddle;
 
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Float;
-
 import model.GameField;
 import static model.GameModel.TYPE_OBJECT.BASIC_PADDLE;
-import model.Speed2D;
-import model.collision.BehaviourPaddleRebound;
 import model.interaction.CreateViewObjectListener;
 
 /**
@@ -18,17 +14,17 @@ import model.interaction.CreateViewObjectListener;
  */
 public class BasicPaddle extends Paddle {
 
-    public BasicPaddle(GameField field, Point2D.Double pos, Dimension dim) {
+    public BasicPaddle(GameField field, Point2D.Double position, Dimension dimension) {
 
-        super(field, pos, dim);
+        super(field, position, dimension);
     }
 
     public BasicPaddle(GameField field) {
 
         super(field);
     }
-    
-        public void createView() {
+
+    public void createView() {
         for (CreateViewObjectListener l : _createViewObjectListeners) {
             l.createViewObject(_sprite, BASIC_PADDLE);
         }
@@ -40,6 +36,5 @@ public class BasicPaddle extends Paddle {
         BasicPaddle clone = (BasicPaddle) super.clone();
         return clone;
     }
-    
 
 }

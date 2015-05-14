@@ -27,6 +27,9 @@ public abstract class IngameObject implements Cloneable {
     protected Point2D.Double _position;
     protected Speed2D _speed;
 
+    
+    public abstract void createView();
+    
     /**
      * Создает игровой объект, координаты (0, 0), нулевая скорость, нулевой
      * размер.
@@ -45,9 +48,9 @@ public abstract class IngameObject implements Cloneable {
      * @param pos Позиция объекта.
      * @param dim Размеры объекта.
      */
-    public IngameObject(GameField field, Point2D.Double pos, Dimension dim) {
+    public IngameObject(GameField field, Point2D.Double position, Dimension dimension) {
 
-        this(field, pos, dim, new Speed2D(0, 0));
+        this(field, position, dimension, new Speed2D(0, 0));
     }
 
     public boolean isMySprite(Sprite sprite) {
@@ -59,19 +62,19 @@ public abstract class IngameObject implements Cloneable {
      * Создает игровой объект.
      *
      * @param field Игровое поле.
-     * @param pos Позиция объекта.
-     * @param dim Размеры объекта.
+     * @param position Позиция объекта.
+     * @param dimension Размеры объекта.
      * @param speed Скорость объекта.
      */
-    public IngameObject(GameField field, Point2D.Double pos, Dimension dim, Speed2D speed) {
+    public IngameObject(GameField field, Point2D.Double position, Dimension dimension, Speed2D speed) {
 
-        if (field == null || pos == null || dim == null || speed == null) {
+        if (field == null || position == null || dimension == null || speed == null) {
             throw new NullPointerException();
         }
 
         this._field = field;
-        this.setSize(dim);
-        this.setPosition(pos);
+        this.setSize(dimension);
+        this.setPosition(position);
         this.setSpeed(speed);
     }
 
@@ -93,10 +96,12 @@ public abstract class IngameObject implements Cloneable {
         return this._field;
     }
     public Point2D.Double getOldPosition() {
+        
         return _position;
     }
     
     public Speed2D getOldSpeed(){
+        
         return _speed;
     }
     /**
@@ -183,11 +188,11 @@ public abstract class IngameObject implements Cloneable {
      * @param curr Текущий объект
      * @param other Объект, столкнувшийся с данным.
      */
-    public void processCollision(CollidedObject curr, CollidedObject other) {
+    public void processCollision(CollidedObject current, CollidedObject other) {
 
-        CollisionBehaviour cb = _behaviours.get(other.object().getClass());
-        if (cb != null) {
-            cb.invoke(other, curr);
+        CollisionBehaviour collisionBehaviour = _behaviours.get(other.object().getClass());
+        if (collisionBehaviour != null) {
+            collisionBehaviour.invoke(other, current);
         }
     }
 
@@ -225,13 +230,10 @@ public abstract class IngameObject implements Cloneable {
     public Object clone() throws CloneNotSupportedException {
 
         IngameObject clone = (IngameObject) super.clone();
-        clone._field = this._field;    // ссылка на поле просто копируется, да
+        clone._field = this._field;    
         clone._position = (Point2D.Double) this._position.clone();
         clone._size = (Dimension) this._size.clone();
         clone._speed = (Speed2D) this._speed.clone();
         return clone;
     }
-
-    public abstract void createView();
-
 }
