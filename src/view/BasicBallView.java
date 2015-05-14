@@ -20,5 +20,4 @@ public class BasicBallView extends IngameObjectView{
         super(sprite);
         setImage(ImageIO.read(new File("default\\gfx\\balls\\basic.png")));
     }
-    
 }

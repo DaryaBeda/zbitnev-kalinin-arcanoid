@@ -48,4 +48,8 @@ public class BasicBall extends Ball implements CanBeInSwarm {
     	BasicBall clone = (BasicBall) super.clone();
     	return clone;
     }
+    
+    public void addBehaviours() {
+        
+    }
 }

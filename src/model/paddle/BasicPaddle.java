@@ -27,7 +27,7 @@ public class BasicPaddle extends Paddle {
         super(field);
     }
     
-        private void createView() {
+        public void createView() {
         for (CreateViewObjectListener l : _createViewObjectListeners) {
             l.createViewObject(_sprite, BASIC_PADDLE);
         }

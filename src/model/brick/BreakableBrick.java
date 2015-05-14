@@ -6,7 +6,6 @@ import java.awt.geom.Point2D;
 import model.GameField;
 import static model.GameModel.TYPE_OBJECT.BREAKABKE_BRICK;
 import model.Speed2D;
-import model.collision.BehaviourDestroy;
 import model.interaction.CreateViewObjectListener;
 
 /**
@@ -32,7 +31,7 @@ public class BreakableBrick extends Brick {
         this(field, pos, dim, new Speed2D(0, 0));
     }
     
-    private void createView () {
+    public void createView () {
             for (CreateViewObjectListener l : _createViewObjectListeners) {
                 l.createViewObject(_sprite, BREAKABKE_BRICK);
             }
