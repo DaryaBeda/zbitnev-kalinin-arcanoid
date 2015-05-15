@@ -67,8 +67,8 @@ public class Player {
 
         for (Paddle p : _paddles) {
             int actualx;
-            if (x > p.getField().getSize().width - p.getSize().width) {
-                actualx = p.getField().getSize().width - p.getSize().width;
+            if (x > p.getField().getDimension().width - p.getDimension().width) {
+                actualx = p.getField().getDimension().width - p.getDimension().width;
             } else if (x < 0) {
                 actualx = 0;
             } else {
@@ -89,10 +89,10 @@ public class Player {
         long delta;
         for (Paddle p : _paddles) {
             
-            delta = Math.round(p.getSize().width / 3.0 * 2.0);
+            delta = Math.round(p.getDimension().width / 3.0 * 2.0);
             delta = dir.equals(Direction.west()) ? -delta : delta;
-            if (p.getPosition().x + p.getSize().width + delta > p.getField().getSize().width) {
-                p.setPosition(new Point2D.Double(p.getField().getSize().width - p.getSize().width, p.getPosition().y));
+            if (p.getPosition().x + p.getDimension().width + delta > p.getField().getDimension().width) {
+                p.setPosition(new Point2D.Double(p.getField().getDimension().width - p.getDimension().width, p.getPosition().y));
             } else if (p.getPosition().x + delta < 0) {
                 p.setPosition(new Point2D.Double(0, p.getPosition().y));
             } else {

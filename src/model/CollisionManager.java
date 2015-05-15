@@ -15,7 +15,7 @@ import model.interaction.CollisionListener;
  *
  * @author Дарья
  */
-public class CollisionManager implements CollisionListener{
+public final class CollisionManager implements CollisionListener{
     /**
      * Обработать столкновения
      *

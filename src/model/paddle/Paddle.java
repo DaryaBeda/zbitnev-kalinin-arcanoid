@@ -46,13 +46,13 @@ public abstract class Paddle extends IngameObject {
     protected void fixBallsPosition() {
 
         for (Ball ball : _balls) {
-            ball.setPosition(new Point2D.Double(ball.getPosition().x, getPosition().y - ball.getSize().height));
+            ball.setPosition(new Point2D.Double(ball.getPosition().x, getPosition().y - ball.getDimension().height));
 
             if (ball.getPosition().x < this.getPosition().x) {
                 ball.setPosition(new Point2D.Double(this.getPosition().x, ball.getPosition().y));
             }
-            if (ball.getPosition().x > this.getPosition().x + this._size.width) {
-                ball.setPosition(new Point2D.Double(this.getPosition().x + this._size.width - ball.getSize().width, ball.getPosition().y));
+            if (ball.getPosition().x > this.getPosition().x + this._dimension.width) {
+                ball.setPosition(new Point2D.Double(this.getPosition().x + this._dimension.width - ball.getDimension().width, ball.getPosition().y));
             }
         }
     }

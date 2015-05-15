@@ -26,7 +26,7 @@ public class GameModel {
     protected GameField _field = null;
     protected GameFieldView _fieldView = null;
     private BasicPaddle _paddle;
-    private CollisionManager _collisionManager = new CollisionManager();
+    private final CollisionManager _collisionManager = new CollisionManager();
 
     /**
      * Назначить игровое поле

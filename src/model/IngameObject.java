@@ -19,7 +19,7 @@ import model.interaction.DeleteViewObjectListener;
 public abstract class IngameObject implements Cloneable {
 
     protected PublishingSprite _sprite = new PublishingSprite();
-    protected Dimension _size;
+    protected Dimension _dimension;
     protected HashMap<Class<?>, CollisionBehaviour> _behaviours = new HashMap<>();
     protected GameField _field = null;
     protected ArrayList<DeleteViewObjectListener> _deleteViewObjectListeners = new ArrayList<>();
@@ -48,7 +48,7 @@ public abstract class IngameObject implements Cloneable {
         }
 
         this._field = field;
-        this.setSize(dimension);
+        this.setDimension(dimension);
         this.setPosition(position);
         this.setSpeed(speed);
     }
@@ -123,12 +123,12 @@ public abstract class IngameObject implements Cloneable {
      *
      * @param dimension
      */
-    public void setSize(Dimension dimension) {
+    public void setDimension(Dimension dimension) {
 
         if (dimension == null) {
             throw new NullPointerException();
         }
-        _size = dimension;
+        _dimension = dimension;
     }
 
     /**
@@ -136,9 +136,9 @@ public abstract class IngameObject implements Cloneable {
      *
      * @return
      */
-    public Dimension getSize() {
+    public Dimension getDimension() {
 
-        return (Dimension) _size.clone();
+        return (Dimension) _dimension.clone();
     }
 
     /**
@@ -201,7 +201,7 @@ public abstract class IngameObject implements Cloneable {
         IngameObject clone = (IngameObject) super.clone();
         clone._field = this._field;    
         clone._position = (Point2D.Double) this._position.clone();
-        clone._size = (Dimension) this._size.clone();
+        clone._dimension = (Dimension) this._dimension.clone();
         clone._speed = (Speed2D) this._speed.clone();
         return clone;
     }

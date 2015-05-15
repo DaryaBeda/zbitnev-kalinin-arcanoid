@@ -54,7 +54,7 @@ public class GameField  {
      *
      * @return Размеры поля.
      */
-    public Dimension getSize() {
+    public Dimension getDimension() {
 
         return _dimension;
     }
