@@ -50,7 +50,7 @@ public class ScreenGame extends GameObject {
         _fieldView = new GameFieldView(_model);
         _model.setFieldView(_fieldView);
         _fieldView.setBackground(new ImageBackground(fieldBg));
-        _fieldView.addCollisionListener(_model);
+        _fieldView.addCollisionListener(_model.getCollisionManager());
         _fieldView.getBorderCollisionManager().setModel(_model);
         _model.startGame();
         Player player = new Player(_model.getPaddle());
