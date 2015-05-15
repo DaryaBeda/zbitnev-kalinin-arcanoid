@@ -9,8 +9,8 @@ package model.collision;
 public class BehaviourDestroy extends CollisionBehaviour {
 
     @Override
-    public void invoke(CollidedObject from, CollidedObject to) {
+    public void invoke(CollidedObject passiveObject, CollidedObject activeObject) {
 
-        to.getObject().destroy();
+        activeObject.getObject().destroy();
     }
 }

@@ -15,32 +15,32 @@ import model.ball.Ball;
 public class BehaviourPaddleRebound extends CollisionBehaviour {
 
     @Override
-    public void invoke(CollidedObject from, CollidedObject to) {
-        IngameObject fromObject = from.getObject();
-        IngameObject toObject = to.getObject();
+    public void invoke(CollidedObject passiveObject, CollidedObject activeObject) {
+        IngameObject passiveIngameObject = passiveObject.getObject();
+        IngameObject activeIngameObject = activeObject.getObject();
         Speed2D newSpeed = null;
-        to.getObject().setPosition(new Point2D.Double(toObject.getPosition().x,
-                fromObject.getPosition().y - toObject.getDimension().height));
+        activeObject.getObject().setPosition(new Point2D.Double(activeIngameObject.getPosition().x,
+                passiveIngameObject.getPosition().y - activeIngameObject.getDimension().height));
 
         // Найти два центра расчета вектора.
-        Point2D.Double paddleLeftCenter = new Point2D.Double(fromObject.getPosition().x + (fromObject.getDimension().width / 5) * 2, fromObject.getPosition().y);
-        Point2D.Double paddleRightCenter = new Point2D.Double(fromObject.getPosition().x + (fromObject.getDimension().width / 5) * 3, fromObject.getPosition().y);
+        Point2D.Double paddleLeftCenter = new Point2D.Double(passiveIngameObject.getPosition().x + (passiveIngameObject.getDimension().width / 5) * 2, passiveIngameObject.getPosition().y);
+        Point2D.Double paddleRightCenter = new Point2D.Double(passiveIngameObject.getPosition().x + (passiveIngameObject.getDimension().width / 5) * 3, passiveIngameObject.getPosition().y);
 
         // Центр ракетки
-        Point2D.Double paddleCenter = new Point2D.Double(fromObject.getPosition().x + fromObject.getDimension().width / 2, fromObject.getPosition().y);
+        Point2D.Double paddleCenter = new Point2D.Double(passiveIngameObject.getPosition().x + passiveIngameObject.getDimension().width / 2, passiveIngameObject.getPosition().y);
 
             // Относительные координаты центра мяча в декартовой системе координат (точка B).
         // Считаем, что paddleCenter - это точка A(0, 0).
-        Point2D.Double relBallCenter = new Point2D.Double(toObject.getPosition().x + toObject.getDimension().width / 2 - paddleCenter.x,
-                paddleCenter.y - toObject.getPosition().y - toObject.getDimension().height / 2);
+        Point2D.Double relBallCenter = new Point2D.Double(activeIngameObject.getPosition().x + activeIngameObject.getDimension().width / 2 - paddleCenter.x,
+                paddleCenter.y - activeIngameObject.getPosition().y - activeIngameObject.getDimension().height / 2);
 
         // Если мяч между двумя центрами, направляем вектор вверх.
-        if (relBallCenter.x <= fromObject.getDimension().width / 10 && relBallCenter.x >= -fromObject.getDimension().width / 10) {
-            newSpeed = new Speed2D(0, -((Ball) toObject).getDefaultSpeedScalar());
+        if (relBallCenter.x <= passiveIngameObject.getDimension().width / 10 && relBallCenter.x >= -passiveIngameObject.getDimension().width / 10) {
+            newSpeed = new Speed2D(0, -((Ball) activeIngameObject).getDefaultSpeedScalar());
         } else {
 
             // В зависимости от трети ракетки, в которой располагается мяч, выбираем центр расчета вектора скорости.
-            Point2D.Double paddleNewCenter = relBallCenter.x > fromObject.getDimension().width / 10 ? paddleRightCenter : paddleLeftCenter;
+            Point2D.Double paddleNewCenter = relBallCenter.x > passiveIngameObject.getDimension().width / 10 ? paddleRightCenter : paddleLeftCenter;
 
             // Рассчитываем относительное положение мяча от выбранного центра.
             relBallCenter = new Point2D.Double(relBallCenter.x + paddleCenter.x - paddleNewCenter.x, relBallCenter.y);
@@ -48,7 +48,7 @@ public class BehaviourPaddleRebound extends CollisionBehaviour {
             // Коэффициенты уравнения точки пересечения прямой и окружности.
             double a = (Math.pow(relBallCenter.x, 2) + Math.pow(relBallCenter.y, 2)) / Math.pow(relBallCenter.x, 2);
             double b = 0;
-            double c = -Math.pow(((Ball) toObject).getDefaultSpeedScalar(), 2);
+            double c = -Math.pow(((Ball) activeIngameObject).getDefaultSpeedScalar(), 2);
 
             // Дискриминант.
             double D = Math.pow(b, 2) - 4 * a * c;
@@ -68,6 +68,6 @@ public class BehaviourPaddleRebound extends CollisionBehaviour {
             // y отрицательный, чтобы перейти в экранную систему координат.
             newSpeed = new Speed2D(p.x, -Math.abs(p.y));
         }
-        to.getObject().setSpeed(newSpeed);
+        activeObject.getObject().setSpeed(newSpeed);
     }
 }

@@ -12,34 +12,34 @@ import model.IngameObject;
 public class BehaviourBrickRebound extends CollisionBehaviour {
 
     @Override
-    public void invoke(CollidedObject from, CollidedObject to) {
+    public void invoke(CollidedObject passiveObject, CollidedObject activeObject) {
 
         // Вектор скорости отражается по-разному в зависимости от геометрической формы
         // активного объекта и пассивного объекта
-        IngameObject toobj = to.getObject();
-        IngameObject fromobj = from.getObject();
+        IngameObject passiveIngameObject = activeObject.getObject();
+        IngameObject activeIngameObject = passiveObject.getObject();
 
-        Point2D.Double newpos = to.getOldPosition();
-        if (to.getCollisionSide() == CollidedObject.SIDE_TOP) {
+        Point2D.Double newpos = activeObject.getOldPosition();
+        if (activeObject.getCollisionSide() == CollidedObject.SIDE_TOP) {
 
-            newpos.y = fromobj.getPosition().y - toobj.getDimension().height - 1;
-            toobj.setPosition(newpos);
-            toobj.setSpeed(to.getOldSpeed().flipVertical());
-        } else if (to.getCollisionSide() == CollidedObject.SIDE_BOTTOM) {
+            newpos.y = activeIngameObject.getPosition().y - passiveIngameObject.getDimension().height - 1;
+            passiveIngameObject.setPosition(newpos);
+            passiveIngameObject.setSpeed(activeObject.getOldSpeed().flipVertical());
+        } else if (activeObject.getCollisionSide() == CollidedObject.SIDE_BOTTOM) {
 
-            newpos.y = fromobj.getPosition().y + fromobj.getDimension().height + 1;
-            toobj.setPosition(newpos);
-            toobj.setSpeed(to.getOldSpeed().flipVertical());
-        } else if (to.getCollisionSide() == CollidedObject.SIDE_RIGHT) {
+            newpos.y = activeIngameObject.getPosition().y + activeIngameObject.getDimension().height + 1;
+            passiveIngameObject.setPosition(newpos);
+            passiveIngameObject.setSpeed(activeObject.getOldSpeed().flipVertical());
+        } else if (activeObject.getCollisionSide() == CollidedObject.SIDE_RIGHT) {
 
-            newpos.x = fromobj.getPosition().x + fromobj.getDimension().width + 1;
-            toobj.setPosition(newpos);
-            toobj.setSpeed(to.getOldSpeed().flipHorizontal());
-        } else if (to.getCollisionSide() == CollidedObject.SIDE_LEFT) {
+            newpos.x = activeIngameObject.getPosition().x + activeIngameObject.getDimension().width + 1;
+            passiveIngameObject.setPosition(newpos);
+            passiveIngameObject.setSpeed(activeObject.getOldSpeed().flipHorizontal());
+        } else if (activeObject.getCollisionSide() == CollidedObject.SIDE_LEFT) {
 
-            newpos.x = fromobj.getPosition().x - toobj.getDimension().width - 1;
-            toobj.setPosition(newpos);
-            toobj.setSpeed(to.getOldSpeed().flipHorizontal());
+            newpos.x = activeIngameObject.getPosition().x - passiveIngameObject.getDimension().width - 1;
+            passiveIngameObject.setPosition(newpos);
+            passiveIngameObject.setSpeed(activeObject.getOldSpeed().flipHorizontal());
         }
     }
 }

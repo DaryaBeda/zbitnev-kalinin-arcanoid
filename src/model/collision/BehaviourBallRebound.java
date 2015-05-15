@@ -16,14 +16,14 @@ import model.Speed2D;
 public class BehaviourBallRebound extends CollisionBehaviour {
 
     @Override
-    public void invoke(CollidedObject from, CollidedObject to) {
+    public void invoke(CollidedObject passiveObject, CollidedObject activeObject) {
 
         // Вектор скорости отражается по-разному в зависимости от геометрической формы
         // активного объекта и пассивного объекта
-        IngameObject toobj = to.getObject();
+        IngameObject activeIngameObject = activeObject.getObject();
 
-        toobj.setPosition(new Point2D.Double(to.getOldPosition().x + 10 * from.getOldSpeed().x(), to.getOldPosition().y + 10 * from.getOldSpeed().y()));
-        toobj.setSpeed(new Speed2D(from.getOldSpeed().x(), from.getOldSpeed().y()));
+        activeIngameObject.setPosition(new Point2D.Double(activeObject.getOldPosition().x + 10 * passiveObject.getOldSpeed().x(), activeObject.getOldPosition().y + 10 * passiveObject.getOldSpeed().y()));
+        activeIngameObject.setSpeed(new Speed2D(passiveObject.getOldSpeed().x(), passiveObject.getOldSpeed().y()));
 
     }
 }
