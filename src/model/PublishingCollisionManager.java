@@ -35,71 +35,70 @@ public class PublishingCollisionManager {
             }
 
             @Override
-            public void collided(Sprite sprite, Sprite sprite1) {
-                int obj1colside = -1, obj2colside = -1;
+            public void collided(Sprite firstSprite, Sprite secondSprite) {
+                int firstCollidedSide = -1, secondCollidedSide = -1;
 
                 switch (collisionSide) {
                     case CollisionGroup.BOTTOM_TOP_COLLISION:
-                        obj1colside = CollidedObject.SIDE_TOP;
-                        obj2colside = CollidedObject.SIDE_BOTTOM;
+                        firstCollidedSide = CollidedObject.SIDE_TOP;
+                        secondCollidedSide = CollidedObject.SIDE_BOTTOM;
                         break;
                     case CollisionGroup.TOP_BOTTOM_COLLISION:
-                        obj1colside = CollidedObject.SIDE_BOTTOM;
-                        obj2colside = CollidedObject.SIDE_TOP;
+                        firstCollidedSide = CollidedObject.SIDE_BOTTOM;
+                        secondCollidedSide = CollidedObject.SIDE_TOP;
                         break;
                     case CollisionGroup.RIGHT_LEFT_COLLISION:
-                        obj1colside = CollidedObject.SIDE_LEFT;
-                        obj2colside = CollidedObject.SIDE_RIGHT;
+                        firstCollidedSide = CollidedObject.SIDE_LEFT;
+                        secondCollidedSide = CollidedObject.SIDE_RIGHT;
                         break;
                     case CollisionGroup.LEFT_RIGHT_COLLISION:
-                        obj1colside = CollidedObject.SIDE_RIGHT;
-                        obj2colside = CollidedObject.SIDE_LEFT;
+                        firstCollidedSide = CollidedObject.SIDE_RIGHT;
+                        secondCollidedSide = CollidedObject.SIDE_LEFT;
                         break;
                     default:
                         break;
                 }
 
-                CollidedObject obj1 = null;
-                CollidedObject obj2 = null;
+                CollidedObject firstObject = null;
+                CollidedObject secondObject = null;
                 boolean isFoundFirst = false;
                 boolean isFoundSecond = false;
-                GameField field = _model.getField();
 
-                ArrayList<IngameObject> fieldObjects = field.getObjects();
+                ArrayList<IngameObject> fieldObjects = _model.getField().getObjects();
                 int i;
                 for (i = 0; i < fieldObjects.size() && (!isFoundFirst || !isFoundSecond); i++) {
-                    if (fieldObjects.get(i).isMySprite(sprite)) {
-                        
-                        obj1 = new CollidedObject(fieldObjects.get(i),
-                                new Point2D.Double((float) sprite.getOldX(), (float) sprite.getOldY()),
-                                new Speed2D(sprite.getHorizontalSpeed(), sprite.getVerticalSpeed()),
-                                obj1colside, new Rectangle2D.Double(this.getCollisionShape1(sprite).getX(),
-                                        this.getCollisionShape1(sprite).getY(),
-                                        this.getCollisionShape1(sprite).getWidth(),
-                                        this.getCollisionShape1(sprite).getHeight()));
-                        
+                    if (fieldObjects.get(i).isMySprite(firstSprite)) {
+
+                        firstObject = new CollidedObject(fieldObjects.get(i),
+                                new Point2D.Double((float) firstSprite.getOldX(), (float) firstSprite.getOldY()),
+                                new Speed2D(firstSprite.getHorizontalSpeed(), firstSprite.getVerticalSpeed()),
+                                firstCollidedSide, new Rectangle2D.Double(this.getCollisionShape1(firstSprite).getX(),
+                                        this.getCollisionShape1(firstSprite).getY(),
+                                        this.getCollisionShape1(firstSprite).getWidth(),
+                                        this.getCollisionShape1(firstSprite).getHeight()));
+
                         isFoundFirst = true;
                     }
-                    if (fieldObjects.get(i).isMySprite(sprite1)) {
-                        
-                        obj2 = new CollidedObject(fieldObjects.get(i),
-                                new Point2D.Double((float) sprite1.getOldX(), (float) sprite1.getOldY()),
-                                new Speed2D(sprite1.getHorizontalSpeed(), sprite1.getVerticalSpeed()),
-                                obj2colside, new Rectangle2D.Double(this.getCollisionShape1(sprite1).getX(),
-                                        this.getCollisionShape1(sprite1).getY(),
-                                        this.getCollisionShape1(sprite1).getWidth(),
-                                        this.getCollisionShape1(sprite1).getHeight()));
-                        
+                    if (fieldObjects.get(i).isMySprite(secondSprite)) {
+
+                        secondObject = new CollidedObject(fieldObjects.get(i),
+                                new Point2D.Double((float) secondSprite.getOldX(), (float) secondSprite.getOldY()),
+                                new Speed2D(secondSprite.getHorizontalSpeed(), secondSprite.getVerticalSpeed()),
+                                secondCollidedSide, new Rectangle2D.Double(this.getCollisionShape1(secondSprite).getX(),
+                                        this.getCollisionShape1(secondSprite).getY(),
+                                        this.getCollisionShape1(secondSprite).getWidth(),
+                                        this.getCollisionShape1(secondSprite).getHeight()));
+
                         isFoundSecond = true;
                     }
 
                 }
 
-                if (!_storage.keySet().contains(obj1)) {
-                    _storage.put(obj1, new ArrayList<CollidedObject>());
+                if (!_storage.keySet().contains(firstObject)) {
+                    _storage.put(firstObject, new ArrayList<>());
                 }
-                
-                _storage.get(obj1).add(obj2);
+
+                _storage.get(firstObject).add(secondObject);
             }
         };
 
@@ -116,7 +115,7 @@ public class PublishingCollisionManager {
     public boolean isMyCollisionGroup(AdvanceCollisionGroup group) {
         return _advancedCollisionGroup == group;
     }
-    
+
     /**
      * Получить словарь столкновений объектов в текущем кадре. Объекты
      * представлены в виде CollidedObject, содержащих дополнительную информацию
