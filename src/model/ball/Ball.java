@@ -15,15 +15,6 @@ import model.Speed2D;
  */
 public abstract class Ball extends IngameObject {
 
-    public Ball(GameField field) {
-        this(field, new Point2D.Double(0, 0), 5);
-    }
-
-    public Ball(GameField field, Point2D.Double position, int radius) {
-
-        this(field, position, radius, new Speed2D(0, 0));
-    }
-
     public Ball(GameField field, Point2D.Double position, int radius, Speed2D speed) {
 
         super(field, position, new Dimension(2 * radius, 2 * radius), speed);

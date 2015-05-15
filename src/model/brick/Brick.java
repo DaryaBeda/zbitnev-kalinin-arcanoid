@@ -15,19 +15,9 @@ import model.Speed2D;
  */
 public abstract class Brick extends IngameObject {
 
-    public Brick(GameField field) {
-
-        super(field);
-    }
-
     public Brick(GameField field, Point2D.Double position, Dimension dimension, Speed2D speed) {
 
         super(field, position, dimension, speed);
-    }
-
-    public Brick(GameField field, Point2D.Double position, Dimension dimension) {
-
-        super(field, position, dimension);
     }
 
     @Override

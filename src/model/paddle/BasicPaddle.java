@@ -19,11 +19,6 @@ public class BasicPaddle extends Paddle {
         super(field, position, dimension);
     }
 
-    public BasicPaddle(GameField field) {
-
-        super(field);
-    }
-
     @Override
     public void createView() {
         for (CreateViewObjectListener l : _createViewObjectListeners) {

@@ -27,31 +27,6 @@ public abstract class IngameObject implements Cloneable {
     protected Point2D.Double _position;
     protected Speed2D _speed;
 
-    
-    
-    
-    /**
-     * Создает игровой объект, координаты (0, 0), нулевая скорость, нулевой
-     * размер.
-     *
-     * @param field Игровое поле.
-     */
-    public IngameObject(GameField field) {
-
-        this(field, new Point2D.Double(0, 0), new Dimension(0, 0));
-    }
-
-    /**
-     * Создает игровой объект с нулевой скоростью.
-     *
-     * @param field Игровое поле.
-     * @param position Позиция объекта.
-     * @param dimension Размеры объекта.
-     */
-    public IngameObject(GameField field, Point2D.Double position, Dimension dimension) {
-
-        this(field, position, dimension, new Speed2D(0, 0));
-    }
 
     public boolean isMySprite(Sprite sprite) {
 
