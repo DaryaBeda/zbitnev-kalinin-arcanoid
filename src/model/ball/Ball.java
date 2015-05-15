@@ -45,18 +45,6 @@ public abstract class Ball extends IngameObject {
         this.setSize(new Dimension(2 * radius, 2 * radius));
     }
 
-    /**
-     * Внимание! Этот метод способен задать неодинаковые ширину и высоту, если
-     * это потребуется, однако в этом случае вы не сможете использовать метод
-     * getRadius().
-     *
-     * @param dim Размеры.
-     */
-    @Override
-    public void setSize(Dimension dim) {
-
-        super.setSize(dim);
-    }
 
     /**
      * Здесь должен быть жестко задан скаляр скорости мяча.
