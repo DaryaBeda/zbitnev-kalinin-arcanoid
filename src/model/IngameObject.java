@@ -177,7 +177,7 @@ public abstract class IngameObject implements Cloneable {
     /**
      * Обрабатывает столкновение с другим объектом.
      *
-     * @param curr Текущий объект
+     * @param current Текущий объект
      * @param other Объект, столкнувшийся с данным.
      */
     public void processCollision(CollidedObject current, CollidedObject other) {

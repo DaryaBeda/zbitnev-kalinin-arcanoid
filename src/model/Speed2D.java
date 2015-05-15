@@ -6,10 +6,10 @@ package model;
  * @author Gregory Zbitnev <zbitnev@hotmail.com>
  *
  */
-public class Speed2D implements Cloneable {
+public final class Speed2D implements Cloneable {
 
-    private double _x;
-    private double _y;
+    private final double _x;
+    private final double _y;
 
     /**
      * Создаёт экземпляр вектора скорости на декартовой плоскости

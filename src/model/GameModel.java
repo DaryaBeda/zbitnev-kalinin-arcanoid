@@ -24,7 +24,6 @@ public class GameModel {
 
     protected GameField _field = null;
     protected GameFieldView _fieldView = null;
-    protected ArrayList<Player> _players = new ArrayList<>();
     private BasicPaddle _paddle;
 
     /**
@@ -62,7 +61,7 @@ public class GameModel {
         BasicBall newball = new BasicBall(_field, new Point2D.Double(46, 50), 8, new Speed2D(0, 0.03));
         createObject(newball);
         
-        BasicBall ball = new BasicBall(_field, new Point2D.Double(46, 500), 8, new Speed2D(0, -0.01));
+        BasicBall ball = new BasicBall(_field, new Point2D.Double(20, 20), 8, new Speed2D(-0.03, -0.03));
         createObject(ball);
         
         _paddle = new BasicPaddle(_field, new Point2D.Double(0, 584), new Dimension(96, 16));
