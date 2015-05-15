@@ -2,10 +2,6 @@ package model.collision;
 
 import java.awt.geom.Point2D;
 import model.IngameObject;
-import model.Speed2D;
-import model.ball.Ball;
-import model.brick.Brick;
-import model.paddle.Paddle;
 
 /**
  * Поведение упрогого отскока при столкновении.
@@ -14,25 +10,6 @@ import model.paddle.Paddle;
  *
  */
 public class BehaviourBrickRebound extends CollisionBehaviour {
-
-    /**
-     * Экзмепляр синглтона.
-     */
-    private static BehaviourBrickRebound _instance = null;
-
-    /**
-     * Возвращает экземпляр поведения упрогого отскока.
-     *
-     * @return
-     */
-    public static BehaviourBrickRebound getInstance() {
-
-        if (_instance == null) {
-            _instance = new BehaviourBrickRebound();
-        }
-
-        return _instance;
-    }
 
     @Override
     public void invoke(CollidedObject from, CollidedObject to) {

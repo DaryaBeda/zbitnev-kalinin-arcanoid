@@ -15,25 +15,6 @@ import model.Speed2D;
  */
 public class BehaviourBallRebound extends CollisionBehaviour {
 
-    /**
-     * Экзмепляр синглтона.
-     */
-    private static BehaviourBallRebound _instance = null;
-
-    /**
-     * Возвращает экземпляр поведения упрогого отскока.
-     *
-     * @return
-     */
-    public static BehaviourBallRebound getInstance() {
-
-        if (_instance == null) {
-            _instance = new BehaviourBallRebound();
-        }
-
-        return _instance;
-    }
-
     @Override
     public void invoke(CollidedObject from, CollidedObject to) {
 

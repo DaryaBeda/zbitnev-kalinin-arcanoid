@@ -5,7 +5,6 @@ import model.IngameObject;
 import model.Speed2D;
 
 import model.ball.Ball;
-import model.paddle.Paddle;
 
 /**
  * Поведение отскока от ракетки при столкновении.
@@ -14,28 +13,6 @@ import model.paddle.Paddle;
  *
  */
 public class BehaviourPaddleRebound extends CollisionBehaviour {
-
-    /**
-     * Экзмепляр синглтона.
-     */
-    private static BehaviourPaddleRebound _instance = null;
-
-    public BehaviourPaddleRebound() {
-    }
-
-    /**
-     * Возвращает экземпляр поведения отражения от ракетки.
-     *
-     * @return
-     */
-    public static BehaviourPaddleRebound getInstance() {
-
-        if (_instance == null) {
-            _instance = new BehaviourPaddleRebound();
-        }
-
-        return _instance;
-    }
 
     @Override
     public void invoke(CollidedObject from, CollidedObject to) {
