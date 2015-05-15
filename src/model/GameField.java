@@ -1,12 +1,9 @@
 package model;
 
 import java.awt.Dimension;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import model.ball.Ball;
-import model.ball.BallPositionChangedListener;
 import model.collision.CollidedObject;
 import model.interaction.CollisionListener;
 
@@ -16,7 +13,7 @@ import model.interaction.CollisionListener;
  * @author Nikita Kalinin <nixorv@gmail.com>
  *
  */
-public class GameField implements BallPositionChangedListener, CollisionListener {
+public class GameField implements CollisionListener {
 
     private ArrayList<IngameObject> _objects;
     private Dimension _dimension;
@@ -67,28 +64,7 @@ public class GameField implements BallPositionChangedListener, CollisionListener
         return (ArrayList<IngameObject>) _objects.clone();
     }
 
-    /**
-     * Реализация этого метода отражает мяч от границ поля.
-     */
-    @Override
-    public void ballPositionChanged(Ball ball) {
-
-        if (ball.getPosition().y < 0) {
-            
-            ball.setPosition(new Point2D.Double(ball.getPosition().x, 0));
-            ball.setSpeed(ball.getSpeed().flipVertical());
-        }
-
-        if (ball.getPosition().x < 0 || ball.getPosition().x + ball.getSize().width > _dimension.width) {
-            
-            if (ball.getPosition().x < 0) {
-                ball.setPosition(new Point2D.Double(0, ball.getPosition().y));
-            } else {
-                ball.setPosition(new Point2D.Double(_dimension.width - ball.getSize().width, ball.getPosition().y));
-            }
-            ball.setSpeed(ball.getSpeed().flipHorizontal());
-        }
-    }
+    
 
     /**
      * Обработать столкновения
