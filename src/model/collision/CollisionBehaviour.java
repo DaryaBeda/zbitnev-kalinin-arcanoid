@@ -6,30 +6,7 @@ package model.collision;
  * @author Gregory Zbitnev <zbitnev@hotmail.com>
  *
  */
-public class CollisionBehaviour {
-
-    /**
-     * Экзмепляр синглтона.
-     */
-    private static CollisionBehaviour _instance = null;
-
-    protected CollisionBehaviour() {
-    }
-
-    /**
-     * Возвращает экзмепляр поведения объектов. Обязательно переопределяется в
-     * классах-наследниках.
-     *
-     * @return Экземпляр поведения.
-     */
-    public static CollisionBehaviour getInstance() {
-
-        if (_instance == null) {
-            _instance = new CollisionBehaviour();
-        }
-
-        return _instance;
-    }
+public abstract class CollisionBehaviour {
 
     /**
      * Осуществить поведение пассивного объекта в ответ на столкновение.
@@ -37,7 +14,5 @@ public class CollisionBehaviour {
      * @param from Активный объект (не изменяется).
      * @param to Пассивный объект (изменяет состояние в ответ на столкновение).
      */
-    public void invoke(CollidedObject from, CollidedObject to) {
-
-    }
+    public abstract void invoke(CollidedObject from, CollidedObject to);
 }

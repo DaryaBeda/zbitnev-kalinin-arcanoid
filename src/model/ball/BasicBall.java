@@ -40,6 +40,7 @@ public class BasicBall extends Ball implements CanBeInSwarm {
         addBehaviours();
     }
 
+    @Override
     public void createView() {
         for (CreateViewObjectListener l : _createViewObjectListeners) {
             l.createViewObject(_sprite, BASIC_BALL);

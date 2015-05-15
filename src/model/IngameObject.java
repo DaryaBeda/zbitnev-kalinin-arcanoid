@@ -28,7 +28,7 @@ public abstract class IngameObject implements Cloneable {
     protected Speed2D _speed;
 
     
-    public abstract void createView();
+    
     
     /**
      * Создает игровой объект, координаты (0, 0), нулевая скорость, нулевой
@@ -45,8 +45,8 @@ public abstract class IngameObject implements Cloneable {
      * Создает игровой объект с нулевой скоростью.
      *
      * @param field Игровое поле.
-     * @param pos Позиция объекта.
-     * @param dim Размеры объекта.
+     * @param position Позиция объекта.
+     * @param dimension Размеры объекта.
      */
     public IngameObject(GameField field, Point2D.Double position, Dimension dimension) {
 
@@ -85,6 +85,8 @@ public abstract class IngameObject implements Cloneable {
     public void removeCreateViewObjectListener(CreateViewObjectListener l) {
         _createViewObjectListeners.remove(l);
     }
+    
+    public abstract void createView();
 
     /**
      * Возвращает поле, на котором находится объект.
