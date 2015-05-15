@@ -15,7 +15,8 @@ import model.interaction.CollisionListener;
  *
  * @author Дарья
  */
-public final class CollisionManager implements CollisionListener{
+public final class CollisionManager implements CollisionListener {
+
     /**
      * Обработать столкновения
      *
@@ -71,7 +72,7 @@ public final class CollisionManager implements CollisionListener{
 
                 CollidedObject key_copy = (CollidedObject) key.clone();
                 ArrayList<CollidedObject> values_copy = new ArrayList<>();
-                
+
                 for (CollidedObject obj : storage.get(key)) {
                     values_copy.add((CollidedObject) obj.clone());
                 }
