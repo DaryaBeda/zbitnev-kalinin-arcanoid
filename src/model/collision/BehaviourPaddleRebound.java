@@ -29,7 +29,7 @@ public class BehaviourPaddleRebound extends CollisionBehaviour {
         // Центр ракетки
         Point2D.Double paddleCenter = new Point2D.Double(passiveIngameObject.getPosition().x + passiveIngameObject.getDimension().width / 2, passiveIngameObject.getPosition().y);
 
-            // Относительные координаты центра мяча в декартовой системе координат (точка B).
+        // Относительные координаты центра мяча в декартовой системе координат (точка B).
         // Считаем, что paddleCenter - это точка A(0, 0).
         Point2D.Double relBallCenter = new Point2D.Double(activeIngameObject.getPosition().x + activeIngameObject.getDimension().width / 2 - paddleCenter.x,
                 paddleCenter.y - activeIngameObject.getPosition().y - activeIngameObject.getDimension().height / 2);
@@ -64,7 +64,7 @@ public class BehaviourPaddleRebound extends CollisionBehaviour {
             // Нужная точка пересечения имеет положительную y-координату.
             Point2D.Double p = p1.y > 0 ? p1 : p2;
 
-                // Находим горизонтальную и вертикальную сооставляющие вектора скорости.
+            // Находим горизонтальную и вертикальную сооставляющие вектора скорости.
             // y отрицательный, чтобы перейти в экранную систему координат.
             newSpeed = new Speed2D(p.x, -Math.abs(p.y));
         }

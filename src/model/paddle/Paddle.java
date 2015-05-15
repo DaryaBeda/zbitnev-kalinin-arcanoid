@@ -20,7 +20,7 @@ public abstract class Paddle extends IngameObject {
 
     public Paddle(GameField field, Point2D.Double position, Dimension dimension) {
 
-        super(field, position, dimension, new Speed2D (0, 0));
+        super(field, position, dimension, new Speed2D(0, 0));
     }
 
     /**
@@ -75,8 +75,6 @@ public abstract class Paddle extends IngameObject {
 
         return (ArrayList<Ball>) _balls.clone();
     }
-
-    
 
     /**
      * Запускает шары с ракетки.

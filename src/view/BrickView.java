@@ -11,7 +11,7 @@ import model.PublishingSprite;
  *
  * @author Дарья
  */
-public class BrickView extends IngameObjectView{
+public class BrickView extends IngameObjectView {
 
     public BrickView(PublishingSprite sprite) {
         super(sprite);

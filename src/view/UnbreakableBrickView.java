@@ -14,7 +14,7 @@ import model.PublishingSprite;
  *
  * @author Дарья
  */
-public class UnbreakableBrickView extends BrickView{
+public class UnbreakableBrickView extends BrickView {
 
     public UnbreakableBrickView(PublishingSprite sprite) throws IOException {
         super(sprite);

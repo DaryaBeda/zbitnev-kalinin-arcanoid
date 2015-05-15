@@ -2,7 +2,6 @@ package model.ball;
 
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
-
 import model.GameField;
 import model.IngameObject;
 import model.Speed2D;
@@ -44,7 +43,6 @@ public abstract class Ball extends IngameObject {
         radius = Math.abs(radius);
         this.setDimension(new Dimension(2 * radius, 2 * radius));
     }
-
 
     /**
      * Здесь должен быть жестко задан скаляр скорости мяча.

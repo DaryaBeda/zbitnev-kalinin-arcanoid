@@ -22,7 +22,6 @@ import model.swarm.CanBeInSwarm;
  */
 public class BasicBall extends Ball implements CanBeInSwarm {
 
-
     public BasicBall(GameField field, Point2D.Double position, int radius, Speed2D speed) {
 
         super(field, position, radius, speed);

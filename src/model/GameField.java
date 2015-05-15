@@ -2,10 +2,6 @@ package model;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import model.collision.CollidedObject;
-import model.interaction.CollisionListener;
 
 /**
  * Модель игрового поля.
@@ -13,7 +9,7 @@ import model.interaction.CollisionListener;
  * @author Nikita Kalinin <nixorv@gmail.com>
  *
  */
-public class GameField  {
+public class GameField {
 
     private ArrayList<IngameObject> _objects;
     private Dimension _dimension;
@@ -64,7 +60,4 @@ public class GameField  {
         return (ArrayList<IngameObject>) _objects.clone();
     }
 
-    
-
-    
 }

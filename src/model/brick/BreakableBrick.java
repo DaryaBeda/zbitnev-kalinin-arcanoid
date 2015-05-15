@@ -2,7 +2,6 @@ package model.brick;
 
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
-
 import model.GameField;
 import static model.GameModel.TYPE_OBJECT.BREAKABKE_BRICK;
 import model.Speed2D;

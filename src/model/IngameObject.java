@@ -27,7 +27,6 @@ public abstract class IngameObject implements Cloneable {
     protected Point2D.Double _position;
     protected Speed2D _speed;
 
-
     public boolean isMySprite(Sprite sprite) {
 
         return _sprite.getSprite() == sprite;
@@ -60,7 +59,7 @@ public abstract class IngameObject implements Cloneable {
     public void removeCreateViewObjectListener(CreateViewObjectListener l) {
         _createViewObjectListeners.remove(l);
     }
-    
+
     public abstract void createView();
 
     /**
@@ -176,7 +175,6 @@ public abstract class IngameObject implements Cloneable {
         }
     }
 
-
     /**
      * Добавить слушателя событий жизни объекта.
      *
@@ -199,7 +197,7 @@ public abstract class IngameObject implements Cloneable {
     public Object clone() throws CloneNotSupportedException {
 
         IngameObject clone = (IngameObject) super.clone();
-        clone._field = this._field;    
+        clone._field = this._field;
         clone._position = (Point2D.Double) this._position.clone();
         clone._dimension = (Dimension) this._dimension.clone();
         clone._speed = (Speed2D) this._speed.clone();

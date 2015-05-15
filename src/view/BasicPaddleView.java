@@ -14,11 +14,11 @@ import model.PublishingSprite;
  *
  * @author Дарья
  */
-public class BasicPaddleView extends IngameObjectView{
+public class BasicPaddleView extends IngameObjectView {
 
     public BasicPaddleView(PublishingSprite sprite) throws IOException {
         super(sprite);
         setImage(ImageIO.read(new File("default\\gfx\\paddles\\basic.png")));
     }
-    
+
 }

@@ -16,8 +16,8 @@ public interface CollisionListener {
     /**
      * Произошла коллизия между игровыми объектами.
      *
-     * @param storage Ключ - столкнувшийся объект, Значение - список объектов,
-     * с которыми он столкнулся.
+     * @param storage Ключ - столкнувшийся объект, Значение - список объектов, с
+     * которыми он столкнулся.
      */
     void collisionOccured(HashMap<CollidedObject, ArrayList<CollidedObject>> storage);
 }

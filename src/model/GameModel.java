@@ -2,11 +2,9 @@ package model;
 
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
 import model.ball.BasicBall;
 import model.brick.BreakableBrick;
 import model.brick.UnbreakableBrick;
-import model.interaction.CollisionListener;
 import model.paddle.BasicPaddle;
 import view.GameFieldView;
 
@@ -48,9 +46,11 @@ public class GameModel {
         }
         _fieldView = field;
     }
-    public CollisionManager getCollisionManager(){
+
+    public CollisionManager getCollisionManager() {
         return _collisionManager;
     }
+
     /**
      * Получить игровое поле
      *
@@ -64,19 +64,19 @@ public class GameModel {
     public void startGame() {
         BasicBall newball = new BasicBall(_field, new Point2D.Double(46, 50), 8, new Speed2D(0, 0.03));
         createObject(newball);
-        
+
         BasicBall ball = new BasicBall(_field, new Point2D.Double(20, 20), 8, new Speed2D(-0.03, -0.03));
         createObject(ball);
-        
+
         _paddle = new BasicPaddle(_field, new Point2D.Double(0, 584), new Dimension(96, 16));
         createObject(_paddle);
-        
+
         BreakableBrick newbrick = new BreakableBrick(_field, new Point2D.Double(2, 120), new Dimension(48, 24));
         createObject(newbrick);
-        
+
         BreakableBrick newbrick2 = new BreakableBrick(_field, new Point2D.Double(50, 120), new Dimension(48, 24));
         createObject(newbrick2);
-        
+
         UnbreakableBrick newbrick3 = new UnbreakableBrick(_field, new Point2D.Double(220, 120), new Dimension(48, 24));
         createObject(newbrick3);
     }
@@ -91,6 +91,5 @@ public class GameModel {
     public BasicPaddle getPaddle() {
         return _paddle;
     }
-    
-    
+
 }

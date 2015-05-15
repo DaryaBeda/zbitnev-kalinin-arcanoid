@@ -2,7 +2,6 @@ package model;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-
 import model.paddle.Paddle;
 
 /**
@@ -88,7 +87,7 @@ public class Player {
 
         long delta;
         for (Paddle p : _paddles) {
-            
+
             delta = Math.round(p.getDimension().width / 3.0 * 2.0);
             delta = dir.equals(Direction.west()) ? -delta : delta;
             if (p.getPosition().x + p.getDimension().width + delta > p.getField().getDimension().width) {

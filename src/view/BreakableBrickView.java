@@ -14,11 +14,11 @@ import model.PublishingSprite;
  *
  * @author Дарья
  */
-public class BreakableBrickView extends BrickView{
+public class BreakableBrickView extends BrickView {
 
     public BreakableBrickView(PublishingSprite sprite) throws IOException {
         super(sprite);
         setImage(ImageIO.read(new File("default\\gfx\\bricks\\breakable.png")));
     }
-    
+
 }

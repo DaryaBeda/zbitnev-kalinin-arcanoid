@@ -18,7 +18,7 @@ public class CollidedObject implements Cloneable {
     private Point2D.Double _oldPosition = null;
     private Speed2D _oldSpeed = null;
     private int _collidedSide = -1;
-    private Shape _collidedShape = null; 
+    private Shape _collidedShape = null;
 
     /**
      * С объектом столкнулись сверху
@@ -68,7 +68,7 @@ public class CollidedObject implements Cloneable {
     public Point2D.Double getOldPosition() {
         return _oldPosition;
     }
-    
+
     public Speed2D getOldSpeed() {
         return _oldSpeed;
     }
@@ -96,6 +96,7 @@ public class CollidedObject implements Cloneable {
 
     /**
      * Метод проверки равенства двух объектов
+     *
      * @param obj объект для сравнения
      * @return признак равенства
      */
