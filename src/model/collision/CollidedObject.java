@@ -17,8 +17,8 @@ public class CollidedObject implements Cloneable {
     private IngameObject _object = null;
     private Point2D.Double _oldPosition = null;
     private Speed2D _oldSpeed = null;
-    private int _colSide = -1;
-    private Shape _colShape = null; // TODO Беспредел! Заменить на независимый от представления класс! ~~~ Nikita Kalinin <nixorv@gmail.com>
+    private int _collidedSide = -1;
+    private Shape _collidedShape = null; 
 
     /**
      * С объектом столкнулись сверху
@@ -57,8 +57,8 @@ public class CollidedObject implements Cloneable {
         this._object = object;
         this._oldPosition = oldpos;
         this._oldSpeed = oldspeed;
-        this._colSide = side;
-        this._colShape = shape;
+        this._collidedSide = side;
+        this._collidedShape = shape;
     }
 
     public IngameObject getObject() {
@@ -74,11 +74,11 @@ public class CollidedObject implements Cloneable {
     }
 
     public int getCollisionSide() {
-        return _colSide;
+        return _collidedSide;
     }
 
     public Shape getCollisionShape() {
-        return _colShape;
+        return _collidedShape;
     }
 
     @Override
@@ -86,8 +86,8 @@ public class CollidedObject implements Cloneable {
 
         CollidedObject clone = (CollidedObject) super.clone();
         clone._object = (IngameObject) this._object.clone();
-        clone._colSide = this._colSide;
-        clone._colShape = this._colShape;
+        clone._collidedSide = this._collidedSide;
+        clone._collidedShape = this._collidedShape;
         clone._oldPosition = (Point2D.Double) this._oldPosition.clone();
         clone._oldSpeed = (Speed2D) this._oldSpeed.clone();
 
