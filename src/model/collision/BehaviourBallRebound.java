@@ -39,10 +39,10 @@ public class BehaviourBallRebound extends CollisionBehaviour {
 
         // Вектор скорости отражается по-разному в зависимости от геометрической формы
         // активного объекта и пассивного объекта
-        IngameObject toobj = to.object();
+        IngameObject toobj = to.getObject();
 
-        toobj.setPosition(new Point2D.Double(to.oldPosition().x + 10 * from.oldSpeed().x(), to.oldPosition().y + 10 * from.oldSpeed().y()));
-        toobj.setSpeed(new Speed2D(from.oldSpeed().x(), from.oldSpeed().y()));
+        toobj.setPosition(new Point2D.Double(to.getOldPosition().x + 10 * from.getOldSpeed().x(), to.getOldPosition().y + 10 * from.getOldSpeed().y()));
+        toobj.setSpeed(new Speed2D(from.getOldSpeed().x(), from.getOldSpeed().y()));
 
     }
 }

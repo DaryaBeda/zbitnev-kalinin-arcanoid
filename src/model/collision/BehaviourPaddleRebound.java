@@ -39,11 +39,11 @@ public class BehaviourPaddleRebound extends CollisionBehaviour {
 
     @Override
     public void invoke(CollidedObject from, CollidedObject to) {
-        IngameObject fromObject = from.object();
-        IngameObject toObject = to.object();
-        if (to.object() instanceof Ball) {
+        IngameObject fromObject = from.getObject();
+        IngameObject toObject = to.getObject();
+        if (to.getObject() instanceof Ball) {
             Speed2D newSpeed = null;
-            to.object().setPosition(new Point2D.Double(toObject.getPosition().x,
+            to.getObject().setPosition(new Point2D.Double(toObject.getPosition().x,
                     fromObject.getPosition().y - toObject.getSize().height));
 
             // Найти два центра расчета вектора.
@@ -92,7 +92,7 @@ public class BehaviourPaddleRebound extends CollisionBehaviour {
                 // y отрицательный, чтобы перейти в экранную систему координат.
                 newSpeed = new Speed2D(p.x, -Math.abs(p.y));
             }
-            to.object().setSpeed(newSpeed);
+            to.getObject().setSpeed(newSpeed);
         }
     }
 }

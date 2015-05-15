@@ -39,30 +39,30 @@ public class BehaviourBrickRebound extends CollisionBehaviour {
 
         // Вектор скорости отражается по-разному в зависимости от геометрической формы
         // активного объекта и пассивного объекта
-        IngameObject toobj = to.object();
-        IngameObject fromobj = from.object();
+        IngameObject toobj = to.getObject();
+        IngameObject fromobj = from.getObject();
 
-        Point2D.Double newpos = to.oldPosition();
-        if (to.collisionSide() == CollidedObject.SIDE_TOP) {
+        Point2D.Double newpos = to.getOldPosition();
+        if (to.getCollisionSide() == CollidedObject.SIDE_TOP) {
 
             newpos.y = fromobj.getPosition().y - toobj.getSize().height - 1;
             toobj.setPosition(newpos);
-            toobj.setSpeed(to.oldSpeed().flipVertical());
-        } else if (to.collisionSide() == CollidedObject.SIDE_BOTTOM) {
+            toobj.setSpeed(to.getOldSpeed().flipVertical());
+        } else if (to.getCollisionSide() == CollidedObject.SIDE_BOTTOM) {
 
             newpos.y = fromobj.getPosition().y + fromobj.getSize().height + 1;
             toobj.setPosition(newpos);
-            toobj.setSpeed(to.oldSpeed().flipVertical());
-        } else if (to.collisionSide() == CollidedObject.SIDE_RIGHT) {
+            toobj.setSpeed(to.getOldSpeed().flipVertical());
+        } else if (to.getCollisionSide() == CollidedObject.SIDE_RIGHT) {
 
             newpos.x = fromobj.getPosition().x + fromobj.getSize().width + 1;
             toobj.setPosition(newpos);
-            toobj.setSpeed(to.oldSpeed().flipHorizontal());
-        } else if (to.collisionSide() == CollidedObject.SIDE_LEFT) {
+            toobj.setSpeed(to.getOldSpeed().flipHorizontal());
+        } else if (to.getCollisionSide() == CollidedObject.SIDE_LEFT) {
 
             newpos.x = fromobj.getPosition().x - toobj.getSize().width - 1;
             toobj.setPosition(newpos);
-            toobj.setSpeed(to.oldSpeed().flipHorizontal());
+            toobj.setSpeed(to.getOldSpeed().flipHorizontal());
         }
     }
 }

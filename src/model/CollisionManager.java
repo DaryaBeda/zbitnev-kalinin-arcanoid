@@ -36,20 +36,20 @@ public class CollisionManager implements CollisionListener{
         while (i.hasNext() && copyi.hasNext()) {
 
             CollidedObject obj1 = i.next();
-            obj1.object().setPosition(obj1.object().getPosition());
+            obj1.getObject().setPosition(obj1.getObject().getPosition());
             CollidedObject obj1copy = copyi.next();
-            obj1copy.object().setPosition(obj1copy.object().getPosition());
+            obj1copy.getObject().setPosition(obj1copy.getObject().getPosition());
             j = storage.get(obj1).iterator();
             copyj = storage_copy.get(obj1copy).iterator();
 
             while (j.hasNext() && copyj.hasNext()) {
 
                 CollidedObject obj2 = j.next();
-                obj2.object().setPosition(obj2.object().getPosition());
+                obj2.getObject().setPosition(obj2.getObject().getPosition());
                 CollidedObject obj2copy = copyj.next();
-                obj2copy.object().setPosition(obj2copy.object().getPosition());
-                obj1.object().processCollision(obj1, obj2copy);
-                obj2.object().processCollision(obj2, obj1copy);
+                obj2copy.getObject().setPosition(obj2copy.getObject().getPosition());
+                obj1.getObject().processCollision(obj1, obj2copy);
+                obj2.getObject().processCollision(obj2, obj1copy);
             }
         }
     }

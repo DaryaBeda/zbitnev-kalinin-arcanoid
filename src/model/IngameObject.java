@@ -184,7 +184,7 @@ public abstract class IngameObject implements Cloneable {
      */
     public void processCollision(CollidedObject current, CollidedObject other) {
 
-        CollisionBehaviour collisionBehaviour = _behaviours.get(other.object().getClass());
+        CollisionBehaviour collisionBehaviour = _behaviours.get(other.getObject().getClass());
         if (collisionBehaviour != null) {
             collisionBehaviour.invoke(other, current);
         }
