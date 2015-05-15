@@ -72,6 +72,7 @@ public class PublishingCollisionManager {
                         
                         obj1 = new CollidedObject(fieldObjects.get(i),
                                 new Point2D.Double((float) sprite.getOldX(), (float) sprite.getOldY()),
+                                new Speed2D(sprite.getHorizontalSpeed(), sprite.getVerticalSpeed()),
                                 obj1colside, new Rectangle2D.Double(this.getCollisionShape1(sprite).getX(),
                                         this.getCollisionShape1(sprite).getY(),
                                         this.getCollisionShape1(sprite).getWidth(),
@@ -83,7 +84,8 @@ public class PublishingCollisionManager {
                         
                         obj2 = new CollidedObject(fieldObjects.get(i),
                                 new Point2D.Double((float) sprite1.getOldX(), (float) sprite1.getOldY()),
-                                obj1colside, new Rectangle2D.Double(this.getCollisionShape1(sprite1).getX(),
+                                new Speed2D(sprite1.getHorizontalSpeed(), sprite1.getVerticalSpeed()),
+                                obj2colside, new Rectangle2D.Double(this.getCollisionShape1(sprite1).getX(),
                                         this.getCollisionShape1(sprite1).getY(),
                                         this.getCollisionShape1(sprite1).getWidth(),
                                         this.getCollisionShape1(sprite1).getHeight()));

@@ -4,6 +4,7 @@ import java.awt.Shape;
 import java.awt.geom.Point2D;
 
 import model.IngameObject;
+import model.Speed2D;
 
 /**
  * Столкнувшийся игровой объект. Содержит ссылку на игровой объект и
@@ -15,6 +16,7 @@ public class CollidedObject implements Cloneable {
 
     private IngameObject _object = null;
     private Point2D.Double _oldPosition = null;
+    private Speed2D _oldSpeed = null;
     private int _colSide = -1;
     private Shape _colShape = null; // TODO Беспредел! Заменить на независимый от представления класс! ~~~ Nikita Kalinin <nixorv@gmail.com>
 
@@ -46,7 +48,7 @@ public class CollidedObject implements Cloneable {
      * @param side Сторона объекта, которой он столкнулся
      * @param shape Форма объекта
      */
-    public CollidedObject(IngameObject object, Point2D.Double oldpos, int side, Shape shape) {
+    public CollidedObject(IngameObject object, Point2D.Double oldpos, Speed2D oldspeed, int side, Shape shape) {
 
         if (object == null || oldpos == null || shape == null) {
             throw new NullPointerException();
@@ -54,6 +56,7 @@ public class CollidedObject implements Cloneable {
 
         this._object = object;
         this._oldPosition = oldpos;
+        this._oldSpeed = oldspeed;
         this._colSide = side;
         this._colShape = shape;
     }
@@ -64,6 +67,10 @@ public class CollidedObject implements Cloneable {
 
     public Point2D.Double oldPosition() {
         return _oldPosition;
+    }
+    
+    public Speed2D oldSpeed() {
+        return _oldSpeed;
     }
 
     public int collisionSide() {
@@ -82,6 +89,7 @@ public class CollidedObject implements Cloneable {
         clone._colSide = this._colSide;
         clone._colShape = this._colShape;
         clone._oldPosition = (Point2D.Double) this._oldPosition.clone();
+        clone._oldSpeed = (Speed2D) this._oldSpeed.clone();
 
         return clone;
     }

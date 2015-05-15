@@ -44,6 +44,7 @@ public class BehaviourRebound extends CollisionBehaviour {
         // активного объекта и пассивного объекта
         IngameObject toobj = to.object();
         IngameObject fromobj = from.object();
+        
         if ((fromobj instanceof Brick || fromobj instanceof Paddle) && toobj instanceof Ball) {
 
             Point2D.Double newpos = to.oldPosition();
@@ -51,27 +52,27 @@ public class BehaviourRebound extends CollisionBehaviour {
 
                 newpos.y = fromobj.getPosition().y - toobj.getSize().height - 1;
                 toobj.setPosition(newpos);
-                toobj.setSpeed(toobj.getSpeed().flipVertical());
+                toobj.setSpeed(to.oldSpeed().flipVertical());
             } else if (to.collisionSide() == CollidedObject.SIDE_BOTTOM) {
 
                 newpos.y = fromobj.getPosition().y + fromobj.getSize().height + 1;
                 toobj.setPosition(newpos);
-                toobj.setSpeed(toobj.getSpeed().flipVertical());
+                toobj.setSpeed(to.oldSpeed().flipVertical());
             } else if (to.collisionSide() == CollidedObject.SIDE_RIGHT) {
 
                 newpos.x = fromobj.getPosition().x + fromobj.getSize().width + 1;
                 toobj.setPosition(newpos);
-                toobj.setSpeed(toobj.getSpeed().flipHorizontal());
+                toobj.setSpeed(to.oldSpeed().flipHorizontal());
             } else if (to.collisionSide() == CollidedObject.SIDE_LEFT) {
 
                 newpos.x = fromobj.getPosition().x - toobj.getSize().width - 1;
                 toobj.setPosition(newpos);
-                toobj.setSpeed(toobj.getSpeed().flipHorizontal());
+                toobj.setSpeed(to.oldSpeed().flipHorizontal());
             }
         } else if (fromobj instanceof Ball && toobj instanceof Ball) {
 
-            toobj.setPosition(new Point2D.Double(toobj.getOldPosition().x + 10 * fromobj.getOldSpeed().x(), toobj.getOldPosition().y + 10 * fromobj.getOldSpeed().y()));
-            toobj.setSpeed(new Speed2D(fromobj.getOldSpeed().x(), fromobj.getOldSpeed().y()));
+            toobj.setPosition(new Point2D.Double(to.oldPosition().x + 10 * from.oldSpeed().x(), to.oldPosition().y + 10 * from.oldSpeed().y()));
+            toobj.setSpeed(new Speed2D(from.oldSpeed().x(), from.oldSpeed().y()));
         }
     }
 }

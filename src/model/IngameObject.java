@@ -95,15 +95,7 @@ public abstract class IngameObject implements Cloneable {
 
         return this._field;
     }
-    public Point2D.Double getOldPosition() {
-        
-        return _position;
-    }
-    
-    public Speed2D getOldSpeed(){
-        
-        return _speed;
-    }
+
     /**
      * Получить скорость.
      *
