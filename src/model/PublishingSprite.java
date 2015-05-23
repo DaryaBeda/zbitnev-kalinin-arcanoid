@@ -14,10 +14,9 @@ import java.awt.image.BufferedImage;
  */
 public class PublishingSprite {
 
-    private Sprite _sprite;
+    private Sprite _sprite = new Sprite();
 
     public PublishingSprite() {
-        _sprite = new Sprite();
     }
 
     public void setImage(BufferedImage image) {
