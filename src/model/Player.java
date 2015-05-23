@@ -14,13 +14,15 @@ public class Player {
 
     protected ArrayList<Paddle> _paddles = new ArrayList<>();
 
+    private GameField _field;
     /**
      * Инициализировать игрока
      *
      * @param paddle Подконтрольная игроку ракетка
      */
-    public Player(Paddle paddle) {
+    public Player(Paddle paddle, GameField field) {
         this.addPaddle(paddle);
+        _field = field; 
     }
 
     /**
@@ -66,8 +68,8 @@ public class Player {
 
         for (Paddle p : _paddles) {
             int actualx;
-            if (x > p.getField().getDimension().width - p.getDimension().width) {
-                actualx = p.getField().getDimension().width - p.getDimension().width;
+            if (x > _field.getDimension().width - p.getDimension().width) {
+                actualx = _field.getDimension().width - p.getDimension().width;
             } else if (x < 0) {
                 actualx = 0;
             } else {
@@ -90,8 +92,8 @@ public class Player {
 
             delta = Math.round(p.getDimension().width / 3.0 * 2.0);
             delta = dir.equals(Direction.west()) ? -delta : delta;
-            if (p.getPosition().x + p.getDimension().width + delta > p.getField().getDimension().width) {
-                p.setPosition(new Point2D.Double(p.getField().getDimension().width - p.getDimension().width, p.getPosition().y));
+            if (p.getPosition().x + p.getDimension().width + delta > _field.getDimension().width) {
+                p.setPosition(new Point2D.Double(_field.getDimension().width - p.getDimension().width, p.getPosition().y));
             } else if (p.getPosition().x + delta < 0) {
                 p.setPosition(new Point2D.Double(0, p.getPosition().y));
             } else {

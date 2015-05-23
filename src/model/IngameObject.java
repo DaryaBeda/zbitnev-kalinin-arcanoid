@@ -25,9 +25,9 @@ public abstract class IngameObject implements Cloneable {
     protected ArrayList<DeleteViewObjectListener> _deleteViewObjectListeners = new ArrayList<>();
     protected ArrayList<CreateViewObjectListener> _createViewObjectListeners = new ArrayList<>();
 
-    public boolean isMySprite(Sprite sprite) {
+    public boolean isMySprite(PublishingSprite sprite) {
 
-        return _sprite.getSprite() == sprite;
+        return _sprite.getSprite() == sprite.getSprite();
     }
 
     /**
@@ -59,16 +59,6 @@ public abstract class IngameObject implements Cloneable {
     }
 
     public abstract void createView();
-
-    /**
-     * Возвращает поле, на котором находится объект.
-     *
-     * @return Игровое поле.
-     */
-    public GameField getField() {
-
-        return this._field;
-    }
 
     /**
      * Получить скорость.
