@@ -65,7 +65,7 @@ public class PublishingCollisionManager {
                 ArrayList<IngameObject> fieldObjects = _model.getField().getObjects();
                 int i;
                 for (i = 0; i < fieldObjects.size() && (!isFoundFirst || !isFoundSecond); i++) {
-                    if (fieldObjects.get(i).isMySprite(firstSprite)) {
+                    if (fieldObjects.get(i).isMySprite(new PublishingSprite(firstSprite))) {
 
                         firstObject = new CollidedObject(fieldObjects.get(i),
                                 new Point2D.Double((float) firstSprite.getOldX(), (float) firstSprite.getOldY()),
@@ -77,7 +77,7 @@ public class PublishingCollisionManager {
 
                         isFoundFirst = true;
                     }
-                    if (fieldObjects.get(i).isMySprite(secondSprite)) {
+                    if (fieldObjects.get(i).isMySprite(new PublishingSprite(secondSprite))) {
 
                         secondObject = new CollidedObject(fieldObjects.get(i),
                                 new Point2D.Double((float) secondSprite.getOldX(), (float) secondSprite.getOldY()),

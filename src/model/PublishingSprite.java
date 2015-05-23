@@ -16,7 +16,12 @@ public class PublishingSprite {
 
     private Sprite _sprite = new Sprite();
 
+    public PublishingSprite(Sprite sprite) {
+        _sprite = sprite;
+    }
+    
     public PublishingSprite() {
+        
     }
 
     public void setImage(BufferedImage image) {

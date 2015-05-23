@@ -34,7 +34,7 @@ public class BorderCollisionManager extends CollisionBounds {
 
         int i;
         for (i = 0; i < fieldObjects.size() && !isFound; i++) {
-            if (fieldObjects.get(i).isMySprite(sprite)) {
+            if (fieldObjects.get(i).isMySprite(new PublishingSprite(sprite))) {
                 isFound = true;
                 if (this.isCollisionSide(TOP_COLLISION)) {
 
