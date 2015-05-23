@@ -24,8 +24,6 @@ public abstract class IngameObject implements Cloneable {
     protected GameField _field = null;
     protected ArrayList<DeleteViewObjectListener> _deleteViewObjectListeners = new ArrayList<>();
     protected ArrayList<CreateViewObjectListener> _createViewObjectListeners = new ArrayList<>();
-    protected Point2D.Double _position;
-    protected Speed2D _speed;
 
     public boolean isMySprite(Sprite sprite) {
 
@@ -90,7 +88,6 @@ public abstract class IngameObject implements Cloneable {
     public void setSpeed(Speed2D speed) {
 
         this._sprite.setSpeed(speed);
-        this._speed = speed;
     }
 
     /**
@@ -114,7 +111,6 @@ public abstract class IngameObject implements Cloneable {
             throw new NullPointerException();
         }
         this._sprite.setPosition(position);
-        this._position = position;
     }
 
     /**
@@ -198,9 +194,7 @@ public abstract class IngameObject implements Cloneable {
 
         IngameObject clone = (IngameObject) super.clone();
         clone._field = this._field;
-        clone._position = (Point2D.Double) this._position.clone();
         clone._dimension = (Dimension) this._dimension.clone();
-        clone._speed = (Speed2D) this._speed.clone();
         return clone;
     }
 }
