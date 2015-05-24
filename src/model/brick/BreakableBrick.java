@@ -7,7 +7,7 @@ import static model.GameModel.TYPE_OBJECT.BREAKABKE_BRICK;
 import model.Speed2D;
 import model.ball.BasicBall;
 import model.collision.BehaviourDestroy;
-import model.interaction.CreateViewObjectListener;
+import model.interaction.ViewObjectListener;
 
 /**
  * Модель разрушаемого кирпича.
@@ -25,7 +25,7 @@ public class BreakableBrick extends Brick {
 
     @Override
     public void createView() {
-        for (CreateViewObjectListener l : _createViewObjectListeners) {
+        for (ViewObjectListener l : _viewObjectListeners) {
             l.createViewObject(_sprite, BREAKABKE_BRICK);
         }
     }

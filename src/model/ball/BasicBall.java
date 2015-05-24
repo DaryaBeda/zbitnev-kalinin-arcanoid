@@ -10,7 +10,7 @@ import model.brick.UnbreakableBrick;
 import model.collision.BehaviourBallRebound;
 import model.collision.BehaviourPaddleRebound;
 import model.collision.BehaviourBrickRebound;
-import model.interaction.CreateViewObjectListener;
+import model.interaction.ViewObjectListener;
 import model.paddle.BasicPaddle;
 import model.swarm.CanBeInSwarm;
 
@@ -30,7 +30,7 @@ public class BasicBall extends Ball implements CanBeInSwarm {
 
     @Override
     public void createView() {
-        for (CreateViewObjectListener l : _createViewObjectListeners) {
+        for (ViewObjectListener l : _viewObjectListeners) {
             l.createViewObject(_sprite, BASIC_BALL);
         }
     }

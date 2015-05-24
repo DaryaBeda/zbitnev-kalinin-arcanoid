@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import model.collision.CollidedObject;
 import model.collision.CollisionBehaviour;
-import model.interaction.CreateViewObjectListener;
-import model.interaction.DeleteViewObjectListener;
+import model.interaction.ViewObjectListener;
 
 /**
  * Класс игрового объекта.
@@ -22,8 +21,7 @@ public abstract class IngameObject implements Cloneable {
     protected Dimension _dimension;
     protected HashMap<Class<?>, CollisionBehaviour> _behaviours = new HashMap<>();
     protected GameField _field = null;
-    protected ArrayList<DeleteViewObjectListener> _deleteViewObjectListeners = new ArrayList<>();
-    protected ArrayList<CreateViewObjectListener> _createViewObjectListeners = new ArrayList<>();
+    protected ArrayList<ViewObjectListener> _viewObjectListeners = new ArrayList<>();
 
     public boolean isMySprite(PublishingSprite sprite) {
 
@@ -50,12 +48,12 @@ public abstract class IngameObject implements Cloneable {
         this.setSpeed(speed);
     }
 
-    public void addCreateViewObjectListener(CreateViewObjectListener l) {
-        _createViewObjectListeners.add(l);
+    public void addViewObjectListener(ViewObjectListener l) {
+        _viewObjectListeners.add(l);
     }
 
-    public void removeCreateViewObjectListener(CreateViewObjectListener l) {
-        _createViewObjectListeners.remove(l);
+    public void removeViewObjectListener(ViewObjectListener l) {
+        _viewObjectListeners.remove(l);
     }
 
     public abstract void createView();
@@ -156,27 +154,9 @@ public abstract class IngameObject implements Cloneable {
     public void destroy() {
 
         this._field.removeObject(this);
-        for (DeleteViewObjectListener l : _deleteViewObjectListeners) {
+        for (ViewObjectListener l : _viewObjectListeners) {
             l.deleteViewObject(_sprite);
         }
-    }
-
-    /**
-     * Добавить слушателя событий жизни объекта.
-     *
-     * @param l Добавляемый слушатель.
-     */
-    public void addDeleteViewObjectListener(DeleteViewObjectListener l) {
-        _deleteViewObjectListeners.add(l);
-    }
-
-    /**
-     * Удалить слушателя событий жизни объекта.
-     *
-     * @param l Удаляемый слушатель.
-     */
-    public void removeDeleteViewObjectListener(DeleteViewObjectListener l) {
-        _deleteViewObjectListeners.remove(l);
     }
 
     @Override

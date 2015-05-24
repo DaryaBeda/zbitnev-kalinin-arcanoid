@@ -5,7 +5,7 @@ import java.awt.geom.Point2D;
 import model.GameField;
 import static model.GameModel.TYPE_OBJECT.UNBREAKABLE_BRICK;
 import model.Speed2D;
-import model.interaction.CreateViewObjectListener;
+import model.interaction.ViewObjectListener;
 
 /**
  * Модель неразрушаемого кирпича.
@@ -23,7 +23,7 @@ public class UnbreakableBrick extends Brick {
     @Override
     public void createView() {
 
-        for (CreateViewObjectListener l : _createViewObjectListeners) {
+        for (ViewObjectListener l : _viewObjectListeners) {
             l.createViewObject(_sprite, UNBREAKABLE_BRICK);
         }
     }

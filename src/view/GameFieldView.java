@@ -16,8 +16,7 @@ import java.util.logging.Logger;
 import model.BorderCollisionManager;
 import model.GameModel;
 import model.PublishingSprite;
-import model.interaction.CreateViewObjectListener;
-import model.interaction.DeleteViewObjectListener;
+import model.interaction.ViewObjectListener;
 
 /**
  * Игровое поле арканоида. Содержит все обекты игры, ответственнен за
@@ -26,7 +25,7 @@ import model.interaction.DeleteViewObjectListener;
  * @author Gregory Zbitnev <zbitnev@hotmail.com>
  *
  */
-public class GameFieldView extends PlayField implements CreateViewObjectListener, DeleteViewObjectListener {
+public class GameFieldView extends PlayField implements ViewObjectListener {
 
     private ArrayList<IngameObjectView> _objectViews = new ArrayList<>();
     private ArrayList<CollisionListener> _collisionListners = new ArrayList<>();

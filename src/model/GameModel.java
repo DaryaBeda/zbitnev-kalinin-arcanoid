@@ -82,8 +82,7 @@ public class GameModel {
     }
 
     private void createObject(IngameObject obj) {
-        obj.addCreateViewObjectListener(_fieldView);
-        obj.addDeleteViewObjectListener(_fieldView);
+        obj.addViewObjectListener(_fieldView);
         obj.createView();
         _field.addObject(obj);
     }

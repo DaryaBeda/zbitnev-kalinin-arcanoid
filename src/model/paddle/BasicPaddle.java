@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import model.GameField;
 import static model.GameModel.TYPE_OBJECT.BASIC_PADDLE;
-import model.interaction.CreateViewObjectListener;
+import model.interaction.ViewObjectListener;
 
 /**
  * Модель обычной ракетки.
@@ -21,7 +21,7 @@ public class BasicPaddle extends Paddle {
 
     @Override
     public void createView() {
-        for (CreateViewObjectListener l : _createViewObjectListeners) {
+        for (ViewObjectListener l : _viewObjectListeners) {
             l.createViewObject(_sprite, BASIC_PADDLE);
         }
     }
